@@ -44,9 +44,9 @@ mongoose.connect(dbConfig.DB_URL, async () => {
             description: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
             cast: ["Christian Bale", "Heath Ledger"],
             director: "Christopher Nolan",
-            trailerUrls: ["https://www.imdb.com/video/vi3877612057/?playlistId=tt0111161&ref_=tt_ov_vi"],
-            posterUrls: ["https://www.imdb.com/title/tt0111161/mediaviewer/rm10105600/?ref_=tt_ov_i"],
-            releaseDate: new Date(1994).toISOString()
+            trailerUrls: ["https://www.imdb.com/video/vi324468761/?playlistId=tt0468569&ref_=tt_pr_ov_vi"],
+            posterUrls: ["https://www.imdb.com/title/tt0468569/mediaviewer/rm4023877632/?ref_=tt_ov_i"],
+            releaseDate: new Date(2008).toISOString()
         },
         {
             name: "The Lord of the Rings: The Return of the King (2003)",
@@ -55,7 +55,7 @@ mongoose.connect(dbConfig.DB_URL, async () => {
             director: "Peter Jackson",
             trailerUrls: ["https://www.imdb.com/video/vi324468761/?playlistId=tt0468569&ref_=tt_pr_ov_vi"],
             posterUrls: ["https://www.imdb.com/title/tt0468569/mediaviewer/rm4023877632/?ref_=tt_ov_i"],
-            releaseDate: new Date(2008).toISOString()
+            releaseDate: new Date(2003).toISOString()
         },{
             name: "Schindler's List",
             description: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
@@ -63,7 +63,7 @@ mongoose.connect(dbConfig.DB_URL, async () => {
             director: "Steven Spielberg",
             trailerUrls: ["https://www.imdb.com/video/vi3877612057/?playlistId=tt0111161&ref_=tt_ov_vi"],
             posterUrls: ["https://www.imdb.com/title/tt0111161/mediaviewer/rm10105600/?ref_=tt_ov_i"],
-            releaseDate: new Date(1994).toISOString()
+            releaseDate: new Date(1993).toISOString()
         }
     ];
 
