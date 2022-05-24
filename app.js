@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
 const serverConfig = require("./configs/server.config");
 const Movie = require("./models/movie.model");
+const constants = require("./utils/constants");
 
 
 
@@ -28,10 +29,11 @@ async function init() {
         description: "After more than 30 years of service as one of the Navy's top aviators, Pete Maverick Mitchell is where he belongs, pushing the envelope as a courageous test pilot and dodging the advancement in rank that would ground him",
         cast: ["Tom Cruise", "Jennifer Connelly", "Glen Powell"],
         director: "Joseph Kosinski",
-        trailerUrls: "yt.be/topgunmaverick",
+        trailerUrls: ["yt.be/topgunmaverick"],
         posterUrls: "tom.cruise/topgunmaverick",
-        language: "English",
-        releaseDate: "2022-02-24"
+        language: constants.languages.english,
+        releaseDate: "2022-02-24",
+        releaseStatus: constants.releaseStatus.unreleased
 
     });
     const movie2 = await Movie.create({
@@ -39,10 +41,11 @@ async function init() {
         description: "After more than 30 years of service as one of the Navy's top aviators, Pete Maverick Mitchell is where he belongs, pushing the envelope as a courageous test pilot and dodging the advancement in rank that would ground him",
         cast: ["Tom Cruise", "Jennifer Connelly", "Glen Powell"],
         director: "Joseph Kosinski",
-        trailerUrls: "yt.be/topgunmaverick",
+        trailerUrls: ["yt.be/topgunmaverick"],
         posterUrls: "tom.cruise/topgunmaverick",
-        language: "English",
-        releaseDate: "2022-02-24"
+        language: constants.languages.english,
+        releaseDate: "2022-02-24",
+        releaseStatus: constants.releaseStatus.unreleased
 
     });
     const movie3 = await Movie.create({
@@ -50,10 +53,11 @@ async function init() {
         description: "Mission: Impossible – Dead Reckoning Part One is an upcoming American action spy film written and directed by Christopher McQuarrie. It will be the seventh and penultimate installment of the Mission: Impossible film series",
         cast: ["Tom Cruise", "Jennifer Connelly", "Glen Powell"],
         director: "Joseph Kosinski",
-        trailerUrls: "yt.be/topgunmaverick",
+        trailerUrls: ["yt.be/topgunmaverick"],
         posterUrls: "tom.cruise/topgunmaverick",
-        language: "English",
-        releaseDate: "2023-02-24"
+        language: constants.languages.english,
+        releaseDate: "2022-02-24",
+        releaseStatus: constants.releaseStatus.unreleased
 
     });
     const movie4 = await Movie.create({
@@ -61,20 +65,22 @@ async function init() {
         description: "Mission: Impossible – Dead Reckoning Part One is an upcoming American action spy film written and directed by Christopher McQuarrie. It will be the seventh and penultimate installment of the Mission: Impossible film series",
         cast: ["Tom Cruise", "Jennifer Connelly", "Glen Powell"],
         director: "Joseph Kosinski",
-        trailerUrls: "yt.be/topgunmaverick",
+        trailerUrls: ["yt.be/topgunmaverick"],
         posterUrls: "tom.cruise/topgunmaverick",
-        language: "English",
-        releaseDate: "2024-02-24"
+        language: constants.languages.english,
+        releaseDate: "2022-02-24",
+        releaseStatus: constants.releaseStatus.unreleased
     });
     const movie5 = await Movie.create({
         name: "Mission: Impossible – Dead Reckoning Part 3",
         description: "Mission: Impossible – Dead Reckoning Part One is an upcoming American action spy film written and directed by Christopher McQuarrie. It will be the seventh and penultimate installment of the Mission: Impossible film series",
         cast: ["Tom Cruise", "Jennifer Connelly", "Glen Powell"],
         director: "Joseph Kosinski",
-        trailerUrls: "yt.be/topgunmaverick",
+        trailerUrls: ["yt.be/topgunmaverick"],
         posterUrls: "tom.cruise/topgunmaverick",
-        language: "English",
-        releaseDate: "2025-02-24"
+        language: constants.languages.english,
+        releaseDate: "2022-02-24",
+        releaseStatus: constants.releaseStatus.unreleased
     });
 
     console.log("Movies created");
