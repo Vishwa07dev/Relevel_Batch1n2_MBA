@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(dbConfig.DB_URL, async () => {
     console.log("MongoDB connected");
 
+    await Model.collection.drop();// Since this a dev setup
+
     const movieSeedData = [
         {
             name: "The Shawshank Redemption1",
