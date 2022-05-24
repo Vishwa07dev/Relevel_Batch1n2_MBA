@@ -35,7 +35,8 @@ const movieSchema = new mongoose.Schema({
     language : {
         type : String,
         required : true,
-        default : constants.languages.hindi  //TODO put this in Utis folder and have support for enums
+        default : constants.languages.hindi,
+        enum : [constants.languages.english, constants.languages.hindi], //TODO put this in Utis folder and have support for enums
     },
     releaseDate : {
         type : Date
@@ -43,7 +44,8 @@ const movieSchema = new mongoose.Schema({
     releaseStatus : {
         type : String,
         required : true,
-        default : constants.releaseStatus.unreleased  // This has to be defined in Utils, and enum has to be used
+        default : constants.releaseStatus.unreleased,
+        enum : [constants.releaseStatus.unreleased, constants.releaseStatus.released],  // This has to be defined in Utils, and enum has to be used
     },
     createdAt : {
         type : Date,
