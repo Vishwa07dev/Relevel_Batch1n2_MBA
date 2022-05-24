@@ -36,7 +36,7 @@ mongoose.connect(dbConfig.DB_URL, async () => {
             cast: ["Marlon Brando", "Al Pacino"],
             director: "Francis Ford Coppola ",
             trailerUrls: ["https://www.imdb.com/video/vi1348706585/?playlistId=tt0068646&ref_=tt_pr_ov_vi"],
-            posterUrls: ["https://www.imdb.com/title/tt0111161/mediaviewer/rm10105600/?ref_=tt_ov_i"],
+            posterUrls: ["https://www.imdb.com/title/tt0068646/mediaviewer/rm746868224/?ref_=tt_ov_i"],
             releaseDate: new Date(1972).toISOString()
         },
         {
@@ -53,9 +53,9 @@ mongoose.connect(dbConfig.DB_URL, async () => {
             description: "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
             cast: ["Elijah Wood", "Viggo Mortensen"],
             director: "Peter Jackson",
-            trailerUrls: ["https://www.imdb.com/video/vi3877612057/?playlistId=tt0111161&ref_=tt_ov_vi"],
-            posterUrls: ["https://www.imdb.com/title/tt0111161/mediaviewer/rm10105600/?ref_=tt_ov_i"],
-            releaseDate: new Date(1994).toISOString()
+            trailerUrls: ["https://www.imdb.com/video/vi324468761/?playlistId=tt0468569&ref_=tt_pr_ov_vi"],
+            posterUrls: ["https://www.imdb.com/title/tt0468569/mediaviewer/rm4023877632/?ref_=tt_ov_i"],
+            releaseDate: new Date(2008).toISOString()
         },{
             name: "Schindler's List",
             description: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
