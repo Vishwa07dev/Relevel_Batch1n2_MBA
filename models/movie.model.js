@@ -5,7 +5,7 @@
  * 
  * language | release Date |releaseStatus
  */
-
+const mongoose = require('mongoose');
 const movieSchema = new mongoose.Schema({
     name : {
         type : String,
@@ -61,5 +61,6 @@ const movieSchema = new mongoose.Schema({
         type : Number
         
     }
+});
 
-})
+module.exports = mongoose.model("Movie", movieSchema);
