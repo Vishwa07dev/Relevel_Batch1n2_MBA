@@ -66,7 +66,7 @@ mongoose.connect(DB_URL, async ()=>{
 })
 
 
-
+require("./routes/movie.route")(app);
 
 
 
