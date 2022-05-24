@@ -87,5 +87,5 @@ async function init() {
     
 }
 app.listen(serverConfig.PORT, () => {
-    console.log(`Get Fit App listening on port ${serverConfig.PORT}`);
+    console.log(`Movie Booking App listening on port ${serverConfig.PORT}`);
 });
