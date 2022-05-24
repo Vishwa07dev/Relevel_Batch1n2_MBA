@@ -36,7 +36,6 @@ const movieSchema = new mongoose.Schema({
     },
     language: {
         type: String,
-        required: true,
         enum: [constants.hindi, constants.english, constants.tamil],
         default: constants.hindi  //TODO put this in Utis folder and have support for enums
     },

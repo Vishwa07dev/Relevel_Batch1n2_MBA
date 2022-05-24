@@ -9,7 +9,7 @@ app.use(express.json());
 
 
 // database connection setup
-mongoose.connect(DB_URL, ()=>{
+mongoose.connect(DB_URL, async ()=>{
     console.log(`Application is connected to database: ${DB_URL}`);
     
     // create movies here
@@ -20,6 +20,7 @@ mongoose.connect(DB_URL, ()=>{
         director:"Puspraj",
         trailerUrls:"xyz123.com",
         posterUrls:"xyz123.in",
+        releaseDate: "05-25-2022"
     })
     console.log(movie1);
     const movie2 = await Movie.create({
@@ -29,6 +30,7 @@ mongoose.connect(DB_URL, ()=>{
         director:"Puspraj",
         trailerUrls:"xyz123.com",
         posterUrls:"xyz123.in",
+        releaseDate: "03-25-2022"
     })
     console.log(movie2);
     const movie3 = await Movie.create({
@@ -38,6 +40,7 @@ mongoose.connect(DB_URL, ()=>{
         director:"Puspraj",
         trailerUrls:"xyz123.com",
         posterUrls:"xyz123.in",
+        releaseDate: "02-25-2022"
     })
     console.log(movie3);
     const movie4 = await Movie.create({
@@ -47,6 +50,7 @@ mongoose.connect(DB_URL, ()=>{
         director:"Puspraj",
         trailerUrls:"xyz123.com",
         posterUrls:"xyz123.in",
+        releaseDate: "01-25-2022"
     })
     console.log(movie4);
     const movie5 = await Movie.create({
@@ -56,6 +60,7 @@ mongoose.connect(DB_URL, ()=>{
         director:"Puspraj",
         trailerUrls:"xyz123.com",
         posterUrls:"xyz123.in",
+        releaseDate: "06-25-2022"
     })
     console.log(movie5);
 })
