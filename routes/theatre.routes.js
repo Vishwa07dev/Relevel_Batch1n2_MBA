@@ -22,7 +22,7 @@ module.exports = (app) => {
      app.get("/mba/api/v1/theatres/:id", theatreController.getTheatre);
 
      //Create theatre
-     app.post("/mba/api/v1/theatres", theatreController.createTheatre);
+     app.post("/mba/api/v1/theatres", [verifyTheatre.verifyAddTheatre], theatreController.createTheatre);
 
      //Update theatre 
      app.put("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.updateTheatre);

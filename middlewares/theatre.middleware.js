@@ -33,6 +33,33 @@ const isValidTheatreId = async (req,res, next) =>{
 
 const verifyAddTheatre = async (req,res, next) =>{
     try {
+
+        if(!req.body.name || req.body.name == ""){
+            return res.status(400).send({
+                message: "Theatre name is required"
+            })
+        }
+        else if(!req.body.description || req.body.description == ""){
+            return res.status(400).send({
+                message: "Theatre description is required"
+            })
+        }
+        else if(!req.body.city || req.body.city == ""){
+            return res.status(400).send({
+                message: "Theatre city location is required"
+            })
+        }
+        else if(!req.body.pinCode || req.body.pinCode == ""){
+            return res.status(400).send({
+                message: "Theatre pinCode is required"
+            })
+        }
+        else if(!req.body.totalSeats || req.body.totalSeats == ""){
+            return res.status(400).send({
+                message: "Theatre Total Seats is required"
+            })
+        }
+
         next();
     } catch (err) {
         console.log(err.message);
@@ -43,6 +70,7 @@ const verifyAddTheatre = async (req,res, next) =>{
 };
 
 const verifyTheatre = {
-    isValidTheatreId : isValidTheatreId
+    isValidTheatreId : isValidTheatreId,
+    verifyAddTheatre : verifyAddTheatre
 };
 module.exports= verifyTheatre;

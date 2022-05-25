@@ -1,4 +1,4 @@
-const verifyTheatre = require("./theatre");
+const verifyTheatre = require("./theatre.middleware");
 module.exports = {
     verifyTheatre
 }
