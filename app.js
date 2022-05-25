@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
 const serverConfig = require("./configs/server.config");
 const Movie = require("./models/movie.model");
+const Theatre = require("./models/theatre.model");
 const constants = require("./utils/constants");
 
 
@@ -12,15 +13,59 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-require("./routes/movie.routes")(app);
+require("./routes/")(app);
+
 mongoose.connect(dbConfig.DB_URL, async () => {
     console.log(`Connecting to MongoDB...`);
     console.log(`Connection Successful`);
-    // init();
+    // movieInit();
+    theatreInit();
 });
 
+async function  theatreInit() {
+    await Theatre.collection.drop();
 
-async function init() {
+    const theatre1 = await Theatre.create({
+       name: "Theatre1",
+       description: "located in LA",
+       city: "Los Angeles",
+       pinCode : 90001,
+       totalSeats: 250
+    });
+    const theatre2 = await Theatre.create({
+       name: "Theatre2",
+       description: "located in Bay Area",
+       city: "San Francisco",
+       pinCode : 95125,
+       totalSeats: 250
+    });
+    const theatre3 = await Theatre.create({
+       name: "Theatre3",
+       description: "located in Mountain View",
+       city: "Mountain View",
+       pinCode : 95025,
+       totalSeats: 250
+    });
+    const theatre4 = await Theatre.create({
+       name: "Theatre4",
+       description: "located in SunnyWale",
+       city: "SunnyWale",
+       pinCode : 95010,
+       totalSeats: 200
+    });
+    const theatre5 = await Theatre.create({
+       name: "Theatre5",
+       description: "located in Cupertino",
+       city: "Cupertino",
+       pinCode : 95000,
+       totalSeats: 250
+    });
+
+     console.log("Theatres created");
+
+    console.log(theatre1, theatre2, theatre3, theatre4, theatre5);
+}
+async function movieInit() {
 
     await Movie.collection.drop();
 
