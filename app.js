@@ -13,6 +13,8 @@ app.use(express.json());
 mongoose.connect(DB_URL, async () => {
     console.log(`Application is connected to database: ${DB_URL}`);
 
+    // remove privious data
+    await Movie.deleteMany();
     // create movies here
     const movie1 = await Movie.create({
         name: "Puspa",
@@ -66,6 +68,10 @@ mongoose.connect(DB_URL, async () => {
     console.log(movie5);
 
     //------------------------------##theatre-------------------------------//
+        // remove previous theatre data
+        await Theatre.deleteMany();
+
+    
     const theatre1 = await Theatre.create({
         name: "PVR",
         description: "Worlds largest theatre network",
