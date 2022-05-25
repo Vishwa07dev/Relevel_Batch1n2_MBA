@@ -1,6 +1,7 @@
 
 const theatreController = require("../controllers/theatre.controller")
 const {verifyTheatre} = require("../middlewares");
+
 /**
  * Defining the routes for the theatre resource
  */
