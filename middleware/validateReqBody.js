@@ -3,7 +3,7 @@ const theatre = require('../models/theatre.model');
 
 
 
-const verifyRequestBody = async (req, res, next) => {
+exports.verifyRequestBody = async (req, res, next) => {
     
      //checking if name is provided 
     if (!req.body.name) {
@@ -54,4 +54,3 @@ const verifyRequestBody = async (req, res, next) => {
         return;
     }
 };
-module.exports = verifyRequestBody;
