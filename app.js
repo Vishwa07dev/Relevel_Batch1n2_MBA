@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
 const Movie = require('./models/movie.model');
-const Theatre = require('./models/theatre.model')
+
+const Theater = require('./models/theater.model')
 
 const app = express();
 app.use(express.json());
@@ -13,10 +14,7 @@ app.use(express.json());
 mongoose.connect(DB_URL, async ()=>{
     console.log(`Application is connected to database: ${DB_URL}`);
     
-    await Movie.collection.drop();
-    await Theatre.collection.drop();
-
-    try{
+try{
     // create movies here
     const movie1 = await Movie.create({
         name: "Puspa",
@@ -68,73 +66,77 @@ mongoose.connect(DB_URL, async ()=>{
         releaseDate: "06-25-2022"
     })
     console.log(movie5);
+  }catch(err){
+       console.log(err.message);
+   }
+    
+    await Movie.collection.drop();
+    
+
+    
+  
+   
+    try{
+      const theater1 = await Theater.create({
+        name: "PVR",
+        description: "xyz",
+        city: "mumbai",
+        pinCode: 01,
+        totalSeats: 50
+      })
+      console.log(theater1)
+        
+    const theater2 = await Theater.create({
+        name: "Plaza",
+        description: "xyzs",
+        city: "puna",
+        pinCode: 023,
+        totalSeats: 60
+    })
+    console.log(theater2);
+
+    
+    const theater3 = await Theater.create({
+        name: "kokila",
+        description: "xyzd",
+        city: "delhi",
+        pinCode: 30,
+        totalSeats: 40
+    })
+    console.log(theater3);
+
+    
+    const theater4 = await Theater.create({
+        name: "PCR",
+        description: "xyzdfd",
+        city: "banglore",
+        pinCode: 010,
+        totalSeats: 60
+    })
+    console.log(theater4);
+
+    
+    const theater5 = await Theater.create({
+        name: "prozone",
+        description: "xyzfs",
+        city: "aurangabad",
+        pinCode: 20,
+        totalSeats: 45
+    })
+
+    console.log(theater5);
 
    }catch(err){
        console.log(err.message);
    }
 
 
-   try{
-    //theater 
-    const theatre1 = await Theatre.create({
-        name : "PVR",
-        description :"nice place to watch movies",
-        city : "Pune",
-        pinCode : 411028,
-        totalSeats : 100
+  
 
-    })
-    console.log(theatre1);
-
-    
-    const theatre2 = await Theatre.create({
-        name : "INOX",
-        description :"corner seat available",
-        city : "Pune",
-        pinCode : 411033,
-        totalSeats : 100
-
-    })
-    console.log(theatre2);
-
-    
-    const theatre3 = await Theatre.create({
-        name : "Vaibhav Theatre",
-        description :"nice place to watch movies",
-        city : "Pune",
-        pinCode : 411022,
-        totalSeats : 100
-
-    })
-    console.log(theatre3);
-
-    
-    const theatre4 = await Theatre.create({
-        name : "cinepolis",
-        description :"nice place to watch movies",
-        city : "Pune",
-        pinCode : 411133,
-        totalSeats : 100
-
-    })
-    console.log(theatre4);
-
-    const theatre5 = await Theatre.create({
-        name : "PVR",
-        description :"nice place to watch movies",
-        city : "Pune",
-        pinCode : 411123,
-        totalSeats : 100
-
-    })
-    console.log(theatre5);
-}catch(err){
-    console.log(err.message);
-}
-})
 
 
 require("./routes/movie.route")(app);
+require("./routes/theater.route")(app);
 
 
 
