@@ -13,7 +13,7 @@ const isValidTheatreId = async (req,res, next) =>{
  
         const theatre = await Theatre.findOne({
             _id: req.params.id
-        });;
+        });
     
         // check whether theatre exists or not
         if (theatre == null) {
