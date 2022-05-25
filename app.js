@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
 const Movie = require('./models/movie.model');
+const Theater = require('./models/theatre.model')
 
 const app = express();
 app.use(express.json());
@@ -63,6 +64,58 @@ mongoose.connect(DB_URL, async ()=>{
         releaseDate: "06-25-2022"
     })
     console.log(movie5);
+
+    //theater 
+    const theatre1 = await Theater.create({
+        name : "PVR",
+        description :"nice place to watch movies",
+        city : "Pune",
+        pinCode : "411028",
+        totalSeats : 100
+    })
+    console.log(theatre1);
+
+    
+    const theatre2 = await Theater.create({
+        name : "INOX",
+        description :"corner seat available",
+        city : "Pune",
+        pinCode : "411033",
+        totalSeats : 100
+    })
+    console.log(theatre2);
+
+    
+    const theatre3 = await Theater.create({
+        name : "Vaibhav Theatre",
+        description :"nice place to watch movies",
+        city : "Pune",
+        pinCode : "411022",
+        totalSeats : 100
+    })
+    console.log(theatre3);
+
+    
+    const theatre4 = await Theater.create({
+        name : "cinepolis",
+        description :"nice place to watch movies",
+        city : "Pune",
+        pinCode : "411133",
+        totalSeats : 100
+    })
+    console.log(theatre4);
+
+    const theatre5 = await Theater.create({
+        name : "PVR",
+        description :"nice place to watch movies",
+        city : "Pune",
+        pinCode : "411123",
+        totalSeats : 100
+    })
+    console.log(theatre5);
+
+    
+
 })
 
 
