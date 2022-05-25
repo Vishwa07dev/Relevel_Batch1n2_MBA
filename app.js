@@ -14,13 +14,9 @@ mongoose.connect(DB_URL, async ()=>{
     console.log(`Application is connected to database: ${DB_URL}`);
     
     await Movie.collection.drop();
-<<<<<<< HEAD
-
-=======
     await Theatre.collection.drop();
 
     try{
->>>>>>> ff4c7394460d3b3b759bd9ff7c3e0407b99a9bac
     // create movies here
     const movie1 = await Movie.create({
         name: "Puspa",
@@ -73,8 +69,6 @@ mongoose.connect(DB_URL, async ()=>{
     })
     console.log(movie5);
 
-<<<<<<< HEAD
-=======
    }catch(err){
        console.log(err.message);
    }
@@ -137,7 +131,6 @@ mongoose.connect(DB_URL, async ()=>{
 }catch(err){
     console.log(err.message);
 }
->>>>>>> ff4c7394460d3b3b759bd9ff7c3e0407b99a9bac
 })
 
 
