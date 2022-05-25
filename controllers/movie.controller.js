@@ -22,23 +22,24 @@ exports.getAllMovies = async (req, res) => {
      * TODO : Extensions
      */
     try {
-        const movies = await Movie.find();
-        res.status(200).send(movies);
+        const movieReqObj = {};
         // if query param have name
-        if (req.query.name) {
-            const movies = await Movie.find({ name: req.query.name });
-            return res.status(200).send(movies);
+        if (req.query.name && req.query.name != "") {
+            movieReqObj.name = req.query.name;
         }
         // if query param have release status
-        if (req.query.releaseStatus) {
-            const movies = await Movie.find({ releaseStatus: req.query.releaseStatus });
-            return res.status(200).send(movies);
+        if (req.query.releaseStatus && req.query.releaseStatus != "") {
+            movieReqObj.releaseStatus = req.query.releaseStatus;
         }
         // if query param have release status
-        if (req.query.cast) {
-            const movies = await Movie.find({ cast: req.query.cast });
-            return res.status(200).send(movies);
+        if (req.query.cast && req.query.cast != "") {
+            movieReqObj.cast = {
+                $in: req.query.cast
+            }
         }
+
+        const movies = await Movie.find(movieReqObj);
+        res.status(200).send(movies);
     } catch (err) {
         console.log(err.message);
         res.status(500).send({
@@ -116,9 +117,9 @@ exports.updateMovie = async (req, res) => {
         movie.releaseStatus = req.body.releaseStatus != undefined ? req.body.releaseStatus : movie.releaseStatus;
         movie.imdbRating = req.body.imdbRating != undefined ? req.body.imdbRating : movie.imdbRating;
 
-        await movie.save()
+        const updatedMovie = await movie.save()
 
-        res.status(201).send(movie);
+        res.status(201).send(updatedMovie);
     } catch (err) {
         console.log(err.message);
         res.status(500).send({
@@ -132,7 +133,16 @@ exports.updateMovie = async (req, res) => {
 
 exports.deleteMovie = async (req, res) => {
     try {
-        const movie = await Movie.findOneAndDelete({ _id: req.params.id });
+        const movie = await Movie.findOne({ _id: req.params.id });
+
+        // if movie not found
+        if (!movie) {
+            return res.status(404).send({
+                message: "Movie not found."
+            })
+        }
+        await Movie.deleteOne({ _id: req.params.id });
+
         res.status(201).send(movie);
     } catch (err) {
         console.log(err.message);
