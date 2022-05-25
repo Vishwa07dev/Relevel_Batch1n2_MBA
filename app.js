@@ -12,11 +12,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+require("./routes/movie.routes")(app);
 mongoose.connect(dbConfig.DB_URL, async () => {
     console.log(`Connecting to MongoDB...`);
     console.log(`Connection Successful`);
-    init();
+    // init();
 });
 
 
@@ -90,8 +90,10 @@ async function init() {
     console.log("MOVIE 3", movie3);
     console.log("MOVIE 4", movie4);
     console.log("MOVIE 5", movie5);
-    
+  
 }
+
+
 app.listen(serverConfig.PORT, () => {
     console.log(`Movie Booking App listening on port ${serverConfig.PORT}`);
 });
