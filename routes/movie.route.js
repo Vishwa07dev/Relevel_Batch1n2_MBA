@@ -8,12 +8,16 @@ module.exports = (app)=>{
     /**
      * Create the routes for the corresponding controllers
      */
-    app.get("/mba/api/v1/movies/:id", movieController.getMovie);
+    // CREATE CALL
+    app.post("/mba/api/v1/movies",  movieController.addMovie);
 
-    app.post("/mba/api/v1/movie/", [verifyMovieReqBody.validateMovieRequestBody], movieController.createMovie);
-
-    app.put("/mba/api/v1/movies/:id", [verifyMovieReqBody.validateMovieRequestBody], movieController.updateMovie);
-
-    app.delete("/mba/api/v1/movies/:id", moviesController.deleteMovie);
+    // UPDATE CALL
+    app.put("/mba/api/v1/movies/:id", movieController.updateMovie);
+ 
+    // DELETE CALL
+    app.delete("/mba/api/v1/movies/:id", movieController.deleteMovie);
+     
+    // GET SINGLE CALL
+    app.get("/mba/api/v1/movies/:id", movieController.getOneMovie);
 }
 
