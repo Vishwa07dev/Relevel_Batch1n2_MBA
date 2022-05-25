@@ -1,7 +1,16 @@
 const Theatre = require("../models/theatre.model");
+const mongoose = require("mongoose");
 
 const isValidTheatreId = async (req,res, next) =>{
     try {
+
+        // check whether TheatreId it is valid or not
+        if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+            return res.status(400).send({
+                message: "Theatre Id Id is not valid"
+            })
+        }
+
         const theatre = await Theatre.findOne({
             _id: req.params.id
         });
