@@ -71,7 +71,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"nice place to watch movies",
         city : "Pune",
         pinCode : 411028,
-        totalSeats : 100
+        totalSeats : 100,
+        owner : "xyz"
     })
     console.log(theatre1);
 
@@ -81,7 +82,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"corner seat available",
         city : "Pune",
         pinCode : 411033,
-        totalSeats : 100
+        totalSeats : 100,
+        owner : "xyz"
     })
     console.log(theatre2);
 
@@ -91,7 +93,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"nice place to watch movies",
         city : "Pune",
         pinCode : 411022,
-        totalSeats : 100
+        totalSeats : 100,
+        owner : "xyz"
     })
     console.log(theatre3);
 
@@ -101,7 +104,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"nice place to watch movies",
         city : "Pune",
         pinCode : 411133,
-        totalSeats : 100
+        totalSeats : 100,
+        owner : "xyz"
     })
     console.log(theatre4);
 
@@ -110,7 +114,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"nice place to watch movies",
         city : "Pune",
         pinCode : 411123,
-        totalSeats : 100
+        totalSeats : 100,
+        owner : "xyz"
     })
     console.log(theatre5);
 })
