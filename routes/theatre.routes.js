@@ -25,7 +25,7 @@ module.exports = (app) => {
 
 
      //Update theatre 
-     app.put("/mba/api/v1/theatres/:id", [validateTheatreReqObj], theatreController.updateTheatre);
+     app.put("/mba/api/v1/theatres/:id", theatreController.updateTheatre);
 
      // Delete theatre
      app.delete("/mba/api/v1/theatres/:id", theatreController.deleteTheatre);

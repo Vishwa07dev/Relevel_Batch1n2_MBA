@@ -90,7 +90,7 @@ exports.updateTheatre = async (req, res) => {
         // save updated theatre
         const updatedTheatre = await theatre.save();
 
-        res.status(200).send(updatedTheatre)
+        res.status(201).send(updatedTheatre)
 
     } catch (error) {
         console.log(error.message);
