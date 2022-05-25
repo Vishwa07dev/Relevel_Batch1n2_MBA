@@ -31,6 +31,17 @@ const isValidTheatreId = async (req,res, next) =>{
     }
 };
 
+const verifyAddTheatre = async (req,res, next) =>{
+    try {
+        next();
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+};
+
 const verifyTheatre = {
     isValidTheatreId : isValidTheatreId
 };
