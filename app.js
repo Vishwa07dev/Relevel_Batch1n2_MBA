@@ -10,9 +10,10 @@ app.use(express.json());
 
 
 // database connection setup
-mongoose.connect(DB_URL, async ()=>{
+mongoose.connect(DB_URL, async () => {
     console.log(`Application is connected to database: ${DB_URL}`);
-    
+
+    /*
     await Movie.collection.drop();
     await Theatre.collection.drop();
 
@@ -131,14 +132,16 @@ mongoose.connect(DB_URL, async ()=>{
 }catch(err){
     console.log(err.message);
 }
+*/
 })
 
 
 require("./routes/movie.route")(app);
+require('./routes/theatre.routes')(app);
 
 
 
 // express server setup
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log(`Application is running on server: http://localhost/${PORT}`);
 })
