@@ -15,6 +15,8 @@ mongoose.connect(DB_URL, async ()=>{
     
     await Movie.collection.drop();
     await Theatre.collection.drop();
+
+    try{
     // create movies here
     const movie1 = await Movie.create({
         name: "Puspa",
@@ -67,6 +69,12 @@ mongoose.connect(DB_URL, async ()=>{
     })
     console.log(movie5);
 
+   }catch(err){
+       console.log(err.message);
+   }
+
+
+   try{
     //theater 
     const theatre1 = await Theatre.create({
         name : "PVR",
@@ -120,6 +128,9 @@ mongoose.connect(DB_URL, async ()=>{
 
     })
     console.log(theatre5);
+}catch(err){
+    console.log(err.message);
+}
 })
 
 
