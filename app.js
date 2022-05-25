@@ -134,8 +134,7 @@ mongoose.connect(DB_URL, async ()=>{
 })
 
 
-require("./routes/movie.route")(app);
-require("./routes/theatre.routes")(app);
+require("./routes")(app);
 
 
 
