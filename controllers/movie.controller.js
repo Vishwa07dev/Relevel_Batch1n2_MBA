@@ -78,7 +78,7 @@ exports.getMovie = async (req, res) => {
 exports.updateMovie = async (req, res) => {
 
     try {
-    const movie = await Movie.find({
+    const movie = await Movie.findOne({
         _id: req.params.id
     });
     movie.name = req.body.name != undefined ? req.body.name: movie.name;

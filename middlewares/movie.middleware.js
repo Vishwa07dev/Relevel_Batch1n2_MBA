@@ -9,6 +9,7 @@ isValidMovie = async (req, res, next) => {
     console.log("MIDDLEWARE", movie);
     if(movie != null) {
         next();
+        return;
     } 
     return res.status(400).send({message: "please check the movie Id and try again"});
    } catch(err) {

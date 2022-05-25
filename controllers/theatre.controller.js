@@ -70,9 +70,10 @@ exports.getTheatre = async (req, res) => {
 exports.updateTheatre = async (req, res) => {
     
     try {
-    const theatre = await Theatre.find({
+    const theatre = await Theatre.findOne({
         _id: req.params.id
     });
+    
     theatre.name = req.body.name != undefined ? req.body.name: theatre.name;
     theatre.description = req.body.description != undefined ? req.body.description: theatre.description;
     theatre.city = req.body.city != undefined ? req.body.city: theatre.city;

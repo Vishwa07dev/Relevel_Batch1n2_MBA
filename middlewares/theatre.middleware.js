@@ -16,7 +16,6 @@ isValidTheatre = async (req, res, next) => {
        console.log(err.message);
        return res.status(400).send({message: "please check the theatre Id and try again"});
    }
-    
 } 
 
 checkFields = async (req, res) => {
@@ -27,9 +26,9 @@ checkFields = async (req, res) => {
         }
     next();
 }
-const authMovie = {
+const authTheatre = {
     isValidTheatre: isValidTheatre,
     checkFields: checkFields
 };
 
-module.exports = authMovie;
+module.exports = authTheatre;
