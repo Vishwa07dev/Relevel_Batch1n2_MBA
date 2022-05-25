@@ -59,13 +59,6 @@ exports.createTheatre = async (req, res) => {
         // insert theatre object into database
         const theatre = await Theatre.create(theatreObj);
 
-        //checking if the theatre is null
-        if(theatre == null){
-            return res.status(400).send({
-                message: "Theatre doesn't exist"
-            })
-        }
-
         // return created theatre
         return res.status(201).send(theatre);
 
