@@ -21,7 +21,7 @@ const theater1 = await theater.create({
     totalSeats : 970,
     pincode : 254687,
 })
-
+console.log(theater1);
 const theater2 = await theater.create({
 
     name : "Prithvi Theater",
@@ -30,7 +30,7 @@ const theater2 = await theater.create({
     totalSeats : 1230,
     pincode : 235687,
 })
-
+console.log(theater2);
 const theater3 = await theater.create({
 
     name : "Prakash Theater",
@@ -39,6 +39,7 @@ const theater3 = await theater.create({
     totalSeats : 2300,
     pincode : 235687,
 })
+console.log(theater3);
 const theater4 = await theater.create({
 
     name : "City Theater",
@@ -47,6 +48,7 @@ const theater4 = await theater.create({
     totalSeats : 1400,
     pincode : 253687,
 })
+console.log(theater4);
 const theater5 = await theater.create({
 
     name : "Pallavi Theater",
@@ -55,7 +57,7 @@ const theater5 = await theater.create({
     totalSeats : 2300,
     pincode : 258687,
 })
-
+console.log(theater5);
 
     require("./routes/theater.route")(app);
 
