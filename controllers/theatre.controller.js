@@ -89,19 +89,12 @@
              _id: req.params.id
          });
      
-         // check whether theatre exists or not
-         if (theatre == null) {
-             return res.status(400).send({
-                 message: "Theatre doesn't exist"
-             })
-         }
-     
          // update respective fields
-         movie.name = req.body.name != undefined ? req.body.name : movie.name;
-         movie.description = req.body.description != undefined ? req.body.description : movie.description;
-         movie.city = req.body.city != undefined ? req.body.city : movie.city;
-         movie.pinCode = req.body.pinCode != undefined ? req.body.pinCode : movie.pinCode;
-         movie.totalSeats = req.body.totalSeats != undefined ? req.body.totalSeats : movie.totalSeats;
+         theatre.name = req.body.name != undefined ? req.body.name : theatre.name;
+         theatre.description = req.body.description != undefined ? req.body.description : theatre.description;
+         theatre.city = req.body.city != undefined ? req.body.city : theatre.city;
+         theatre.pinCode = req.body.pinCode != undefined ? req.body.pinCode : theatre.pinCode;
+         theatre.totalSeats = req.body.totalSeats != undefined ? req.body.totalSeats : theatre.totalSeats;
      
          // save updated object
          const updatedTheatreObj = await theatre.save();
@@ -123,17 +116,6 @@
   */
   exports.deleteTheatre = async (req, res) => {
      try {
-         const theatre = await Theatre.findOne({
-             _id: req.params.id
-         });
- 
-         // check whether movie is valid or not
-         if (theatre == null) {
-             return res.status(400).send({
-                 message: "Theatre doesn't exist"
-             })
-         }
- 
          // delete object from database
          await Theatre.deleteOne({
              _id: req.params.id
