@@ -10,7 +10,7 @@ const isValidTheatreId = async (req,res, next) =>{
                 message: "Theatre Id Id is not valid"
             })
         }
-
+ 
         const theatre = await Theatre.findOne({
             _id: req.params.id
         });
