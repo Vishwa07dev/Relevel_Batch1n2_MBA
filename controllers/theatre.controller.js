@@ -30,7 +30,9 @@ exports.getTheatre = async (req, res) => {
             _id: theatreId
         });
         console.log("CONTROLLER", theatre)
-        return res.status(200).send(theatre);
+        return res.status(200).send({
+            theatre: theatre
+        });
     } catch (err) {
         console.log(err);
         return res.status(500).send({
@@ -66,7 +68,7 @@ exports.getTheatre = async (req, res) => {
  }
 
 exports.updateTheatre = async (req, res) => {
-
+    
     try {
     const theatre = await Theatre.find({
         _id: req.params.id

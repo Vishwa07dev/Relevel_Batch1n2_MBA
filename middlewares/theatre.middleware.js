@@ -9,6 +9,7 @@ isValidTheatre = async (req, res, next) => {
     console.log("MIDDLEWARE", theatre);
     if(theatre != null) {
         next();
+        return;
     } 
     return res.status(400).send({message: "please check the theatre Id and try again"});
    } catch(err) {
