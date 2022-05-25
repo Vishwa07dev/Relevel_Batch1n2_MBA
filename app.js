@@ -8,6 +8,9 @@ const Theatre = require('./models/theatre.model')
 const app = express();
 app.use(express.json());
 
+//added routes
+require("./routes")(app);
+
 
 // database connection setup
 mongoose.connect(DB_URL, async ()=>{
@@ -134,7 +137,6 @@ mongoose.connect(DB_URL, async ()=>{
 })
 
 
-require("./routes/movie.route")(app);
 
 
 
