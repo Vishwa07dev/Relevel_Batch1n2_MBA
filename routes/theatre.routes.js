@@ -21,11 +21,11 @@ module.exports = (app) => {
      app.get("mba/api/v1/theatres/:id", theatreController.getTheatre);
 
      //Create theatre
-     app.post("mba/api/v1/theatres", [validateReqBody.verifyRequestBody], theatreController.createTheatre);
+     app.post("mba/api/v1/theatres", [valReqBody.verifyRequestBody], theatreController.createTheatre);
   
 
      //Update theatre 
-     app.put("mba/api/v1/theatres/:id", [validateReqBody.verifyRequestBody], theatreController.updateTheatre);
+     app.put("mba/api/v1/theatres/:id", [valReqBody.verifyRequestBody], theatreController.updateTheatre);
 
      // Delete theatre
      app.get("mba/api/v1/theatres/:id", theatreController.deleteTheatre);
