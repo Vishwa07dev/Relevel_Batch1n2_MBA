@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
 const Movie = require('./models/movie.model');
+const Theatre = require('./models/theatre.model')
 
 const app = express();
 app.use(express.json());
@@ -13,7 +14,13 @@ mongoose.connect(DB_URL, async ()=>{
     console.log(`Application is connected to database: ${DB_URL}`);
     
     await Movie.collection.drop();
+<<<<<<< HEAD
 
+=======
+    await Theatre.collection.drop();
+
+    try{
+>>>>>>> ff4c7394460d3b3b759bd9ff7c3e0407b99a9bac
     // create movies here
     const movie1 = await Movie.create({
         name: "Puspa",
@@ -66,6 +73,71 @@ mongoose.connect(DB_URL, async ()=>{
     })
     console.log(movie5);
 
+<<<<<<< HEAD
+=======
+   }catch(err){
+       console.log(err.message);
+   }
+
+
+   try{
+    //theater 
+    const theatre1 = await Theatre.create({
+        name : "PVR",
+        description :"nice place to watch movies",
+        city : "Pune",
+        pinCode : 411028,
+        totalSeats : 100
+
+    })
+    console.log(theatre1);
+
+    
+    const theatre2 = await Theatre.create({
+        name : "INOX",
+        description :"corner seat available",
+        city : "Pune",
+        pinCode : 411033,
+        totalSeats : 100
+
+    })
+    console.log(theatre2);
+
+    
+    const theatre3 = await Theatre.create({
+        name : "Vaibhav Theatre",
+        description :"nice place to watch movies",
+        city : "Pune",
+        pinCode : 411022,
+        totalSeats : 100
+
+    })
+    console.log(theatre3);
+
+    
+    const theatre4 = await Theatre.create({
+        name : "cinepolis",
+        description :"nice place to watch movies",
+        city : "Pune",
+        pinCode : 411133,
+        totalSeats : 100
+
+    })
+    console.log(theatre4);
+
+    const theatre5 = await Theatre.create({
+        name : "PVR",
+        description :"nice place to watch movies",
+        city : "Pune",
+        pinCode : 411123,
+        totalSeats : 100
+
+    })
+    console.log(theatre5);
+}catch(err){
+    console.log(err.message);
+}
+>>>>>>> ff4c7394460d3b3b759bd9ff7c3e0407b99a9bac
 })
 
 
