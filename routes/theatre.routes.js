@@ -1,5 +1,6 @@
 
 const theatreController = require("../controllers/theatre.controller")
+const {verifyTheatre} = require("../middlewares");
 /**
  * Defining the routes for the theatre resource
  */
@@ -20,13 +21,12 @@ module.exports = (app) => {
      app.get("mba/api/v1/theatres/:id", theatreController.getTheatre);
 
      //Create theatre
-     app.post("mba/api/v1/theatres", ["validate request body"], theatreController.createTheatre);
-  
+     app.post("mba/api/v1/theatres", theatreController.createTheatre);
 
      //Update theatre 
-     app.put("mba/api/v1/theatres/:id", ["validate request body"], theatreController.updateTheatre);
+     app.put("mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.updateTheatre);
 
      // Delete theatre
-     app.get("mba/api/v1/theatres/:id", theatreController.deleteTheatre);
+     app.delete("mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
 
 }
