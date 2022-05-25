@@ -53,4 +53,6 @@ exports.verifyRequestBody = async (req, res, next) => {
         });
         return;
     }
+
+    next();
 };
