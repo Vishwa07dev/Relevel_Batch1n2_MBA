@@ -13,15 +13,11 @@ exports.createTheatre = async (req, res) => {
     try {
         const createdTheatre = await Theatre.create(theatreObj);
 
-        res.status(201).send({
-            success: true,
-            createdTheatre
-        })
+        res.status(201).send(createdTheatre)
 
     } catch (error) {
         console.log(error.message);
         res.status(500).send({
-            success: false,
             message: "Some Internal Error While Adding Theatre."
         })
     }
@@ -42,15 +38,11 @@ exports.getAllTheatres = async (req, res) => {
     try {
         const theatres = await Theatre.find(queryObj);
 
-        res.status(200).send({
-            success: true,
-            theatres
-        })
+        res.status(200).send(theatres)
 
     } catch (error) {
         console.log(error.message);
         res.status(500).send({
-            success: false,
             message: "Some Internal Error While Fetching Theatres."
         })
     }
@@ -63,20 +55,15 @@ exports.getTheatre = async (req, res) => {
 
         if (!theatre) {
             return res.status(404).send({
-                success: false,
                 message: `No theatre found with id: ${req.params.id}`
             })
         }
 
-        res.status(200).send({
-            success: true,
-            theatre
-        })
+        res.status(200).send(theatre)
 
     } catch (error) {
         console.log(error.message);
         res.status(500).send({
-            success: false,
             message: "Some Internal Error While Fetching Theatre."
         })
     }
@@ -89,7 +76,6 @@ exports.updateTheatre = async (req, res) => {
 
         if (!theatre) {
             return res.status(404).send({
-                success: false,
                 message: `No theatre found with id: ${req.params.id}`
             })
         }
@@ -104,15 +90,11 @@ exports.updateTheatre = async (req, res) => {
         // save updated theatre
         const updatedTheatre = await theatre.save();
 
-        res.status(200).send({
-            success: true,
-            updatedTheatre
-        })
+        res.status(200).send(updatedTheatre)
 
     } catch (error) {
         console.log(error.message);
         res.status(500).send({
-            success: false,
             message: "Some Internal Error While updating Theatre."
         })
     }
@@ -125,22 +107,17 @@ exports.deleteTheatre = async (req, res) => {
 
         if (!theatre) {
             return res.status(404).send({
-                success: false,
                 message: `No theatre found with id: ${req.params.id}`
             })
         }
         // delete theatre
         await Theatre.deleteOne({ _id: req.params.id });
 
-        res.status(200).send({
-            success: true,
-            theatre
-        })
+        res.status(200).send(theatre)
 
     } catch (error) {
         console.log(error.message);
         res.status(500).send({
-            success: false,
             message: "Some Internal Error While deleting Theatres."
         })
     }
