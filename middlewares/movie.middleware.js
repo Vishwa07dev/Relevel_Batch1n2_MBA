@@ -1,14 +1,13 @@
 const Movie = require("../models/movie.model");
 
-
 isValidMovie = async (req, res, next) => {
 
     console.log(req.params.id);
    try {
-     const movie = await Movie.find({_id: req.params.id});
+     const movie = await Movie.findOne({_id: req.params.id});
 
     console.log("MIDDLEWARE", movie);
-    if(movie.length > 0) {
+    if(movie != null) {
         next();
     } 
     return res.status(400).send({message: "please check the movie Id and try again"});

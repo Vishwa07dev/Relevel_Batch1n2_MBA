@@ -32,7 +32,7 @@ exports.getMovie = async (req, res) => {
     
     const movieId = req.params.id;
     try {
-        const movie = await Movie.find({
+        const movie = await Movie.findOne({
             _id: movieId
         });
         console.log(movie)

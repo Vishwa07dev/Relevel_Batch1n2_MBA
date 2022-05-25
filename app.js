@@ -7,8 +7,6 @@ const Movie = require("./models/movie.model");
 const Theatre = require("./models/theatre.model");
 const constants = require("./utils/constants");
 
-
-
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,7 +59,7 @@ async function  theatreInit() {
        totalSeats: 250
     });
 
-     console.log("Theatres created");
+    console.log("Theatres created");
 
     console.log(theatre1, theatre2, theatre3, theatre4, theatre5);
 }
@@ -79,7 +77,6 @@ async function movieInit() {
         language: constants.languages.english,
         releaseDate: "2022-02-24",
         releaseStatus: constants.releaseStatus.unreleased
-
     });
     const movie2 = await Movie.create({
         name: "Top Gun: Maverick",
@@ -91,7 +88,6 @@ async function movieInit() {
         language: constants.languages.english,
         releaseDate: "2022-02-24",
         releaseStatus: constants.releaseStatus.unreleased
-
     });
     const movie3 = await Movie.create({
         name: "Mission: Impossible – Dead Reckoning Part 1",
@@ -103,7 +99,6 @@ async function movieInit() {
         language: constants.languages.english,
         releaseDate: "2022-02-24",
         releaseStatus: constants.releaseStatus.unreleased
-
     });
     const movie4 = await Movie.create({
         name: "Mission: Impossible – Dead Reckoning Part 2",
@@ -137,7 +132,6 @@ async function movieInit() {
     console.log("MOVIE 5", movie5);
   
 }
-
 
 app.listen(serverConfig.PORT, () => {
     console.log(`Movie Booking App listening on port ${serverConfig.PORT}`);
