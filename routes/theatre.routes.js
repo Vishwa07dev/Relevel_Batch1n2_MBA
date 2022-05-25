@@ -16,18 +16,18 @@ module.exports = (app) => {
       * mba/api/v1/theatres?zip=<>
       * 
       */
-     app.get("mba/api/v1/theatres" , theatreController.getAllTheatres);
+     app.get("/mba/api/v1/theatres" , theatreController.getAllTheatres);
 
      //Fetching theatre based on id
-     app.get("mba/api/v1/theatres/:id", theatreController.getTheatre);
+     app.get("/mba/api/v1/theatres/:id", theatreController.getTheatre);
 
      //Create theatre
-     app.post("mba/api/v1/theatres", theatreController.createTheatre);
+     app.post("/mba/api/v1/theatres", theatreController.createTheatre);
 
      //Update theatre 
-     app.put("mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.updateTheatre);
+     app.put("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.updateTheatre);
 
      // Delete theatre
-     app.delete("mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
+     app.delete("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
 
 }
