@@ -13,7 +13,7 @@ module.exports = (app) => {
       * Supporting the following query params
       * mba/api/v1/theatres?city=<>
       * 
-      * mba/api/v1/theatres?zip=<>
+      * mba/api/v1/theatres?pinCode=<>
       * 
       */
      app.get("/mba/api/v1/theatres" , theatreController.getAllTheatres);

@@ -9,7 +9,7 @@
     * Supporting the following query params
     * mba/api/v1/theatres?city=<>
     * 
-    * mba/api/v1/theatres?zip=<>
+    * mba/api/v1/theatres?pinCode=<>
     * 
   *      
   */
@@ -20,8 +20,8 @@
      if(req.query.city && req.query.city != ""){
          queryObj.city = req.query.city
      }
-     if(req.query.zip && req.query.zip != ""){
-         queryObj.zip = req.query.zip
+     if(req.query.pinCode && req.query.pinCode != ""){
+         queryObj.pinCode = req.query.pinCode
      } 
  
      const theatres = await Theatre.find(queryObj);
