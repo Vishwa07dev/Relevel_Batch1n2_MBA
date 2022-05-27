@@ -1,4 +1,6 @@
+const serverConfig = require('./configs/server.config');
 const express = require('express');
+const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
@@ -135,6 +137,7 @@ mongoose.connect(DB_URL, async ()=>{
 
 
 require("./routes/movie.route")(app);
+require("./routes/theatre.route")(app);
 
 
 
