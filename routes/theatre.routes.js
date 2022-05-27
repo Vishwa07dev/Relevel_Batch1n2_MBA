@@ -1,5 +1,6 @@
 
-const theatreController = require("../controllers/theatre.controller")
+const theatreController = require("../controllers/theatre.controller");
+const { validateTheatreReqObj } = require("../middlewares/validateTheatre.js");
 /**
  * Defining the routes for the theatre resource
  */
@@ -14,19 +15,19 @@ module.exports = (app) => {
       * mba/api/v1/theatres?zip=<>
       * 
       */
-     app.get("mba/api/v1/theatres" , theatreController.getAllTheatres);
+     app.get("/mba/api/v1/theatres", theatreController.getAllTheatres);
 
      //Fetching theatre based on id
-     app.get("mba/api/v1/theatres/:id", theatreController.getTheatre);
+     app.get("/mba/api/v1/theatres/:id", theatreController.getTheatre);
 
      //Create theatre
-     app.post("mba/api/v1/theatres", ["validate request body"], theatreController.createTheatre);
-  
+     app.post("/mba/api/v1/theatres", [validateTheatreReqObj], theatreController.createTheatre);
+
 
      //Update theatre 
-     app.put("mba/api/v1/theatres/:id", ["validate request body"], theatreController.updateTheatre);
+     app.put("/mba/api/v1/theatres/:id", theatreController.updateTheatre);
 
      // Delete theatre
-     app.get("mba/api/v1/theatres/:id", theatreController.deleteTheatre);
+     app.delete("/mba/api/v1/theatres/:id", theatreController.deleteTheatre);
 
 }
