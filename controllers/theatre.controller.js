@@ -143,8 +143,17 @@
             _id: req.params.id
         });
     
-        // update respective fields
-        theatre.movies = req.body.movies != undefined ? req.body.movies : theatre.movies;
+        if(req.body.movies.remove && req.body.movies.remove.length > 0){
+            for(let movieId of req.body.movies.remove){
+                let removableIndex = theatre.movies.indexOf(movieId);
+                if (removableIndex > -1) {
+                    theatre.movies.splice(removableIndex, 1);
+                }
+            }
+        }
+        if(req.body.movies.insert && req.body.movies.insert.length > 0){
+            theatre.movies.push(...req.body.movies.insert);
+        }
 
         // save updated object
         const updatedTheatreObj = await theatre.save();
@@ -201,8 +210,7 @@
             _id: req.params.movieId
         });
 
-        // return saved object
-        return res.status(200).send(updatedTheatreObj);
+        return res.status(200).send(movie);
     }catch(err){
         console.log(err.message);
         return res.status(500).send({
