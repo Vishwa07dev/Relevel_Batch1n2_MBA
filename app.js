@@ -130,17 +130,12 @@ try{
        console.log(err.message);
    }
 
-
-  
-
-
+})
 
 require("./routes/movie.route")(app);
 require("./routes/theater.route")(app);
 
-
-
 // express server setup
 app.listen(PORT, ()=>{
     console.log(`Application is running on server: http://localhost/${PORT}`);
-})
+});
