@@ -1,5 +1,7 @@
 
 const theatreController = require("../controllers/theatre.controller")
+const {verifyTheatre} = require("../middlewares");
+
 /**
  * Defining the routes for the theatre resource
  */
@@ -11,22 +13,21 @@ module.exports = (app) => {
       * Supporting the following query params
       * mba/api/v1/theatres?city=<>
       * 
-      * mba/api/v1/theatres?zip=<>
+      * mba/api/v1/theatres?pinCode=<>
       * 
       */
-     app.get("mba/api/v1/theatres" , theatreController.getAllTheatres);
+     app.get("/mba/api/v1/theatres" , theatreController.getAllTheatres);
 
      //Fetching theatre based on id
-     app.get("mba/api/v1/theatres/:id", theatreController.getTheatre);
+     app.get("/mba/api/v1/theatres/:id", theatreController.getTheatre);
 
      //Create theatre
-     app.post("mba/api/v1/theatres", ["validate request body"], theatreController.createTheatre);
-  
+     app.post("/mba/api/v1/theatres", [verifyTheatre.verifyAddTheatre], theatreController.createTheatre);
 
      //Update theatre 
-     app.put("mba/api/v1/theatres/:id", ["validate request body"], theatreController.updateTheatre);
+     app.put("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.updateTheatre);
 
      // Delete theatre
-     app.get("mba/api/v1/theatres/:id", theatreController.deleteTheatre);
+     app.delete("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
 
 }
