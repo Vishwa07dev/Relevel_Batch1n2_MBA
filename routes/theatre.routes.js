@@ -29,5 +29,19 @@ module.exports = (app) => {
 
      // Delete theatre
      app.delete("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
+     
 
+     //Add/Remove  movies inside a theatre
+     app.put("/mba/api/v1/theatres/:id/movies",[], somecontroller.addMoviesToATheatres);
+
+     //Get all the movies inside a theatre
+     app.get("/mba/api/v1/theatres/:id/movies", someContoller.getMoviesInsideATheatre);
+    
+     //Get a specific movie inside a theatre
+     app.get("/mba/api/v1/theatres/:theatreId/movies/:movieId", someContoller.getMoviesInsideATheatreBasedOnId);
+     
+
+     /**
+      * Log the time of every request in console .. Add a middleware before the routes
+      */
 }
