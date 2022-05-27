@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
 const Movie = require('./models/movie.model');
+<<<<<<< HEAD
+const Theatre = require('./model/theatre.model');
+=======
 const Theatre = require('./models/theatre.model')
+>>>>>>> ff4c7394460d3b3b759bd9ff7c3e0407b99a9bac
 
 const app = express();
 app.use(express.json());
@@ -133,12 +137,54 @@ mongoose.connect(DB_URL, async ()=>{
 }
 })
 
+const theater1 = await Theater.create({
+    name: "PVR",
+    description: "Ek bar dekho ",
+    city: "Nashik ",
+    pinCode: 422008,
+    totalSeats: 50
+})
+console.log(theater1);
+
+
+const theater2 = await Theater.create({
+    name: "City center mall",
+    description: "Movie dekh ke jana ",
+    city: "Nashik",
+    pinCode: 422009,
+    totalSeats: 60
+})
+console.log(theater2);
+
+
+const theater3 = await Theater.create({
+    name: "Big movie ",
+    description: "Best wala movie dekho",
+    city: "Nashik",
+    pinCode: 422010,
+    totalSeats: 80
+})
+console.log(theater3);
+
+
+const theater4 = await Theater.create({
+    name: "Jay hind ",
+    description: "best climax ",
+    city: "Nashik",
+    pinCode: 422012,
+    totalSeats: 60
+})
+console.log(theater4);
+
+
+const theater5 = await Theater.create({
+    name: "sharmaji",
+    description: "good vibes ",
+    city: "Nashik",
+    pinCode:422015,
+    totalSeats: 65
+})
+    console.log(theater5);
+}
 
 require("./routes/movie.route")(app);
-
-
-
-// express server setup
-app.listen(PORT, ()=>{
-    console.log(`Application is running on server: http://localhost/${PORT}`);
-})
