@@ -64,6 +64,10 @@ const movieSchema = new mongoose.Schema({
     imdbRating: {  //Aggregate rating of the movie
         type: Number
 
+    },
+    theatres: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Theatre"
     }
 
 })
