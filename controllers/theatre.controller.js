@@ -2,6 +2,7 @@
  * This file will contain the logic for theatre controller
  */
  const Theatre = require("../models/theatre.model");
+ const Movie = require("../models/movie.model");
 
  /**
   * Getting all the theatres
@@ -131,3 +132,82 @@
          })
      }
  }
+
+ /**
+  * Controller for add/remove movies inside a theatre
+  */
+  exports.addMoviesToATheatres = async (req, res) => {
+ 
+    try{
+        const theatre = await Theatre.findOne({
+            _id: req.params.id
+        });
+    
+        // update respective fields
+        theatre.movies = req.body.movies != undefined ? req.body.movies : theatre.movies;
+
+        // save updated object
+        const updatedTheatreObj = await theatre.save();
+    
+        // return saved object
+        return res.status(200).send(updatedTheatreObj);
+    }catch(err){
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+    
+}
+
+/**
+  * Controller for getting all the movies inside a theatre
+  */
+ exports.getMoviesInsideATheatre = async (req, res) => {
+ 
+    try{
+        const theatre = await Theatre.findOne({
+            _id: req.params.id
+        });
+
+        let movies = [];
+        console.log("theatre Movies", theatre.movies);
+        if(theatre.movies.length>0){
+            movies = await Movie.find({
+                _id: {
+                    $in : theatre.movies
+                }
+            });
+        }
+
+        // return movies available in theatre
+        return res.status(200).send(movies);
+    }catch(err){
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+    
+}
+
+/**
+  * Controller for getting a specific movie inside a theatre
+  */
+ exports.getMoviesInsideATheatreBasedOnId = async (req, res) => {
+ 
+    try{
+        const movie = await Movie.findOne({
+            _id: req.params.movieId
+        });
+
+        // return saved object
+        return res.status(200).send(updatedTheatreObj);
+    }catch(err){
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+    
+}

@@ -4,10 +4,12 @@ const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
 const Movie = require('./models/movie.model');
 const Theatre = require('./models/theatre.model')
+const reqLogger = require("./middlewares/logger.middleware");
 
 const app = express();
 app.use(express.json());
 
+app.use(reqLogger.log);
 
 // database connection setup
 mongoose.connect(DB_URL, async ()=>{
