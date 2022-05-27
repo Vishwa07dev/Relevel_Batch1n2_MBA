@@ -134,7 +134,7 @@ exports.deleteTheatre = async (req, res) => {
 }
 
 // add movies to theatre
-exports.addMovies = async (req, res) => {
+exports.addOrRemoveMovies = async (req, res) => {
     try {
         const theatre = await Theatre.findOne({ _id: req.params.theatreId });
         const movie = await Movie.findOne({ _id: req.params.movieId });
@@ -150,52 +150,31 @@ exports.addMovies = async (req, res) => {
                 message: "Please enter valid movie Id."
             })
         }
-        // push movie into theatre
-        const updateTheatre = theatre.movies.push(movie._id);
-        // save updated theatre
-        await updateTheatre.save();
-        // push theatre into movie
-        const updateMovie = movie.theatres.push(theatre._id);
-        // save updated movie
-        await updateMovie.save();
 
-        res.status(201).send(theatre);
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send({
-            message: "Some internal error.",
-        })
-    }
-}
-
-// remove movies to theatre
-exports.removeMoviesFromTheatre = async (req, res) => {
-    try {
-        const theatre = await Theatre.findOne({ _id: req.params.theatreId });
-        const movie = await Movie.findOne({ _id: req.params.movieId });
-        // if theatre not found
-        if (!theatre) {
-            return res.status(404).send({
-                message: "Please enter valid theatre Id."
-            })
+        if (req.body.insert === true) {
+            // push movie into theatre
+            theatre.movies.push(movie._id);
+            // save updated theatre
+            await theatre.save();
+            // push theatre into movie
+            movie.theatres.push(theatre._id);
+            // save updated movie
+            await movie.save();
         }
-        // if movie not found
-        if (!movie) {
-            return res.status(404).send({
-                message: "Please enter valid movie Id."
-            })
+        else if (req.body.remove === true) {
+            // get movie index
+            let movieIndex = theatre.movies.indexOf(movie._id);
+            // remove movie
+            theatre.movies.splice(movieIndex, 1);
+            // save updated theatre
+            await theatre.save();
+            // get theatre index
+            let theatreIndex = movie.theatres.indexOf(theatre._id);
+            // remove theatre
+            movie.theatres.splice(theatreIndex, 1);
+            // save updated movie
+            await movie.save();
         }
-        // get movie index
-        let movieIndex = theatre.movies.indexOf(movie._id);
-        let updateTheatre = theatre.movies.splice(movieIndex, 1);
-        // save updated theatre
-        await updateTheatre.save();
-        // get theatre index
-        let theatreIndex = movie.theatres.indexOf(theatre._id);
-        let updateMovie = movie.theatres.splice(theatreIndex, 1);
-        // save updated movie
-        await updateMovie.save();
-
         res.status(201).send(theatre);
     } catch (err) {
         console.log(err.message);
