@@ -1,10 +1,12 @@
-exports.languages = {
+
+ module.exports = {
+languages : {
     hindi: "HINDI",
     english:"ENGLISH",
     tamil:"TAMIL"
-}
-
-exports.releaseStatuses = {
+},
+releaseStatuses : {
     released: "RELEASED",
     coming_soon: "COMING SOON"
+}
 }
