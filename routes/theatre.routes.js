@@ -1,5 +1,7 @@
 
 const theatreController = require("../controllers/theatre.controller")
+
+const valReqBody = require("../middleware");
 /**
  * Defining the routes for the theatre resource
  */
