@@ -1,10 +1,16 @@
-exports.languages = {
+module.exports = {
+
+    languages : {
     hindi: "HINDI",
     english:"ENGLISH",
     tamil:"TAMIL"
-}
-
-exports.releaseStatuses = {
-    released: "RELEASED",
-    coming_soon: "COMING SOON"
+    },
+    releaseStatuses : {
+        released: "RELEASED",
+        coming_soon: "COMING SOON"
+    },
+    movieAction : {
+        add : "ADD",
+        remove : "REMOVE"
+    }
 }

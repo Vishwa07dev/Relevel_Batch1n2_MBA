@@ -4,6 +4,7 @@ const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
 const Movie = require('./models/movie.model');
 const Theatre = require('./models/theatre.model')
+const {logger} = require("./middlewares"); 
 
 const app = express();
 app.use(express.json());
@@ -133,7 +134,7 @@ mongoose.connect(DB_URL, async ()=>{
 }
 })
 
-
+app.use(logger.log);
 require("./routes")(app);
 
 
