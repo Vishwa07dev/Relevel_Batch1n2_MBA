@@ -128,4 +128,28 @@ exports.deleteTheater = async (req, res) => {
     }
 }
 
+exports.addMoviesInTheater = async (req, res)=>{
+    const  theater = await Theater.findOne({ _id: req.params.id });
 
+    movieIds = req.body.movieIds;
+
+    //Add movieIds to the theatres
+    if (req.body.insert) {
+        movieIds.forEach(movieId => {
+            theater.Movie.push(movieId);
+        });
+    } else {
+        //remove these movies from the theatres
+       savedMovie = theater.Movie;
+
+        movieIds.forEach(movieId => {
+         savedMovie = savedMovie.filter(smi => smi != movieId);
+        });
+        theater.Movie = savedMovie;
+    }
+
+
+    await theater.save(); //save in the database
+    res.status(200).send(theater);
+
+}

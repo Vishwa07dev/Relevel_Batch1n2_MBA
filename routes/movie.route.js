@@ -1,4 +1,5 @@
-const movieController = require("../controllers/movie.controller")
+const movieController = require("../controllers/movie.controller");
+const { movieValidation } = require("../middlewares");
 
 
 
@@ -9,15 +10,17 @@ module.exports = (app)=>{
      * Create the routes for the corresponding controllers
      */
     // CREATE CALL
-    app.post("/mba/api/v1/movies",  movieController.addMovie);
+    app.post("/mba/api/v1/movies", [movieValidation.validateMovieDetails], movieController.addMovie);
 
-    // UPDATE CALL
-    app.put("/mba/api/v1/movies/:id", movieController.updateMovie);
+    app.get("/mba/api/v1/movies/:id", movieController.getOneMovie);
+
+    app.get("/mba/api/v1/movies", movieController.getAllMovies);
+    
+    app.put("/mba/api/v1/movies/:id", [movieValidation.validateMovieDetails], movieController.updateMovie);
  
-    // DELETE CALL
     app.delete("/mba/api/v1/movies/:id", movieController.deleteMovie);
      
-    // GET SINGLE CALL
-    app.get("/mba/api/v1/movies/:id", movieController.getOneMovie);
+    
+  
 }
 

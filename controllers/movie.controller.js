@@ -91,9 +91,7 @@ exports.getAllMovies = async ( req, res) => {
             message: "Some internal error"
         })
     }
-
-}
-
+ }
 
 /**
  * Controller for updating a movie
@@ -169,4 +167,4 @@ exports.getAllMovies = async ( req, res) => {
             message: "Some internal error"
         })
     }
-}
+ }
