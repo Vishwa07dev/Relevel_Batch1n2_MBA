@@ -13,6 +13,12 @@ module.exports = (app)=>{
     app.put("/mba/api/v1/theaters/:id", [theaterValidation.validateTheater],theaterController.updateTheater); 
 
     app.delete("/mba/api/v1/theaters/:id", theaterController.deleteTheater);
+
+    app.put("/mba/api/v1/theatres/:id/movies",[], theaterController.addMoviesInTheater);
+
+    //app.get("/mba/api/v1/theatres/:id/movies",[], theaterController.getAllMoviesInTheater);
+     
+    
      
     
 

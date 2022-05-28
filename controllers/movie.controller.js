@@ -2,7 +2,7 @@
  * This file will contain the logic for movie controller
  */
 const Movie = require("../models/movie.model");
-
+const Theater = require("../models/theater.model");
 /**
  * Getting all the movies
  * 
@@ -82,10 +82,11 @@ exports.getAllMovies = async ( req, res) => {
         // insert movie object into database
         const movie = await Movie.create(movieObj);
 
-        // return created movie
+       
         return res.status(201).send(movie);
 
-    } catch (err) {
+        
+    }catch (err) {
         console.log(err.message);
         return res.status(500).send({
             message: "Some internal error"

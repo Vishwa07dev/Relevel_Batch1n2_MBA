@@ -70,7 +70,7 @@ try{
        console.log(err.message);
    }
     
-    await Movie.collection.drop();
+    //await Movie.collection.drop();
     
 
     
