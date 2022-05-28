@@ -2,6 +2,7 @@
  * This file will contain the logic for theatre controller
  */
  const Theatre = require("../models/theatre.model");
+ const Movie = require("../models/movie.model");
 
  /**
   * Getting all the theatres
@@ -131,3 +132,90 @@
          })
      }
  }
+
+ /**
+  * Controller for add/remove movies inside a theatre
+  */
+  exports.addOrRemoveMoviesInsideATheatre = async (req, res) => {
+ 
+    try{
+        const theatre = await Theatre.findOne({
+            _id: req.params.id
+        });
+    
+        if(req.body.movies.remove && req.body.movies.remove.length > 0){
+            for(let movieId of req.body.movies.remove){
+                let removableIndex = theatre.movies.indexOf(movieId);
+                if (removableIndex > -1) {
+                    theatre.movies.splice(removableIndex, 1);
+                }
+            }
+        }
+        if(req.body.movies.insert && req.body.movies.insert.length > 0){
+            theatre.movies.push(...req.body.movies.insert);
+        }
+
+        // save updated object
+        const updatedTheatreObj = await theatre.save();
+    
+        // return saved object
+        return res.status(200).send(updatedTheatreObj);
+    }catch(err){
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+    
+}
+
+/**
+  * Controller for getting all the movies inside a theatre
+  */
+ exports.getMoviesInsideATheatre = async (req, res) => {
+ 
+    try{
+        const theatre = await Theatre.findOne({
+            _id: req.params.id
+        });
+
+        let movies = [];
+        console.log("theatre Movies", theatre.movies);
+        if(theatre.movies.length>0){
+            movies = await Movie.find({
+                _id: {
+                    $in : theatre.movies
+                }
+            });
+        }
+
+        // return movies available in theatre
+        return res.status(200).send(movies);
+    }catch(err){
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+    
+}
+
+/**
+  * Controller for getting a specific movie inside a theatre
+  */
+ exports.getMoviesInsideATheatreBasedOnId = async (req, res) => {
+ 
+    try{
+        const movie = await Movie.findOne({
+            _id: req.params.movieId
+        });
+
+        return res.status(200).send(movie);
+    }catch(err){
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+    
+}
