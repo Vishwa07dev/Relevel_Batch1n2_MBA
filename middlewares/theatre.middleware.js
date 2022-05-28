@@ -29,7 +29,37 @@ const isValidTheatreId = async (req, res, next) => {
             message: "Some internal error"
         })
     }
-};
+}
+
+const isValidMovieId = async (req, res, next) => {
+    try {
+
+        // check whether TheatreId it is valid or not
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).send({
+                message: "Theatre Id Id is not valid"
+            })
+        }
+
+        const theatre = await Theatre.findOne({
+            _id: req.params.id
+        });
+
+        // check whether theatre exists or not
+        if (theatre == null) {
+            return res.status(400).send({
+                message: "Theatre doesn't exist"
+            })
+        }
+
+        next();
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+}
 
 const verifyAddTheatre = async (req, res, next) => {
     try {
@@ -70,13 +100,14 @@ const verifyAddTheatre = async (req, res, next) => {
 };
 
 const validateAddOrRemove = (req, res, next) => {
-    if (!req.body.insert || !req.body.remove) {
+    if (!req.body.insert) {
         return res.status(400).send({
             message: "Please mention whether to insert or remove movie in request body."
         })
     }
     next();
 }
+
 
 const verifyTheatre = {
     isValidTheatreId: isValidTheatreId,

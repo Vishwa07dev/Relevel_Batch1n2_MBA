@@ -161,7 +161,7 @@ exports.addOrRemoveMovies = async (req, res) => {
             // save updated movie
             await movie.save();
         }
-        else if (req.body.remove === true) {
+        else {
             // get movie index
             let movieIndex = theatre.movies.indexOf(movie._id);
             // remove movie
@@ -195,13 +195,13 @@ exports.getMoviesFromTheatre = async (req, res) => {
             })
         }
 
-        let movieIds = theatre.movies;
-        let movies = [];
-        for (let id of movieIds) {
-            let movie = await Movie.findById(id);
-            movies.push(movie);
+        
+        let movies = await Movie.find({ _id: { $in: theatre.movies } });
+        if(movies.length === 0){
+            return res.status(200).send({
+                message: "No movie is exist in this theatre."
+            })
         }
-        // send all movies
         res.status(200).send(movies);
     } catch (err) {
         console.log(err.message);
@@ -215,13 +215,7 @@ exports.getMoviesFromTheatre = async (req, res) => {
 exports.getMovieByIdfromTheatre = async (req, res) => {
     try {
         const theatre = await Theatre.findById(req.params.theatreId);
-        // if theatre not found
-        if (!theatre) {
-            return res.status(404).send({
-                message: "Please enter valid theatre Id."
-            })
-        }
-
+    
         let movieIds = theatre.movies;
         if (!movieIds.includes(req.params.movieId)) {
             return res.status(404).send({

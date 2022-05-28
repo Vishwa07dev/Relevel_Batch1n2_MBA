@@ -13,6 +13,7 @@ app.use(express.json());
 mongoose.connect(DB_URL, async ()=>{
     console.log(`Application is connected to database: ${DB_URL}`);
     
+    /*
     await Movie.collection.drop();
     await Theatre.collection.drop();
 
@@ -131,6 +132,7 @@ mongoose.connect(DB_URL, async ()=>{
 }catch(err){
     console.log(err.message);
 }
+*/
 })
 
 
