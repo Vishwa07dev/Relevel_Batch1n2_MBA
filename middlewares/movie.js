@@ -38,13 +38,7 @@ exports.validateMovieDetails = async (req, res, next) => {
             message : "Failed  releasedate is not added"
         })
     }
-    //check releasestatus if it exist.
-    if(!req.body.releaseStatus){
-        res.status(400).send({
-            message: "Failed ! releasestatus  is not provided"
-        })
-    }
-
+ 
     next();
 
 }
