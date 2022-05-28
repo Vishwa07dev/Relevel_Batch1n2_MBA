@@ -136,7 +136,7 @@
  /**
   * Controller for add/remove movies inside a theatre
   */
-  exports.addMoviesToATheatres = async (req, res) => {
+  exports.addOrRemoveMoviesInsideATheatre = async (req, res) => {
  
     try{
         const theatre = await Theatre.findOne({
