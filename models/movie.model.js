@@ -64,8 +64,11 @@ const movieSchema = new mongoose.Schema({
     imdbRating: {  //Aggregate rating of the movie
         type: Number
 
+    },
+    theatre : {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "Theatre"
     }
-
 })
 
 module.exports = mongoose.model("Movie", movieSchema);

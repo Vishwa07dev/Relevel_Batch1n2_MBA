@@ -1,5 +1,7 @@
 const Theatre = require("../models/theatre.model");
 const mongoose = require("mongoose");
+const constants = require("../utils/constants");
+const Movies = require("../models/movie.model");
 
 const isValidTheatreId = async (req,res, next) =>{
     try {
@@ -69,8 +71,42 @@ const verifyAddTheatre = async (req,res, next) =>{
     }
 };
 
+
+
+//checking if the enter movie is valid or not 
+const isValidMovies = async (req,res,next) =>{
+    try{
+
+        //checking if id is valid
+        if (!mongoose.Types.ObjectId.isValid(req.body.movieId)) {
+            return res.status(400).send({
+                message: "Movie Id is not valid"
+            })
+        }
+
+        const movies = await Movies.findOne({
+            _id: req.body.movieId
+        });
+    
+        // check whether movies exists or not
+        if (movies == null) {
+            return res.status(400).send({
+                message: "Movie doesn't exist"
+            })
+        }
+
+        next();
+    }catch(err){
+        console.log(err);
+        return res.status(500).send({
+            message: "Some internal error"
+        })              
+    }
+}
+
 const verifyTheatre = {
     isValidTheatreId : isValidTheatreId,
-    verifyAddTheatre : verifyAddTheatre
+    verifyAddTheatre : verifyAddTheatre,
+    isValidMovies : isValidMovies        
 };
 module.exports= verifyTheatre;
