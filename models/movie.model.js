@@ -5,6 +5,7 @@
  * 
  * language | release Date |releaseStatus
  */
+
 const mongoose = require('mongoose');
 const constants = require("../utils/constants")
 const movieSchema = new mongoose.Schema({
@@ -47,6 +48,10 @@ const movieSchema = new mongoose.Schema({
         default : constants.releaseStatus.unreleased,
         enum : [constants.releaseStatus.unreleased, constants.releaseStatus.released],  // This has to be defined in Utils, and enum has to be used
     },
+    theatres: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Theatre"
+    },     
     createdAt : {
         type : Date,
         default : () => {

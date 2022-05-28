@@ -7,11 +7,25 @@ const Movie = require("./models/movie.model");
 const Theatre = require("./models/theatre.model");
 const constants = require("./utils/constants");
 
+console.clear();
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-require("./routes/")(app);
+function logger(req, res, next) {
+    return res.status(400).send({
+        message: "System is under maintenance"
+    });
+}
+
+function requestTime(req, res, next) {
+    console.log("Request Time", new Date().toLocaleDateString(), new Date().toLocaleTimeString(), "IST");
+    next();
+}
+
+app.use(requestTime);
+// app.use(logger);
+require("./routes")(app);
 
 mongoose.connect(dbConfig.DB_URL, async () => {
     console.log(`Connecting to MongoDB...`);
@@ -41,21 +55,21 @@ async function  theatreInit() {
        name: "Theatre3",
        description: "located in Mountain View",
        city: "Mountain View",
-       pinCode : 95025,
+       pinCode : 94039,
        totalSeats: 250
     });
     const theatre4 = await Theatre.create({
        name: "Theatre4",
-       description: "located in SunnyWale",
-       city: "SunnyWale",
-       pinCode : 95010,
+       description: "located in Sunnyvale",
+       city: "Sunnyvale",
+       pinCode : 94043,
        totalSeats: 200
     });
     const theatre5 = await Theatre.create({
        name: "Theatre5",
-       description: "located in Cupertino",
-       city: "Cupertino",
-       pinCode : 95000,
+       description: "located in cupertino",
+       city: "cupertino",
+       pinCode : 94024,
        totalSeats: 250
     });
 

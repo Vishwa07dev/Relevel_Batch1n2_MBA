@@ -6,12 +6,11 @@ isValidMovie = async (req, res, next) => {
    try {
      const movie = await Movie.findOne({_id: req.params.id});
 
-    console.log("MIDDLEWARE", movie);
-    if(movie != null) {
-        next();
-        return;
+    // console.log("MIDDLEWARE", movie);
+    if(movie == null || movie == undefined) {
+        return res.status(400).send({message: "please check the movie Id and try again"});
     } 
-    return res.status(400).send({message: "please check the movie Id and try again"});
+    next();
    } catch(err) {
        console.log(err.message);
        return res.status(400).send({message: "please check the movie Id and try again"});

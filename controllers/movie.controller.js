@@ -116,7 +116,6 @@ exports.deleteMovie = async (req, res) => {
             message : "Successfully deleted movie"
         });
 
-
     } catch (err) {
         return res.status(500).send({
             message: "Some internal error occurred while deleting movie."

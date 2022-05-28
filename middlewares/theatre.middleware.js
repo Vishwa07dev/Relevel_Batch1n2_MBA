@@ -6,12 +6,12 @@ isValidTheatre = async (req, res, next) => {
    try {
      const theatre = await Theatre.findOne({_id: req.params.id});
 
-    console.log("MIDDLEWARE", theatre);
-    if(theatre != null) {
-        next();
-        return;
+    // console.log("MIDDLEWARE", theatre);
+    if(theatre == null || theatre == undefined) {
+        return res.status(400).send({message: "please check the theatre Id and try again"});
     } 
-    return res.status(400).send({message: "please check the theatre Id and try again"});
+    next();
+    
    } catch(err) {
        console.log(err.message);
        return res.status(400).send({message: "please check the theatre Id and try again"});
@@ -26,9 +26,33 @@ checkFields = async (req, res) => {
         }
     next();
 }
-const authTheatre = {
+
+isMovieIncludesInTheatre = async (req, res, next) => {
+    const theatre = await Theatre.findOne({
+        _id: req.params.movieId
+    });
+
+    if(!theatre.movies.includes(req.params.movieId)) {
+        return res.status(400).send({ message: "Movie not found in theatre"});
+    }
+    next();
+}
+
+checkParams = (req, res, next) => {
+
+    if(!req.params.theatreId) {
+        return res.status(400).send({ message: "Theatre id missing in req params"});
+    }
+    if(!req.params.movieId) {
+        return res.status(400).send({ message: "movie id missing in req params"});
+    }
+    next();
+}
+const theatreCheckPoint = {
     isValidTheatre: isValidTheatre,
-    checkFields: checkFields
+    checkFields: checkFields,
+    isMovieIncludesInTheatre: isMovieIncludesInTheatre,
+    checkParams: checkParams
 };
 
-module.exports = authTheatre;
+module.exports = theatreCheckPoint;
