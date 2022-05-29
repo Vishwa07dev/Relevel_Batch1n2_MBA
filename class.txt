@@ -32,3 +32,17 @@ Play with Models :
 
 1. Take this code as base. Improve the TODOs
 and create few movies at the server boot time
+
+
+
+
+{
+   
+   movies : {
+        insert : [ 1,2,3,4],
+        remove : [5,6,7]
+   }
+
+}
+
+
