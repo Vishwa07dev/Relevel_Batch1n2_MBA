@@ -2,9 +2,9 @@ const Theatre = require("../models/theatre.model");
 
 isValidTheatre = async (req, res, next) => {
 
-    console.log(req.params.id);
+    // console.log(req.params.theatreId);
    try {
-     const theatre = await Theatre.findOne({_id: req.params.id});
+     const theatre = await Theatre.findOne({_id: req.params.theatreId});
 
     // console.log("MIDDLEWARE", theatre);
     if(theatre == null || theatre == undefined) {
