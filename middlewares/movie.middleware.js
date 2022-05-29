@@ -41,18 +41,16 @@ isValidMovies = async (req, res, next) => {
 
     if(req.removeMovies) {
        queryObj.theatres = req.params.theatreId;
-       queryObj.movies = {
+       queryObj._id = {
            $in: movieIds
        };
     }
-
    try {
 
-    // console.log("QUERYOBJ", queryObj);
-     const movies = await Movie.find(queryObj);
+    console.log("QUERYOBJ", queryObj);
+    const movies = await Movie.find(queryObj);
 
-    //  console.log(movies);
-
+    // console.log(movies, "LINE 54");
     if(movieIds.length != movies.length) {
          return res.status(400).send({message: "please check the movie Ids and try again"});
     }

@@ -32,7 +32,7 @@ exports.getTheatre = async (req, res) => {
         const theatre = await Theatre.findOne({
             _id: theatreId
         });
-        console.log("CONTROLLER", theatre)
+        // console.log("CONTROLLER", theatre)
         return res.status(200).send({
             theatre: theatre
         });
@@ -149,7 +149,7 @@ async function addMoviesInsideTheatre (req, res) {
         });
 
         movies.forEach( async (movie) => {
-            await movie.save()
+            await movie.save();
         });
 
         return res.status(200).send(updatedTheatre);
@@ -247,13 +247,13 @@ async function removeMoviesFromTheatre(req, res)  {
             _id: theatreId
         });
         
-
-        movieIds.every((movieId) => theatre.movies.splice(movieId, 1));
+        movieIds.every((movieId) => theatre.movies.splice(theatre.movies.indexOf(movieId), 1));
 
         const updatedTheatre = await theatre.save();
+        // console.log(updatedTheatre);
         
         if(movieIds.every((movieId) => updatedTheatre.movies.includes(movieId))) {
-            console.log(updatedTheatre);
+            // console.log(updatedTheatre);
             return res.status(500).send({
             message: "Some internal error while deleting movies from theatre"
             });

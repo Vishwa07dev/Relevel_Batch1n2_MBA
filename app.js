@@ -148,5 +148,5 @@ async function movieInit() {
 }
 
 app.listen(serverConfig.PORT, () => {
-    console.log(`Movie Booking App listening on port ${serverConfig.PORT}`);
+    console.log(`Movie Booking App Running on Port ${serverConfig.PORT}`);
 });
