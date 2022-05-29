@@ -47,7 +47,7 @@ isValidMovies = async (req, res, next) => {
     }
    try {
 
-    console.log("QUERYOBJ", queryObj);
+    // console.log("QUERYOBJ", queryObj);
     const movies = await Movie.find(queryObj);
 
     // console.log(movies, "LINE 54");
