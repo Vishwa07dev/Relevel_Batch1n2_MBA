@@ -7,6 +7,7 @@ const Movie = require("./models/movie.model");
 const Theatre = require("./models/theatre.model");
 const constants = require("./utils/constants");
 
+const hostname = '127.0.0.1';
 console.clear();
 const app = express();
 app.use(bodyParser.json());
@@ -147,6 +148,6 @@ async function movieInit() {
   
 }
 
-app.listen(serverConfig.PORT, () => {
-    console.log(`Movie Booking App Running on Port ${serverConfig.PORT}`);
+app.listen(hostname, serverConfig.PORT, () => {
+    console.log(`Server running at http://${hostname}:${serverConfig.PORT}/`);
 });
