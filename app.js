@@ -148,6 +148,6 @@ async function movieInit() {
   
 }
 
-app.listen(hostname, serverConfig.PORT, () => {
+app.listen(serverConfig.PORT, hostname, () => {
     console.log(`Server running at http://${hostname}:${serverConfig.PORT}/`);
 });
