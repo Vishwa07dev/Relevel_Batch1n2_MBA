@@ -31,8 +31,8 @@ require("./routes")(app);
 mongoose.connect(dbConfig.DB_URL, async () => {
     console.log(`Connecting to MongoDB...`);
     console.log(`Connection Successful`);
-    // movieInit();
-    // theatreInit();
+    movieInit();
+    theatreInit();
 });
 
 async function  theatreInit() {

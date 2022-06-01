@@ -107,7 +107,6 @@ exports.updateMovie = async (req, res) => {
 
 exports.deleteMovie = async (req, res) => {
     try {
-        
         await Movie.deleteOne({
             _id: req.params.id
         });

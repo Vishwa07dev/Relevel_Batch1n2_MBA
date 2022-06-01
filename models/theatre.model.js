@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const theatreSchema = new mongoose.Schema({
     
+    theatreOwner: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User"
+    },
     name: {
         type: String,
         required: true
