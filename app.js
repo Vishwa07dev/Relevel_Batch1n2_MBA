@@ -142,5 +142,5 @@ require("./routes")(app);
 
 // express server setup
 app.listen(PORT, ()=>{
-    console.log(`Application is running on server: http://localhost/${PORT}`);
+    console.log(`Application is running on server: http://127.0.0.1:27017/${PORT}`);
 })

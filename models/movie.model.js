@@ -37,7 +37,7 @@ const movieSchema = new mongoose.Schema({
     language: {
         type: String,
         enum: [constants.languages.hindi, constants.languages.english, constants.languages.tamil],
-        default: constants.languages.hindi  //TODO put this in Utis folder and have support for enums
+        default:constants.languages.hindi //TODO put this in Utis folder and have support for enums
     },
     releaseDate: {
         type: Date
