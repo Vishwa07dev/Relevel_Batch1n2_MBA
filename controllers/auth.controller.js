@@ -28,7 +28,7 @@ exports.signup = async (req,res) => {
             name: userCreated.name,
             userId: userCreated.userId,
             email: userCreated.email,
-            age : req.body.age,
+            age : userCreated.age,
             userType : userCreated.userType,
             createdAt: userCreated.createdAt,
             updatedAt:userCreated.updatedAt
