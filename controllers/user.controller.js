@@ -1,9 +1,10 @@
 /**
  * This file will have all the logic to manipulate the User resource
  */
-const bcrypt = require("bcryptjs");
 const User = require("../models/user.model");
 const objectConverter = require("../utils/objectConverter")
+const bcrypt = require("bcryptjs");
+const constants = require("../utils/constants");
 
 /**
  * Update the user password
@@ -14,11 +15,11 @@ const objectConverter = require("../utils/objectConverter")
     try {
         const userId = req.userId;
 
-        const user = User.findOne({
+        const user = await User.findOne({
             userId: userId
         });
 
-        user.password = req.body.newPassword != undefined ? req.body.newPassword : user.password;
+        user.password = req.body.newPassword != undefined ? bcrypt.hashSync(req.body.newPassword, 8) : user.password;
 
         const updatedUser = await user.save();
 
@@ -40,7 +41,7 @@ exports.updateUser = async (req, res) => {
     try {
         const userId = req.params.id;
 
-        const user = User.findOne({
+        const user = await User.findOne({
             userId: userId
         });
 

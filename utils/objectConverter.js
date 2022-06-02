@@ -19,3 +19,15 @@ exports.userResponse = (users) => {
 
     return usersResponse
 }
+
+exports.userSigninResponse = (user, token) => {
+    usersResponse = {
+        name: user.name,
+        userId: user.userId,
+        address: user.address,
+        age: user.age,
+        userType: user.userType,
+        accessToken: token
+    };
+    return usersResponse
+}

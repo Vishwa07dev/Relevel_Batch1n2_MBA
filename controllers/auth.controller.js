@@ -85,13 +85,5 @@ exports.signin = async (req, res) => {
     });
 
     //Send the response back
-    res.status(200).send({
-        name: user.name,
-        userId: user.userId,
-        address: user.address,
-        age: user.age,
-        userType: user.userType,
-        accessToken: token
-    })
-
+    res.status(200).send(objectConverter.userSigninResponse(user, token));
 };

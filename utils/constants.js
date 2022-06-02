@@ -2,7 +2,7 @@ module.exports = {
     userType : {
         admin : "ADMIN",
         customer : "CUSTOMER",
-        theatreOwner : "THEATER_OWNER"
+        theatreOwner : "THEATRE_OWNER"
     },
     releaseStatuses : {
         released: "RELEASED",

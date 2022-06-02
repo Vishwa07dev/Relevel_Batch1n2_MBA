@@ -4,7 +4,10 @@ const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
 const Movie = require('./models/movie.model');
 const Theatre = require('./models/theatre.model')
+const User = require('./models/user.model')
 const reqLogger = require("./middlewares/logger.middleware");
+const constants = require('./utils/constants');
+const bcrypt = require("bcryptjs");
 
 const app = express();
 app.use(express.json());
@@ -15,8 +18,9 @@ app.use(reqLogger.log);
 mongoose.connect(DB_URL, async ()=>{
     console.log(`Application is connected to database: ${DB_URL}`);
     
-    await Movie.collection.drop();
-    await Theatre.collection.drop();
+    // await Movie.collection.drop();
+    // await Theatre.collection.drop();
+    // await User.collection.drop();
 
     try{
     // create movies here
@@ -130,6 +134,21 @@ mongoose.connect(DB_URL, async ()=>{
 
     })
     console.log(theatre5);
+
+    const user = await User.create({
+        name: "Vishwa Mohan",
+        userId: "admin",
+        email: "kankvish@gmail.com",
+        password: bcrypt.hashSync("Welcome1", 8),
+        address: {
+            city: "Bangalore",
+            pinCode: 521003
+        },
+        age: 30,
+        userType: constants.userType.admin
+    });
+    console.log("admin created", user);
+
 }catch(err){
     console.log(err.message);
 }

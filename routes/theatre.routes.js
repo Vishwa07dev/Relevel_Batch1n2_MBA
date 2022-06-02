@@ -22,23 +22,23 @@ module.exports = (app) => {
      app.get("/mba/api/v1/theatres/:id", theatreController.getTheatre);
 
      //Create theatre
-     app.post("/mba/api/v1/theatres", [verifyTheatre.verifyAddTheatre], theatreController.createTheatre);
+     app.post("/mba/api/v1/theatres", [authJwt.verifyToken, verifyTheatre.verifyAddTheatre], theatreController.createTheatre);
 
      //Update theatre 
-     app.put("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId, authJwt.isTheatreOwnerOrAdmin], theatreController.updateTheatre);
+     app.put("/mba/api/v1/theatres/:id", [authJwt.verifyToken, verifyTheatre.isValidTheatreId, authJwt.isTheatreOwnerOrAdmin], theatreController.updateTheatre);
 
      // Delete theatre
-     app.delete("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
+     app.delete("/mba/api/v1/theatres/:id", [authJwt.verifyToken, verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
      
 
      //Add/Remove  movies inside a theatre
-     app.put("/mba/api/v1/theatres/:id/movies", [verifyTheatre.isValidTheatreId, authJwt.isTheatreOwnerOrAdmin, verifyTheatre.areMoviesValid], theatreController.addOrRemoveMoviesInsideATheatre);
+     app.put("/mba/api/v1/theatres/:id/movies", [authJwt.verifyToken, verifyTheatre.isValidTheatreId, authJwt.isTheatreOwnerOrAdmin, verifyTheatre.areMoviesValid], theatreController.addOrRemoveMoviesInsideATheatre);
 
      //Get all the movies inside a theatre
-     app.get("/mba/api/v1/theatres/:id/movies", [verifyTheatre.isValidTheatreId], theatreController.getMoviesInsideATheatre);
+     app.get("/mba/api/v1/theatres/:id/movies", [authJwt.verifyToken, verifyTheatre.isValidTheatreId], theatreController.getMoviesInsideATheatre);
     
      //Get a specific movie inside a theatre
-     app.get("/mba/api/v1/theatres/:id/movies/:movieId", [verifyTheatre.isValidTheatreId, verifyTheatre.isMovieAvailableInTheatre], theatreController.getMoviesInsideATheatreBasedOnId);
+     app.get("/mba/api/v1/theatres/:id/movies/:movieId", [authJwt.verifyToken, verifyTheatre.isValidTheatreId, verifyTheatre.isMovieAvailableInTheatre], theatreController.getMoviesInsideATheatreBasedOnId);
      
 
      /**

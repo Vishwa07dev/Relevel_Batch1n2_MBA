@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../configs/auth.config");
 const User = require("../models/user.model");
+const Theatre = require("../models/theatre.model");
 const constants = require("../utils/constants");
 
 /**
@@ -82,7 +83,7 @@ isAdmin = async (req,res, next) =>{
 
         // check if ADMIN or USER is valid OWNER
         if(user.userType != constants.userType.admin){
-            if(theatre.owner.valueOf != user._id.valueOf()){
+            if(theatre.owner.valueOf() != user._id.valueOf()){
                 return res.status(400).send({
                     message: "Only the THEATRE_OWNER/ADMIN has access to this operation"
                 })

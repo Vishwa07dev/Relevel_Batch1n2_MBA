@@ -2,6 +2,7 @@
  * This file will contain the logic for theatre controller
  */
  const Theatre = require("../models/theatre.model");
+ const User = require("../models/user.model");
  const Movie = require("../models/movie.model");
 
  /**

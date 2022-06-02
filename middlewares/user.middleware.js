@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
-const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const constants = require("../utils/constants");
 
 const isAdminOrValidOwner = async (req, res, next) => {
     try {
@@ -12,7 +13,7 @@ const isAdminOrValidOwner = async (req, res, next) => {
 
         // check if ADMIN or USER is valid OWNER
         if(user.userType != constants.userType.admin){
-            if(user.userId != req.params.userId){
+            if(user.userId != req.params.id){
                 return res.status(400).send({
                     message: "Only the USER/ADMIN has access to this operation"
                 })
@@ -30,7 +31,7 @@ const isAdminOrValidOwner = async (req, res, next) => {
 const verifyUpdatePassword = async (req, res, next) => {
     try {
 
-        const user = User.findOne({
+        const user = await User.findOne({
             userId: req.userId
         });
 
@@ -46,7 +47,7 @@ const verifyUpdatePassword = async (req, res, next) => {
         next();
     } catch (err) {
         return res.status(500).send({
-            message: "Some internal error" + err.message
+            message: "Some internal error " + err.message
         })
     }
 };
