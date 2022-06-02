@@ -50,7 +50,7 @@ const objectConverter = require("../utils/objectConverter");
          const user = await Users.findOneAndUpdate({
              userId: userId
          }, {
-             password: bcrypt.hashSync(req.body.password, 8),
+             password: bcrypt.hashSync(req.body.newPassword, 8),
          }).exec();
          
          res.status(200).send({
