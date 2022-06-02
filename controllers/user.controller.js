@@ -23,7 +23,6 @@ const objectConverter = require("../utils/objectConverter");
 
          const user = await Users.findOne({userId: req.userId});
 
-
         user.name = (req.body.name != undefined) ? req.body.name : user.name;
         user.email = (req.body.email != undefined) ? req.body.email : user.email;
 
@@ -51,7 +50,7 @@ const objectConverter = require("../utils/objectConverter");
          const user = Users.findOneAndUpdate({
              userId: userId
          }, {
-             password: req.body.newPassword
+             password: bcrypt.hashSync(req.body.password, 8),
          }).exec();
          
          res.status(200).send({
