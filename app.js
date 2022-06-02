@@ -19,13 +19,15 @@ app.use(reqLogger.log);
 mongoose.connect(DB_URL, async ()=>{
     console.log(`Application is connected to database: ${DB_URL}`);
     
-    await Movie.collection.drop();
-    await Theatre.collection.drop();
-    await Users.collection.drop();
-
-    //inserting seed data
+   
     try{
-        // entering seed data
+        //deleting collection data
+        await Movie.collection.drop();
+        await Theatre.collection.drop();
+        await Users.collection.drop();
+    
+
+        //inserting seed data
         await seedData.movieData();
         await seedData.theatreData();
 
