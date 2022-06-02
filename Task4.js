@@ -18,7 +18,7 @@
           /mba/api/v1/auth/signin
 
           This should return the access token
-
+ 
    3. User should be able to update it's password
 
          PUT /mba/api/v1/users/  - Only user should be allowed to do this

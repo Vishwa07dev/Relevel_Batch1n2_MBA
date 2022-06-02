@@ -1,6 +1,7 @@
 
 const theatreController = require("../controllers/theatre.controller")
-const {verifyTheatre} = require("../middlewares");
+const {verifyTheatre, authjwt} = require("../middlewares");
+
 
 /**
  * Defining the routes for the theatre resource
@@ -25,14 +26,14 @@ module.exports = (app) => {
      app.post("/mba/api/v1/theatres", [verifyTheatre.verifyAddTheatre], theatreController.createTheatre);
 
      //Update theatre 
-     app.put("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.updateTheatre);
+     app.put("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId, authjwt.isAdminOrTheatreOwner], theatreController.updateTheatre);
 
      // Delete theatre
      app.delete("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
      
 
      //Add/Remove  movies inside a theatre
-     app.put("/mba/api/v1/theatres/:id/movies", [verifyTheatre.isValidTheatreId, verifyTheatre.areMoviesValid], theatreController.addOrRemoveMoviesInsideATheatre);
+     app.put("/mba/api/v1/theatres/:id/movies", [verifyTheatre.isValidTheatreId, verifyTheatre.areMoviesValid, authjwt.isAdminOrTheatreOwner], theatreController.addOrRemoveMoviesInsideATheatre);
 
      //Get all the movies inside a theatre
      app.get("/mba/api/v1/theatres/:id/movies", [verifyTheatre.isValidTheatreId], theatreController.getMoviesInsideATheatre);
