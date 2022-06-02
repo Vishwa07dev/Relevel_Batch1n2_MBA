@@ -14,7 +14,7 @@ const objectConverter = require("../utils/objectConverter");
       * ! One of the ways of updating
       */
      if(!req.params.id) {
-            return res.status(500).send({
+            return res.status(400).send({
             message: "User Id not provided"
         });
      }
@@ -41,7 +41,7 @@ const objectConverter = require("../utils/objectConverter");
  exports.updatePassword = async (req, res) => {
      
         if(!req.body.newPassword) {
-            return res.status(500).send({
+            return res.status(400).send({
             message: "newPassword not provided"
         });
      }
