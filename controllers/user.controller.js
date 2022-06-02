@@ -38,7 +38,7 @@ const objectConverter = require("../utils/objectConverter");
      }
  }
 
- exports.updatePassword = (req, res) => {
+ exports.updatePassword = async (req, res) => {
      
         if(!req.body.newPassword) {
             return res.status(500).send({
@@ -47,7 +47,7 @@ const objectConverter = require("../utils/objectConverter");
      }
      const userId = req.userId;
       try {
-         const user = Users.findOneAndUpdate({
+         const user = await Users.findOneAndUpdate({
              userId: userId
          }, {
              password: bcrypt.hashSync(req.body.password, 8),
