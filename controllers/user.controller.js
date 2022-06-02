@@ -45,13 +45,16 @@ exports.updatePassword = async (req, res) => {
         }
 
         // update respective fields
-        User.password = req.body.newPassword != undefined ? bcrypt.hashSync(req.body.password,8) : User.password;
+        User.password = bcrypt.hashSync(req.body.password,8);
+
 
         // save updated object
-        const updatedUserObj = await User.save();
+        await User.save();
 
         // return saved object
-        return res.status(200).send(updatedUserObj);
+        return res.status(200).send({
+            message : "Password updated"
+        });
     } catch (err) {
         console.log(err.message);
         return res.status(500).send({
