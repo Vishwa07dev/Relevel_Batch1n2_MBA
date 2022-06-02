@@ -54,16 +54,22 @@
   */
   exports.createTheatre = async (req, res) => {
  
-     // prepare theatre object to store inside database
-     const theatreObj = {
-        name : req.body.name,
-        description : req.body.description,
-        city : req.body.city,
-        pinCode : req.body.pinCode,
-        totalSeats : req.body.totalSeats
-     }
- 
      try {
+
+        const user = await User.findOne({
+            userId: req.userId
+        });
+
+        // prepare theatre object to store inside database
+        const theatreObj = {
+            name : req.body.name,
+            description : req.body.description,
+            city : req.body.city,
+            pinCode : req.body.pinCode,
+            totalSeats : req.body.totalSeats,
+            owner: user._id
+        }
+
          // insert theatre object into database
          const theatre = await Theatre.create(theatreObj);
  
