@@ -28,7 +28,30 @@ const isAdminOrValidOwner = async (req, res, next) => {
     }
 };
 
-const verifyUpdatePassword = async (req, res, next) => {
+const verifyUpdatePasswordRequestBody = async (req, res, next) => {
+    try {
+
+        if(!req.body.oldPassword || req.body.oldPassword == ""){
+            return res.status(400).send({
+                message: "Old Password is required for authentication"
+            });
+        }
+
+        if(!req.body.newPassword || req.body.newPassword == ""){
+            return res.status(400).send({
+                message: "New Password is required"
+            });
+        }
+        
+        next();
+    } catch (err) {
+        return res.status(500).send({
+            message: "Some internal error " + err.message
+        })
+    }
+};
+
+const validateOldPassword = async (req, res, next) => {
     try {
 
         const user = await User.findOne({
@@ -54,6 +77,7 @@ const verifyUpdatePassword = async (req, res, next) => {
 
 const verifyUser = {
     isAdminOrValidOwner: isAdminOrValidOwner,
-    verifyUpdatePassword: verifyUpdatePassword
+    verifyUpdatePasswordRequestBody: verifyUpdatePasswordRequestBody,
+    validateOldPassword: validateOldPassword
 };
 module.exports = verifyUser;
