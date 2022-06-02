@@ -9,7 +9,7 @@ const objectConverter = require("../utils/objectConverter")
  * Update the user password
  *    - only USER should be allowed to do this
  */
- exports.updatePassword = (req, res) => {
+ exports.updatePassword = async (req, res) => {
 
     try {
         const userId = req.userId;
@@ -35,7 +35,7 @@ const objectConverter = require("../utils/objectConverter")
  * Update the user - userType
  *    - only ADMIN/USER should be allowed to do this
  */
-exports.updateUser = (req, res) => {
+exports.updateUser = async (req, res) => {
 
     try {
         const userId = req.params.id;
