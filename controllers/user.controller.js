@@ -45,7 +45,7 @@ exports.updatePassword = async (req, res) => {
         }
 
         // update respective fields
-        User.password = bcrypt.hashSync(req.body.password,8);
+        User.password = bcrypt.hashSync(req.body.newPassword,8);
 
 
         // save updated object

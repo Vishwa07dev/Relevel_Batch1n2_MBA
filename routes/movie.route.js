@@ -9,13 +9,13 @@ module.exports = (app)=>{
      * Create the routes for the corresponding controllers
      */
     // CREATE CALL
-    app.post("/mba/api/v1/movies", [authJwt.verifyToken,authJwt.isAdmin], movieController.addMovie);
+    app.post("/mba/api/v1/movies",[authJwt.verifyToken,authJwt.isAdmin], movieController.addMovie);
 
     // UPDATE CALL
-    app.put("/mba/api/v1/movies/:id", [authJwt.verifyToken,authJwt.isAdmin],movieController.updateMovie);
+    app.put("/mba/api/v1/movies/:id",[authJwt.verifyToken,authJwt.isAdmin],movieController.updateMovie);
  
     // DELETE CALL
-    app.delete("/mba/api/v1/movies/:id", [authJwt.verifyToken,authJwt.isAdmin],movieController.deleteMovie);
+    app.delete("/mba/api/v1/movies/:id",[authJwt.verifyToken,authJwt.isAdmin],movieController.deleteMovie);
      
     // GET SINGLE CALL
     app.get("/mba/api/v1/movies/:id",[authJwt.verifyToken], movieController.getOneMovie);

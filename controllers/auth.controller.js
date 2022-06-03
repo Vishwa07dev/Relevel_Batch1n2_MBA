@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const constant = require('../utils/constants');
 const user = require('../models/user.model');
 const config = require('../configs/auth.config')
-
+const objectConverter = require('../utils/objectConverter')
 
 exports.signup = async (req,res) => {
 
@@ -24,16 +24,8 @@ exports.signup = async (req,res) => {
 
         console.log("user created",userCreated);
         
-        const userCreationResposne = {
-            name: userCreated.name,
-            userId: userCreated.userId,
-            email: userCreated.email,
-            age : userCreated.age,
-            userType : userCreated.userType,
-            createdAt: userCreated.createdAt,
-            updatedAt:userCreated.updatedAt
-        }
-        res.status(201).send(userCreationResposne) 
+
+        res.status(201).send(objectConverter.userResponse(userCreated)) 
     }catch(err){
         console.error("Error while creating new user",err.message);
         res.status(500).send({
@@ -54,6 +46,9 @@ exports.signin = async (req,res) =>{
     }catch(err){
         
         console.log(err.message);
+        return res.status(404).send({
+            message : "user not found"
+        })
 
     }
 
@@ -79,14 +74,7 @@ exports.signin = async (req,res) =>{
     const token = jwt.sign({id: users.userId},config.secret,{
         expiresIn:10000
     });
-
-    res.status(200).send({
-        name: users.name,
-        userId: users.userId,
-        email: users.email,
-        age : users.age,
-        userType : users.userType,
-        accesstoken : token
-
-    })
+    user.token = token;
+    res.status(200).send(objectConverter.userResponse(userCreated))
 };
+ 

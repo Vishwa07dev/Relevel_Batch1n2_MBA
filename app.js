@@ -6,7 +6,7 @@ const Movie = require('./models/movie.model');
 const Theatre = require('./models/theatre.model')
 const reqLogger = require("./middlewares/logger.middleware");
 const Users = require('./models/user.model')
-const seedData = require('./utils/seedData')
+const dataGenerator = require('./utils/dataGenerator')
 const  bcrypt = require('bcryptjs')
 const constants = require('./utils/constants')
 
@@ -28,8 +28,8 @@ mongoose.connect(DB_URL, async ()=>{
     
 
         //inserting seed data
-        await seedData.movieData();
-        await seedData.theatreData();
+        await dataGenerator.movieData();
+        await dataGenerator.theatreData();
 
    }catch(err){
        console.log(err.message);
