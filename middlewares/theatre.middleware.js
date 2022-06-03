@@ -46,6 +46,22 @@ const verifyAddTheatre = async (req, res, next) => {
             })
         }
 
+        if(!req.body.theatreOwnerId){
+            return res.status(400).send({
+                message: "Theatre Owner is required"
+            })
+        }else{
+            const theatreOwner = await User.findOne({
+                _id: req.body.theatreOwnerId
+            });
+
+            if(!theatreOwner){
+                return res.status(400).send({
+                    message: "Theatre Owner is not valid"
+                })
+            }
+        }
+
         if (!req.body.name) {
             return res.status(400).send({
                 message: "Theatre name is required"
