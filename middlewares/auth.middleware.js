@@ -3,13 +3,13 @@ const User = require("../models/user.model");
 const verifyUserCreationRequestBody = async (req, res, next) => {
     try {
 
-        if(!req.body.name || req.body.name == ""){
+        if(!req.body.name){
             return res.status(400).send({
                 message: "Name is required"
             });
         }
 
-        if(!req.body.userId || req.body.userId == ""){
+        if(!req.body.userId){
             return res.status(400).send({
                 message: "UserId is required"
             });
@@ -71,12 +71,12 @@ const verifyUserCreationRequestBody = async (req, res, next) => {
 const verifyUserSigninRequestBody = async (req, res, next) => {
     try {
 
-        if(!req.body.userId || req.body.userId == ""){
+        if(!req.body.userId){
             return res.status(400).send({
                 message: "UserId is required"
             });
         }
-        if(!req.body.password || req.body.password == ""){
+        if(!req.body.password){
             return res.status(400).send({
                 message: "Password is required"
             });
