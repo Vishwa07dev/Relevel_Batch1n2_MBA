@@ -68,6 +68,7 @@
             city : req.body.city,
             pinCode : req.body.pinCode,
             totalSeats : req.body.totalSeats,
+            movies: [],
             owner: user._id
         }
 
