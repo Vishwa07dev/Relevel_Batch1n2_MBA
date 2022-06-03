@@ -40,6 +40,10 @@ const theatreSchema = new mongoose.Schema({
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Movie"
     },
+    theatreOwner : {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "Theatre"
+    }
 });
 
 

@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
         required:true,
         default: constants.userType.customer,
         enum : [constants.userType.admin,constants.userType.customer,constants.userType.theatreOwner]
+    },
+    theatreOwned  : {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "Theatre"
     }
 });
 
