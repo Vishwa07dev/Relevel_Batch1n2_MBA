@@ -183,7 +183,7 @@ exports.deleteTheatre = async (req, res) => {
         let movies = [];
         console.log("theatre Movies", theatre.movies);
         if(theatre.movies.length>0){
-            movies = await Movie.find({
+            movies = await Movies.find({
                 _id: {
                     $in : theatre.movies
                 }
@@ -207,7 +207,7 @@ exports.deleteTheatre = async (req, res) => {
  exports.getMoviesInsideATheatreBasedOnId = async (req, res) => {
  
     try{
-        const movie = await Movie.findOne({
+        const movie = await Movies.findOne({
             _id: req.params.movieId
         });
 
