@@ -22,8 +22,8 @@ isValidMovie = async (req, res, next) => {
 isValidMovies = async (req, res, next) => {
 
     const movieIds = req.body.movies;
-    if(req.query.add) req.addMovies = true;
-    if(req.query.remove) req.removeMovies = true;
+    if(req.body.add) req.addMovies = true;
+    if(req.body.remove) req.removeMovies = true;
     if(!req.body.movies) {
         return res.status(400).send({message: "Movies must be there in order to do operation"});
     }
