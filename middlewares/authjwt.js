@@ -41,6 +41,31 @@ verifyToken = (req,res, next) =>{
 
 };
 
+verifyRefreshToken = (req,res, next) =>{
+    /**
+     * Read the token from the header
+     */
+     const refreshToken = req.headers['x-refresh-token'];
+
+     if(!refreshToken){
+         return res.status(401).send({
+             message : "Refresh token not provided"
+         })
+     }
+ 
+     //If the token was provided, we need to verify it
+     jwt.verify(refreshToken,config.secret, (err, decoded)=>{
+         if(err){
+             return res.status(401).send({
+                 message: "Unauthorized"
+             });
+         }
+         //I will try to read the userId from the decoded token and store it in req object
+         req.userId = decoded.id;
+         next();
+     });
+};
+
 /**
  * If the passed access token is of ADMIN or not
  */
@@ -101,6 +126,7 @@ isAdmin = async (req,res, next) =>{
 
 const authJwt = {
     verifyToken : verifyToken,
+    verifyRefreshToken: verifyRefreshToken,
     isAdmin : isAdmin,
     isTheatreOwnerOrAdmin: isTheatreOwnerOrAdmin
 };
