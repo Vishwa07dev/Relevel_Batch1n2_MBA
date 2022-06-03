@@ -1,6 +1,8 @@
 const Theatre = require("../models/theatre.model");
 const Movie = require("../models/movie.model");
+const User = require("../models/user.model");
 const mongoose = require("mongoose");
+const constants = require("../utils/constants");
 
 const isValidTheatreId = async (req, res, next) => {
     try {
@@ -35,27 +37,52 @@ const isValidTheatreId = async (req, res, next) => {
 const verifyAddTheatre = async (req, res, next) => {
     try {
 
-        if (!req.body.name || req.body.name == "") {
+        const user = await User.findOne({
+            userId: req.userId
+        });
+        if(user.userType == constants.userType.customer){
+            return res.status(400).send({
+                message: "Only THEATRE_OWNER/ADMIN is allowed to add theatre"
+            })
+        }
+
+        if(!req.body.theatreOwnerId){
+            return res.status(400).send({
+                message: "Theatre Owner is required"
+            })
+        }else{
+            const theatreOwner = await User.findOne({
+                _id: req.body.theatreOwnerId
+            });
+
+            if(!theatreOwner){
+                return res.status(400).send({
+                    message: "Theatre Owner is not valid"
+                })
+            }
+        }
+
+        if (!req.body.name) {
             return res.status(400).send({
                 message: "Theatre name is required"
             })
         }
-        else if (!req.body.description || req.body.description == "") {
+        else if (!req.body.description) {
             return res.status(400).send({
                 message: "Theatre description is required"
             })
         }
-        else if (!req.body.city || req.body.city == "") {
+        else if (!req.body.city) {
             return res.status(400).send({
                 message: "Theatre city location is required"
             })
         }
-        else if (!req.body.pinCode || req.body.pinCode == "") {
+        else if (!req.body.pinCode) {
             return res.status(400).send({
                 message: "Theatre pinCode is required"
             })
         }
-        else if (!req.body.totalSeats || req.body.totalSeats == "") {
+        else if (!req.body.totalSeats) {
             return res.status(400).send({
                 message: "Theatre Total Seats is required"
             })
@@ -65,7 +92,7 @@ const verifyAddTheatre = async (req, res, next) => {
     } catch (err) {
         console.log(err.message);
         return res.status(500).send({
-            message: "Some internal error"
+            message: "Some internal error " + err.message 
         })
     }
 };

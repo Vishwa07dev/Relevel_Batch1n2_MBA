@@ -2,6 +2,7 @@
  * This file will contain the logic for theatre controller
  */
  const Theatre = require("../models/theatre.model");
+ const User = require("../models/user.model");
  const Movie = require("../models/movie.model");
 
  /**
@@ -54,18 +55,28 @@
   */
   exports.createTheatre = async (req, res) => {
  
-     // prepare theatre object to store inside database
-     const theatreObj = {
-        name : req.body.name,
-        description : req.body.description,
-        city : req.body.city,
-        pinCode : req.body.pinCode,
-        totalSeats : req.body.totalSeats
-     }
- 
      try {
+
+        const theatreOwner = await User.findOne({
+            userId: req.body.theatreOwnerId
+        });
+
+        // prepare theatre object to store inside database
+        const theatreObj = {
+            name : req.body.name,
+            description : req.body.description,
+            city : req.body.city,
+            pinCode : req.body.pinCode,
+            totalSeats : req.body.totalSeats,
+            movies: [],
+            owner: req.body.theatreOwnerId
+        }
+
          // insert theatre object into database
          const theatre = await Theatre.create(theatreObj);
+
+         theatreOwner.ownedTheatres.push(theatre._id);
+         await theatreOwner.save();
  
          // return created theatre
          return res.status(201).send(theatre);
@@ -86,10 +97,10 @@
   exports.updateTheatre = async (req, res) => {
  
      try{
-         const theatre = await Theatre.findOne({
+         const theatre = await Theatre.findOne({ 
              _id: req.params.id
          });
-     
+  
          // update respective fields
          theatre.name = req.body.name != undefined ? req.body.name : theatre.name;
          theatre.description = req.body.description != undefined ? req.body.description : theatre.description;
@@ -121,7 +132,7 @@
          await Theatre.deleteOne({
              _id: req.params.id
          });
- 
+
          res.status(200).send({
              message : "Theatre succesfully deleted"
          });
