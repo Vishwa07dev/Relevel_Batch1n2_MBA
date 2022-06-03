@@ -14,7 +14,7 @@ const isAdminOrValidOwner = async (req, res, next) => {
         // check if ADMIN or USER is valid OWNER
         if(user.userType != constants.userType.admin){
             if(user.userId != req.params.id){
-                return res.status(400).send({
+                return res.status(403).send({
                     message: "Only the USER/ADMIN has access to this operation"
                 })
             }
@@ -31,13 +31,13 @@ const isAdminOrValidOwner = async (req, res, next) => {
 const verifyUpdatePasswordRequestBody = async (req, res, next) => {
     try {
 
-        if(!req.body.oldPassword || req.body.oldPassword == ""){
+        if(!req.body.oldPassword){
             return res.status(400).send({
                 message: "Old Password is required for authentication"
             });
         }
 
-        if(!req.body.newPassword || req.body.newPassword == ""){
+        if(!req.body.newPassword){
             return res.status(400).send({
                 message: "New Password is required"
             });

@@ -46,27 +46,27 @@ const verifyAddTheatre = async (req, res, next) => {
             })
         }
 
-        if (!req.body.name || req.body.name == "") {
+        if (!req.body.name) {
             return res.status(400).send({
                 message: "Theatre name is required"
             })
         }
-        else if (!req.body.description || req.body.description == "") {
+        else if (!req.body.description) {
             return res.status(400).send({
                 message: "Theatre description is required"
             })
         }
-        else if (!req.body.city || req.body.city == "") {
+        else if (!req.body.city) {
             return res.status(400).send({
                 message: "Theatre city location is required"
             })
         }
-        else if (!req.body.pinCode || req.body.pinCode == "") {
+        else if (!req.body.pinCode) {
             return res.status(400).send({
                 message: "Theatre pinCode is required"
             })
         }
-        else if (!req.body.totalSeats || req.body.totalSeats == "") {
+        else if (!req.body.totalSeats) {
             return res.status(400).send({
                 message: "Theatre Total Seats is required"
             })

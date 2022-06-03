@@ -25,7 +25,7 @@ const verifyUserCreationRequestBody = async (req, res, next) => {
             }
         }
 
-        if(!req.body.email || req.body.email == ""){
+        if(!req.body.email){
             return res.status(400).send({
                 message: "Email Id is required"
             });
@@ -41,19 +41,19 @@ const verifyUserCreationRequestBody = async (req, res, next) => {
             }
         }
 
-        if(!req.body.password || req.body.password == ""){
+        if(!req.body.password){
             return res.status(400).send({
                 message: "Password is required"
             });
         }
 
-        if(!req.body.address || req.body.address == ""){
+        if(!req.body.address){
             return res.status(400).send({
                 message: "Address is required"
             });
         }
 
-        if(!req.body.age || req.body.age == ""){
+        if(!req.body.age){
             return res.status(400).send({
                 message: "Age is required"
             });
