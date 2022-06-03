@@ -108,10 +108,33 @@ isCustomerAndisAdmin = async (req, res,next) => {
 
 }
 
+//checking if the user is theatre owner or admin
+isTheatreOwnerOrAdmin = async (req, res,next) => {
+
+    /**
+     * Fetcht user from the DB using the userId
+     */
+    const user = await User.findOne({ userId: req.userId });
+
+    /**
+     * Check what is the user type
+     */
+    
+    if (user && user.userType == constants.userType.theatreOwner || user.userType == constants.userType.admin) {
+        next();
+    } else {
+        res.status(403).send({
+            message: "Requires Theatre Owner role"
+        })
+    }
+}
+
+
 const authJwt = {
     verifyToken: verifyToken,
     isAdmin: isAdmin,
     isCustomer: isCustomer,
-    isCustomerAndisAdmin: isCustomerAndisAdmin
+    isCustomerAndisAdmin: isCustomerAndisAdmin,
+    isTheatreOwnerOrAdmin : isTheatreOwnerOrAdmin
 };
 module.exports = authJwt;
