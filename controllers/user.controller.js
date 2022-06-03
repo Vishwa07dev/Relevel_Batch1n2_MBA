@@ -19,7 +19,7 @@ const constants = require("../utils/constants");
             userId: userId
         });
 
-        user.password = req.body.newPassword != undefined ? bcrypt.hashSync(req.body.newPassword, 8) : user.password;
+        user.password = bcrypt.hashSync(req.body.newPassword, 8);
 
         const updatedUser = await user.save();
 
