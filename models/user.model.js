@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const constants = require("../utils/constants");
 
 const userSchema = new mongoose.Schema({
 
@@ -43,7 +44,8 @@ const userSchema = new mongoose.Schema({
     userType: {
          type: String,
          required: true,
-         default: "CUSTOMER"
+         default: constants.userTypes.customer,
+         enum : [constants.userTypes.admin, constants.userTypes.customer, constants.userTypes.theatreOwner],
     },
 });
 

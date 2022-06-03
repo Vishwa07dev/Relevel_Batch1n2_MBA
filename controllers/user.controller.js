@@ -45,17 +45,32 @@ const objectConverter = require("../utils/objectConverter");
             message: "newPassword not provided"
         });
      }
-     const userId = req.userId;
+        if(!req.body.oldPassword) {
+            return res.status(400).send({
+            message: "oldPassword not provided"
+        });
+     }
       try {
-         const user = await Users.findOneAndUpdate({
-             userId: userId
-         }, {
-             password: bcrypt.hashSync(req.body.newPassword, 8),
-         }).exec();
+        //  const user = await Users.findOneAndUpdate({
+        //      userId: userId
+        //  }, {
+        //      password: bcrypt.hashSync(req.body.newPassword, 8),
+        //  }).exec();
          
-         res.status(200).send({
-             message: "Password successfully updated"
-         });
+        const user = await Users.find({userId: req.userId});
+        const isPasswordValid = bcrypt.compareSync(req.body.oldPassword, user.password);
+        // console.log(isPasswordValid);
+
+        if(!isPasswordValid) {
+        return res.status(401).send({
+            message: "Invalid old Password"
+            });
+        }
+        user.password = req.body.newPassword;
+
+        await user.save();
+        res.status(200).send({message: "Password successfully updated"});
+
      } catch (err) {
          console.log(err.message);
          res.status(500).send({
