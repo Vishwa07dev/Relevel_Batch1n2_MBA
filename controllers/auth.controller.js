@@ -10,7 +10,7 @@ exports.signup = async (req, res) => {
     
     var userType;
 
-    //! DEFAULT user customer
+//     //! DEFAULT user customer
     userType = (req.body.userType != undefined) ? req.body.userType : constants.userTypes.customer;
 
     const userObj = {
@@ -28,8 +28,8 @@ exports.signup = async (req, res) => {
      const userCreated = await User.create(userObj);
     //  console.log("user created", userCreated);
     /**
-     * ! Return the response
-     */
+//      * ! Return the response
+//      */
     res.status(201).send(objectConverter.userSignUpObject(userCreated));
    } catch (err) {
         console.error("Error while creating user", err.message);
@@ -40,9 +40,9 @@ exports.signup = async (req, res) => {
    }    
 }
 
-/**
- * ! Controller for signin
- */
+// /**
+//  * ! Controller for signin
+//  */
 
 exports.signin = async (req, res) => {
 
@@ -56,7 +56,7 @@ exports.signin = async (req, res) => {
         });
     }
  
-    //! User is existing, so now will do the password matching
+//     //! User is existing, so now will do the password matching
     const isPasswordValid = bcrypt.compareSync(req.body.password, user.password);
     console.log(isPasswordValid);
 
@@ -70,12 +70,17 @@ exports.signin = async (req, res) => {
      * ? Successful  login 
      * ? I need to generate access token now
      */
-    const token = jwt.sign({id: user.userId}, config.secret, {
+    const accessToken = jwt.sign({id: user.userId}, config.secret, {
+        expiresIn: 60
+    });
+    user.accessToken = accessToken;
+
+    const refreshToken = jwt.sign({id: user.userId}, config.secret, {
         expiresIn: 600
     });
-    user.token = token;
+    user.refreshToken = refreshToken;
     
-    //! Send the response 
+//     //! Send the response 
     return res.status(200).send(objectConverter.userSignInObject(user));
   } catch (err) {
     console.error("Error while login", err.message);
@@ -84,3 +89,41 @@ exports.signin = async (req, res) => {
         });
   }
 }
+
+exports.createRefreshToken = async (req, res) => {
+
+    try {
+        // const oldToken = req.headers['x-refresh-token'];
+        const userId = req.userId;
+        const refreshToken = jwt.sign({id: userId}, config.secret, {
+        expiresIn: 600
+        });
+
+    return res.status(200).send({
+        userId: req.userId,
+        refreshToken: refreshToken,
+    });
+       
+    } catch (err) {
+        console.error("Error while login", err.message);
+        res.status(500).send({
+            message: "Internal server error creating refresh token"
+        });
+    }
+}
+//   const accessToken = jwt.sign({id: "uday"}, 'secret', {
+//         expiresIn: 600
+//     });
+
+//     console.log(accessToken);
+
+// const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVkYXkiLCJpYXQiOjE2NTQyNzUyNzgsImV4cCI6MTY1NDI3NTg3OH0.mD4CCPPmMjvfg-4Kc_JPvy1uZUhe4gzUYfSODI_lzCs';
+//    jwt.verify(token, 'secret', (err, decoded) =>{
+//         if(err) {
+//             console.log("Token expiredAt", err);
+
+//         } 
+//         console.log(decoded);
+        // { id: 'uday', iat: 1654275278, exp: 1654275878 }
+       
+//     });
