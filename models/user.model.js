@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     age : {
         type : Number,
         required : true,
-        minlength : 3
+        maxlength : 3
     },
     createdAt:{
         type: Date,
