@@ -57,7 +57,7 @@ const objectConverter = require("../utils/objectConverter");
         //      password: bcrypt.hashSync(req.body.newPassword, 8),
         //  }).exec();
          
-        const user = await Users.find({userId: req.userId});
+        const user = await Users.findOne({userId: req.userId});
         const isPasswordValid = bcrypt.compareSync(req.body.oldPassword, user.password);
         // console.log(isPasswordValid);
 
