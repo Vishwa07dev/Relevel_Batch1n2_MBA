@@ -19,7 +19,7 @@ const verifyUserCreationRequestBody = async (req, res, next) => {
             });
 
             if(user){
-                return res.status(200).send({
+                return res.status(400).send({
                     message: "UserId already exist, kindly enter different userId"
                 });
             }
@@ -29,13 +29,17 @@ const verifyUserCreationRequestBody = async (req, res, next) => {
             return res.status(400).send({
                 message: "Email Id is required"
             });
+        }else if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))){
+            return res.status(400).send({
+                message: "Email Id is not valid"
+            });
         }else{
             const user = await User.findOne({
                 email: req.body.email
             });
 
             if(user){
-                return res.status(200).send({
+                return res.status(400).send({
                     message: "Email Id already exist, kindly enter different Email"
                 });
             }

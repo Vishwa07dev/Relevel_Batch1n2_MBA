@@ -73,6 +73,9 @@
 
          // insert theatre object into database
          const theatre = await Theatre.create(theatreObj);
+
+         user.ownedTheatres.push(theatre._id);
+         await user.save();
  
          // return created theatre
          return res.status(201).send(theatre);
