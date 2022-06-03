@@ -1,47 +1,24 @@
-
-const theatreController = require("../controllers/theatre.controller")
-const {verifyTheatre} = require("../middlewares");
-
-/**
- * Defining the routes for the theatre resource
- */
+const theatreController = require("../controllers/theatre.controller");
+const {authTheatre} = require("../middlewares/index");
+const {authMovie} = require("../middlewares/index");
+const {authUser} = require("../middlewares/index");
 
 
 module.exports = (app) => {
-     //Fetching all the theatres
-     /**
-      * Supporting the following query params
-      * mba/api/v1/theatres?city=<>
-      * 
-      * mba/api/v1/theatres?pinCode=<>
-      * 
-      */
-     app.get("/mba/api/v1/theatres" , theatreController.getAllTheatres);
 
-     //Fetching theatre based on id
-     app.get("/mba/api/v1/theatres/:id", theatreController.getTheatre);
+    app.post("/mba/api/v1/theatres", [authUser.verifyToken, authUser.isAdmin], theatreController.createTheatre);
+    app.get("/mba/api/v1/theatres", theatreController.getAllTheatres);
+    app.get("/mba/api/v1/theatres/:id", [authTheatre.isValidTheatre], theatreController.getTheatre);
+    app.put("/mba/api/v1/theatres/:id", [authUser.verifyToken, authUser.isAdminOrTheatreOwner, authTheatre.isValidTheatre], theatreController.updateTheatre);
+    app.delete("/mba/api/v1/theatres/:id", [authUser.verifyToken, authUser.isAdminOrTheatreOwner, authTheatre.isValidTheatre], theatreController.deleteTheatre);
 
-     //Create theatre
-     app.post("/mba/api/v1/theatres", [verifyTheatre.verifyAddTheatre], theatreController.createTheatre);
-
-     //Update theatre 
-     app.put("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.updateTheatre);
-
-     // Delete theatre
-     app.delete("/mba/api/v1/theatres/:id", [verifyTheatre.isValidTheatreId], theatreController.deleteTheatre);
-     
-
-     //Add/Remove  movies inside a theatre
-     app.put("/mba/api/v1/theatres/:id/movies", [verifyTheatre.isValidTheatreId, verifyTheatre.areMoviesValid], theatreController.addOrRemoveMoviesInsideATheatre);
-
-     //Get all the movies inside a theatre
-     app.get("/mba/api/v1/theatres/:id/movies", [verifyTheatre.isValidTheatreId], theatreController.getMoviesInsideATheatre);
     
-     //Get a specific movie inside a theatre
-     app.get("/mba/api/v1/theatres/:id/movies/:movieId", [verifyTheatre.isValidTheatreId, verifyTheatre.isMovieAvailableInTheatre], theatreController.getMoviesInsideATheatreBasedOnId);
-     
+    app.put("/mba/api/v1/theatres/:theatreId/movies/", [authUser.verifyToken, authUser.isAdminOrTheatreOwner, authTheatre.isValidTheatre, authMovie.isValidMovies], theatreController.addOrRemoveMoviesInsideTheatre);
 
-     /**
-      * Log the time of every request in console .. Add a middleware before the routes
-      */
+  
+    app.get("/mba/api/v1/theatres/:theatreId/movies/", [authTheatre.isValidTheatre], theatreController.getAllMoviesFromTheatre);
+
+   
+    app.get("/mba/api/v1/theatres/:theatreId/movies/:movieId", [authTheatre.checkParams, authTheatre.isValidTheatre, authTheatre.isMovieIncludesInTheatre], theatreController.getMovieFromTheatre);
+    
 }

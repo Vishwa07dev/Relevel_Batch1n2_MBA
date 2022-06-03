@@ -1,10 +1,16 @@
-exports.languages = {
-    hindi: "HINDI",
-    english:"ENGLISH",
-    tamil:"TAMIL"
-}
+ module.exports = {
 
-exports.releaseStatuses = {
-    released: "RELEASED",
-    coming_soon: "COMING SOON"
-}
+    languages : {
+        hindi : "HINDI",
+        english : "ENGLISH",
+    },
+    releaseStatus: {
+        unreleased : "UNRELEASED",
+        released: "RELEASED"
+    },
+    userTypes: {
+        admin: "ADMIN",
+        customer: "CUSTOMER",
+        theatreOwner: "THEATRE_OWNER",
+    }
+};

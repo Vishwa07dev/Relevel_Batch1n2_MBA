@@ -1,4 +1,9 @@
-const verifyTheatre = require("./theatre.middleware");
+const authMovie = require("./movie.middleware");
+const authTheatre = require("./theatre.middleware");
+const authUser = require("./auth.middleware");
+
 module.exports = {
-    verifyTheatre
+    authMovie,
+    authTheatre,
+    authUser
 }

@@ -5,67 +5,70 @@
  * 
  * language | release Date |releaseStatus
  */
-const constants = require('../utils/constants');
+
 const mongoose = require('mongoose');
-
-
+const constants = require("../utils/constants")
 const movieSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
+    name : {
+        type : String,
+        required : true
     },
-    description: {
-        type: String,
-        required: true
+    description : {
+        type : String,
+        required : true
     },
-    cast: {
-        type: [String],
-        required: true
+    cast : {  
+        type : [String],
+        required : true
     },
-    director: {
-        type: String,
-        required: true
+    director : {
+        type : String,
+        required : true
     },
-    trailerUrls: {
-        type: [String],
-        required: true
+    trailerUrls : {
+        type : [String],
+        required : true
     },
-    posterUrls: {
-        type: [String],
-        required: true
+    posterUrls : {
+        type : [String],
+        required : true
     },
-    language: {
-        type: String,
-        enum: [constants.languages.hindi, constants.languages.english, constants.languages.tamil],
-        default: constants.languages.hindi  //TODO put this in Utis folder and have support for enums
+    language : {
+        type : String,
+        required : true,
+        default : constants.languages.hindi,
+        enum : [constants.languages.english, constants.languages.hindi], //TODO put this in Utis folder and have support for enums
     },
-    releaseDate: {
-        type: Date
+    releaseDate : {
+        type : Date
     },
-    releaseStatus: {
-        type: String,
-        required: true,
-        enum: [constants.releaseStatuses.coming_soon, constants.releaseStatuses.released],
-        default: constants.releaseStatuses.released // This has to be defined in Utils, and enum has to be used
+    releaseStatus : {
+        type : String,
+        required : true,
+        default : constants.releaseStatus.unreleased,
+        enum : [constants.releaseStatus.unreleased, constants.releaseStatus.released],  // This has to be defined in Utils, and enum has to be used
     },
-    createdAt: {
-        type: Date,
-        default: () => {
+    theatres: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Theatre"
+    },     
+    createdAt : {
+        type : Date,
+        default : () => {
             return Date.now();
         },
-        immutable: true
+        immutable : true
     },
-    updatedAt: {
-        type: Date,
-        default: () => {
+    updatedAt : {
+        type : Date,
+        default : () => {
             return Date.now();
         }
     },
-    imdbRating: {  //Aggregate rating of the movie
-        type: Number
-
+    imdbRating : {  //Aggregate rating of the movie
+        type : Number
+        
     }
-
-})
+});
 
 module.exports = mongoose.model("Movie", movieSchema);
