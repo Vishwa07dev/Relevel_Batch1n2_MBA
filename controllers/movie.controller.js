@@ -23,9 +23,15 @@ exports.getAllMovies = async (req, res) => {
             $in: req.query.cast
         };
     }
+    try {
     const movies = await Movie.find(queryObj);
 
     return res.status(200).send(movies);
+    } catch(err) {
+        return res.status(500).send({
+            message: "Some internal error while getting movie"
+        });
+    }
 }
 
 exports.getMovie = async (req, res) => {
@@ -40,7 +46,7 @@ exports.getMovie = async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).send({
-            message: "Some internal error while getting movie"
+            message: "Some internal error while getting movies"
         });
     }
  }
