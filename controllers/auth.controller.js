@@ -89,3 +89,16 @@ exports.signin = async (req, res) => {
     //Send the response back
     res.status(200).send(objectConverter.userSigninResponse(user, token, refreshToken));
 };
+
+
+// get refresh token
+exports.refreshAccessToken = (req, res) => {
+
+    const userId = req.userId;
+
+    const token = jwt.sign({ id: userId }, config.secret, { expiresIn: 60 });
+
+    res.status(200).send({
+        newAccessToken: token
+    })
+}

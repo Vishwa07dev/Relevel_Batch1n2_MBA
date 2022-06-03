@@ -5,7 +5,7 @@
 
 // define the routes - REST endpoints for user registration
 const authController = require("../controllers/auth.controller");
-const { refreshAccessToken } = require("../controllers/token.controller");
+
 const { verifyUserAuthentication, authJwt } = require("../middlewares");
 
 module.exports = (app) => {
@@ -17,5 +17,5 @@ module.exports = (app) => {
     app.post("/mba/api/v1/auth/signin", [verifyUserAuthentication.verifyUserSigninRequestBody], authController.signin);
 
     // GET /mba/api/v1/accessTokens
-    app.get("/mba/api/v1/accessTokens", [authJwt.verifyRefreshToken], refreshAccessToken);
+    app.get("/mba/api/v1/accessTokens", [authJwt.verifyRefreshToken], authController.refreshAccessToken);
 }
