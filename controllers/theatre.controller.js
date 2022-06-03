@@ -127,11 +127,27 @@
   */
   exports.deleteTheatre = async (req, res) => {
      try {
+
+        const theatre = await Theatre.findOne({
+            _id: req.params.id
+        });
+
+        const theatreOwner = await User.findOne({
+            _id: theatre.owner
+        });
+
          // delete object from database
          await Theatre.deleteOne({
              _id: req.params.id
          });
  
+         // remove record from user model
+        let removableIndex = theatreOwner.ownedTheatres.indexOf(theatre._id);
+        if (removableIndex > -1) {
+            theatreOwner.ownedTheatres.splice(removableIndex, 1);
+        }
+        await theatreOwner.save();
+
          res.status(200).send({
              message : "Theatre succesfully deleted"
          });
