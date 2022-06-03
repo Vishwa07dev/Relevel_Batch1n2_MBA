@@ -81,7 +81,7 @@ exports.signin = async (req, res) => {
     //** Successfull login */
     //I need to generate access token now
     const accesstoken = jwt.sign({ id: user.userId }, config.secret, {
-        expiresIn: 600
+        expiresIn: 60
     });
 
     const refreshtoken = jwt.sign({ id: user.userId }, config.secret, {
@@ -99,7 +99,7 @@ exports.signin = async (req, res) => {
 
     // generate access-token
     const accesstoken = jwt.sign({ id: req.userId }, config.secret, {
-        expiresIn: 600
+        expiresIn: 60
     });
 
     //Send the response back
