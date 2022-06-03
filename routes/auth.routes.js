@@ -9,5 +9,5 @@ module.exports = (app) => {
   
     app.post("/mba/api/v1/auth/signin", [authUser.validateSigninRequest], authController.signin);
 
-    app.get("/mba/api/v1/auth/accessTokens", [authUser.isValidHeaderToken], authController.createRefreshToken);
+    app.get("/mba/api/v1/auth/accessTokens", [authUser.isValidRefreshToken], authController.createAccessToken);
 }

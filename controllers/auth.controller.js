@@ -90,18 +90,18 @@ exports.signin = async (req, res) => {
   }
 }
 
-exports.createRefreshToken = async (req, res) => {
+exports.createAccessToken = async (req, res) => {
 
     try {
         // const oldToken = req.headers['x-refresh-token'];
         const userId = req.userId;
-        const refreshToken = jwt.sign({id: userId}, config.secret, {
-        expiresIn: 600
+        const accessToken = jwt.sign({id: userId}, config.secret, {
+        expiresIn: 60
         });
 
     return res.status(200).send({
         userId: req.userId,
-        refreshToken: refreshToken,
+        accessToken: accessToken,
     });
        
     } catch (err) {

@@ -66,7 +66,7 @@ verifyToken = (req, res, next) => {
     const token = req.headers['x-access-token'];
 
     if(!token) {
-        return res.status(403).send({
+        return res.status(401).send({
             message: "No token provided"
         });
     }
@@ -156,35 +156,28 @@ isAdminOrTheatreOwner = async (req, res, next) => {
     }
 }
 
-isValidHeaderToken =  (req, res, next) => {
+isValidRefreshToken =  (req, res, next) => {
 
    const token = req.headers['x-refresh-token'];
 
     if(!token) {
-        return res.status(403).send({
+        return res.status(401).send({
             message: "No token provided"
         });
     }
+
     console.log("token >>", token);
-    try {
-        jwt.verify(token, Config.secret, (err, decoded) =>{
-        if(err.exp) {
+     jwt.verify(token, Config.secret, (err, decoded) =>{
+        if(err) {
+            console.log("Token expiredAt", err.expiredAt);
+            return res.status(403).send({
+                message: "Refresh Token expired at " + err.expiredAt + ", please create new refresh token"
+            });
+        } 
         req.userId = decoded.id;
         next();
         return;
-        }
-          if(decoded) {
-            return res.status(200).send({
-                message: "Token not yet expired",
-            });
-        } 
     });
-} catch (err) {
-    console.log(err);
-    return res.status(500).send({
-        message: "Some internal error"
-    });
-}
 }
 const authUser = {
     validateSignupRequest: validateSignupRequest,
@@ -193,7 +186,7 @@ const authUser = {
     isAdminOrActualUser: isAdminOrActualUser,
     isAdmin: isAdmin,
     isAdminOrTheatreOwner: isAdminOrTheatreOwner,
-    isValidHeaderToken: isValidHeaderToken,
+    isValidRefreshToken: isValidRefreshToken,
 };
 
 module.exports = authUser;
