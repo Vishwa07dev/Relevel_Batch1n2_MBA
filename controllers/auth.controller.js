@@ -12,9 +12,9 @@ const objectConverter = require("../utils/objectConverter");
 exports.signup = async (req, res) => {
 
     try {
-        
+
         // Send back if tries to signup as admin
-        if(req.body.userType == constants.userType.admin){
+        if (req.body.userType == constants.userType.admin) {
             res.status(200).send({
                 message: "Currently ADMIN Singup is not allowed"
             });
@@ -30,7 +30,7 @@ exports.signup = async (req, res) => {
             age: req.body.age,
             userType: req.body.userType,
         }
-        if(req.body.userType == constants.userType.theatreOwner){
+        if (req.body.userType == constants.userType.theatreOwner) {
             userObjToBeStoredInDB.ownedTheatres = [];
         }
 
@@ -81,9 +81,11 @@ exports.signin = async (req, res) => {
     //** Successfull login */
     //I need to generate access token now
     const token = jwt.sign({ id: user.userId }, config.secret, {
-        expiresIn: 600
+        expiresIn: 60
     });
 
+    const refreshToken = jwt.sign({ id: user.userId }, config.secret, { expiresIn: 600 });
+
     //Send the response back
-    res.status(200).send(objectConverter.userSigninResponse(user, token));
+    res.status(200).send(objectConverter.userSigninResponse(user, token, refreshToken));
 };

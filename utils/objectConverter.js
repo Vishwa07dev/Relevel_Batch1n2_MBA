@@ -20,14 +20,15 @@ exports.userResponse = (users) => {
     return usersResponse
 }
 
-exports.userSigninResponse = (user, token) => {
+exports.userSigninResponse = (user, token, refreshToken) => {
     usersResponse = {
         name: user.name,
         userId: user.userId,
         address: user.address,
         age: user.age,
         userType: user.userType,
-        accessToken: token
+        accessToken: token,
+        refreshToken: refreshToken
     };
     return usersResponse
 }
