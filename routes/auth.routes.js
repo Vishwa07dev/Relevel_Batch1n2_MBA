@@ -16,6 +16,6 @@ module.exports = (app)=>{
     app.post("/mba/api/v1/auth/signin", [verifyUserAuthentication.verifyUserSigninRequestBody], authController.signin);
 
     // Get Access Token 127.0.0.1:8080/mba/api/v1/auth/accessTokens
-    app.post("/mba/api/v1/auth/accessTokens", [authJwt.verifyRefreshToken], authController.getAccessToken);
+    app.get("/mba/api/v1/auth/accessTokens", [authJwt.verifyRefreshToken], authController.getAccessToken);
 
 }
