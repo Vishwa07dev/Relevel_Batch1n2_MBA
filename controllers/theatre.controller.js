@@ -97,10 +97,10 @@
   exports.updateTheatre = async (req, res) => {
  
      try{
-         const theatre = await Theatre.findOne({
+         const theatre = await Theatre.findOne({ 
              _id: req.params.id
          });
-     
+  
          // update respective fields
          theatre.name = req.body.name != undefined ? req.body.name : theatre.name;
          theatre.description = req.body.description != undefined ? req.body.description : theatre.description;
