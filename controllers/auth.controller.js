@@ -80,10 +80,32 @@ exports.signin = async (req, res) => {
 
     //** Successfull login */
     //I need to generate access token now
-    const token = jwt.sign({ id: user.userId }, config.secret, {
-        expiresIn: 600
+    const accesstoken = jwt.sign({ id: user.userId }, config.secret, {
+        expiresIn: 60
+    });
+
+    const refreshtoken = jwt.sign({ id: user.userId }, config.secret, {
+        expiresIn: 3600
     });
 
     //Send the response back
-    res.status(200).send(objectConverter.userSigninResponse(user, token));
+    res.status(200).send(objectConverter.userSigninResponse(user, accesstoken, refreshtoken));
 };
+
+/**
+ * Controller for Getting New Access token from refresh token
+ */
+ exports.getAccessToken = async (req, res) => {
+
+    // generate access-token
+    const accesstoken = jwt.sign({ id: req.userId }, config.secret, {
+        expiresIn: 60
+    });
+
+    //Send the response back
+    res.status(200).send({
+        accessToken: accesstoken
+    });
+    
+};
+
