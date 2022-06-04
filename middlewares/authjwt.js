@@ -15,21 +15,21 @@ const constants = require("../utils/constants");
  *       if correct allow, else reject 
  */
 
-verifyToken = (req,res, next) =>{
+verifyToken = (req, res, next) => {
     /**
      * Read the token from the header
      */
     const token = req.headers['x-access-token'];
 
-    if(!token){
+    if (!token) {
         return res.status(403).send({
-            message : "No token provided"
+            message: "No token provided"
         })
     }
 
     //If the token was provided, we need to verify it
-    jwt.verify(token,config.secret, (err, decoded)=>{
-        if(err){
+    jwt.verify(token, config.secret, (err, decoded) => {
+        if (err) {
             return res.status(401).send({
                 message: "Unauthorized"
             });
@@ -37,7 +37,34 @@ verifyToken = (req,res, next) =>{
         //I will try to read the userId from the decoded token and store it in req object
         req.userId = decoded.id;
         next();
-    } )
+    })
+
+};
+
+// verify refresh token
+verifyRefreshToken = (req, res, next) => {
+    /**
+     * Read the refresh token from the header
+     */
+    const refreshToken = req.headers['x-refresh-token'];
+
+    if (!refreshToken) {
+        return res.status(403).send({
+            message: "No refreshToken provided"
+        })
+    }
+
+    //If the token was provided, we need to verify it
+    jwt.verify(refreshToken, config.secret, (err, decoded) => {
+        if (err) {
+            return res.status(401).send({
+                message: "Unauthorized"
+            });
+        }
+        //I will try to read the userId from the decoded token and store it in req object
+        req.userId = decoded.id;
+        next();
+    })
 
 };
 
@@ -45,19 +72,19 @@ verifyToken = (req,res, next) =>{
  * If the passed access token is of ADMIN or not
  */
 
-isAdmin = async (req,res, next) =>{
+isAdmin = async (req, res, next) => {
 
     /**
      * Fetcht user from the DB using the userId
      */
-    const user = await User.findOne({userId : req.userId});
+    const user = await User.findOne({ userId: req.userId });
 
     /**
      * Check what is the user type
      */
-    if(user && user.userType == constants.userType.admin){
+    if (user && user.userType == constants.userType.admin) {
         next();
-    }else{
+    } else {
         res.status(403).send({
             message: "Requires ADMIN role"
         })
@@ -68,7 +95,7 @@ isAdmin = async (req,res, next) =>{
  * If the passed access token is of ADMIN or not
  */
 
- isTheatreOwnerOrAdmin = async (req,res, next) =>{
+isTheatreOwnerOrAdmin = async (req, res, next) => {
     try {
         /**
          * Fetcht user from the DB using the userId
@@ -82,14 +109,14 @@ isAdmin = async (req,res, next) =>{
         });
 
         // check if ADMIN or USER is valid OWNER
-        if(user.userType != constants.userType.admin){
-            if(theatre.owner.valueOf() != user._id.valueOf()){
+        if (user.userType != constants.userType.admin) {
+            if (theatre.owner.valueOf() != user._id.valueOf()) {
                 return res.status(400).send({
                     message: "Only the THEATRE_OWNER/ADMIN has access to this operation"
                 })
             }
         }
-        
+
         next();
     } catch (err) {
         return res.status(500).send({
@@ -100,8 +127,9 @@ isAdmin = async (req,res, next) =>{
 
 
 const authJwt = {
-    verifyToken : verifyToken,
-    isAdmin : isAdmin,
-    isTheatreOwnerOrAdmin: isTheatreOwnerOrAdmin
+    verifyToken: verifyToken,
+    isAdmin: isAdmin,
+    isTheatreOwnerOrAdmin: isTheatreOwnerOrAdmin,
+    verifyRefreshToken: verifyRefreshToken
 };
-module.exports= authJwt;
+module.exports = authJwt;

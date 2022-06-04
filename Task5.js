@@ -3,7 +3,7 @@
  * 1. Login Api should return two types of token :
  * 
  *     a. access_token   -  60 seconds
- *     b. refresh_token  -   600 seconds
+ *     b. refresh_token  -   600 seconds 
  * 
  * Controller 
  * ---------------------------------------------------
