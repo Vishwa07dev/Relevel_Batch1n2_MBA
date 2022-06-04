@@ -1,0 +1,106 @@
+const Theatre = require("../models/theatre.model");
+const Movie = require("../models/movie.model");
+const Booking = require("../models/booking.model");
+const User = require("../models/user.model");
+const mongoose = require("mongoose");
+const constants = require("../utils/constants");
+
+const isValidBookingId = async (req, res, next) => {
+    try {
+
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).send({
+                message: "Booking Id Id is not valid"
+            })
+        }
+
+        const booking = await Booking.findOne({
+            _id: req.params.id
+        });
+
+        if (!booking) {
+            return res.status(400).send({
+                message: "Booking Id doesn't exist"
+            })
+        }
+
+        next();
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+};
+
+const verifyInitiateBooking = async (req, res, next) => {
+    try {
+
+        const theatre = await Theater.findOne({
+            _id: req.body.theatreId
+        });
+
+        if (!theatre) {
+            return res.status(400).send({
+                message: "Theatre Id is not valid"
+            })
+        }
+
+        const movieAvailable = await Theater.findOne({
+            _id: req.body.theatreId,
+            movies: {
+                $in: req.body.movieId
+            }
+        });
+
+        if(!movieAvailable) {
+            return res.status(400).send({
+                message: "Movie is not available in given theatre"
+            })
+        }
+
+        next();
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error " + err.message 
+        })
+    }
+};
+
+const isAdminOrOwnerOfBooking = async (req, res, next) => {
+    try {
+        /**
+         * Fetcht user from the DB using the userId
+         */
+        const user = await User.findOne({
+            userId: req.userId
+        });
+
+        const booking = await Booking.findOne({
+            _id: req.params.id
+        });
+
+        // check if ADMIN or USER is valid OWNER
+        if(user.userType != constants.userType.admin){
+            if(booking.userId != user.userId){
+                return res.status(400).send({
+                    message: "Only the BOOKING_OWNER/ADMIN has access to this operation"
+                })
+            }
+        }
+        
+        next();
+    } catch (err) {
+        return res.status(500).send({
+            message: "Some internal error" + err.message
+        })
+    }
+};
+
+const verifyBooking = {
+    isValidBookingId: isValidBookingId,
+    verifyInitiateBooking: verifyInitiateBooking,
+    isAdminOrOwnerOfBooking: isAdminOrOwnerOfBooking
+};
+module.exports = verifyBooking;
