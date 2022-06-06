@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Config = require("../configs/auth.config");
 const User = require("../models/user.model");
-const Constants = require("../utils/constants")
+const Constants = require("../utils/constants");
 
 validateSigninRequest = (req, res, next) => {
     if(!req.body.name) {
@@ -16,7 +16,6 @@ validateSigninRequest = (req, res, next) => {
     }
     next();
 }
-
 
 validateSignupRequest = async (req, res, next) => {
     //! Validate if userName exists

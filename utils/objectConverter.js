@@ -37,6 +37,51 @@ exports.userSignInObject = (user) => {
         email: user.email,
         userType: user.userType,
         accessToken: user.token
-    }   
+    }  
 }
 
+exports.ticketBookingObj = (ticket) => {
+    /**
+ *   theatreId
+ *     movieId
+ *     userId ( ref )
+ *     timing
+ *     status ( IN_PROGRESS | COMPLETED | CANCELLED | FAILED) 
+ *     noOfSeats
+ *     totalCost
+ *     createdAt
+ *     updatedAt
+ * 
+ */
+    return {
+        userId: ticket.userId,
+        bookingId: ticket._id,
+        theatreId: ticket.theatreId,
+        movieId: ticket.movieId,
+        timing: ticket.timing,
+        status: ticket.status,
+        noOfTickets: ticket.noOfTickets,
+        totalCost: ticket.totalCost,
+        createdAt: ticket.createdAt,
+        updatedAt: ticket.updatedAt
+    }
+}
+
+exports.ticketListResponse = (bookings) => {
+    bookingResult = [];
+    bookings.forEach(booking => {
+       bookingResult.push({
+        userId: booking.userId,
+        bookingId: booking._id,
+        theatreId: booking.theatreId,
+        movieId: booking.movieId,
+        timing: booking.timing,
+        status: booking.status,
+        noOfTickets: booking.noOfTickets,
+        totalCost: booking.totalCost,
+        createdAt: booking.createdAt,
+        updatedAt: booking.updatedAt
+       });   
+    });
+    return bookingResult;
+}

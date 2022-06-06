@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const constants = require("../utils/constants");
 
+
 const userSchema = new mongoose.Schema({
 
     /**
@@ -28,7 +29,17 @@ const userSchema = new mongoose.Schema({
         minLength: 10,
         unique: true
     },
-    createdAt: {
+    userType: {
+         type: String,
+         required: true,
+         default: constants.userTypes.customer,
+         enum : [constants.userTypes.admin, constants.userTypes.customer, constants.userTypes.theatreOwner],
+    },
+    bookingIds: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Booking"
+    },
+     createdAt: {
         type: Date,
         immutable: true,
         default: () => { 
@@ -40,13 +51,7 @@ const userSchema = new mongoose.Schema({
         default: () => {
             return Date.now();
         }
-    },
-    userType: {
-         type: String,
-         required: true,
-         default: constants.userTypes.customer,
-         enum : [constants.userTypes.admin, constants.userTypes.customer, constants.userTypes.theatreOwner],
-    },
+    }
 });
 
 module.exports = mongoose.model("User", userSchema);

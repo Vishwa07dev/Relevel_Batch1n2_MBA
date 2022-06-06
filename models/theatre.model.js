@@ -29,7 +29,11 @@ const theatreSchema = new mongoose.Schema({
     movies: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Movie"
-    },   
+    },  
+    ticketPrice: {
+        type:Number,
+        required: true
+    }, 
      createdAt: {
         type : Date,
         immutable : true,

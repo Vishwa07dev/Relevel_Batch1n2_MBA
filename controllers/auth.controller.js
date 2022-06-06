@@ -3,11 +3,10 @@ const constants = require("../utils/constants");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const config = require("../configs/auth.config");
-const objectConverter = require("../utils/objectConverter")
+const objectConverter = require("../utils/objectConverter");
 
 exports.signup = async (req, res) => {
 
-    
     var userType;
 
 //     //! DEFAULT user customer
@@ -30,7 +29,7 @@ exports.signup = async (req, res) => {
     /**
 //      * ! Return the response
 //      */
-    res.status(201).send(objectConverter.userSignUpObject(userCreated));
+    return res.status(201).send(objectConverter.userSignUpObject(userCreated));
    } catch (err) {
         console.error("Error while creating user", err.message);
         res.status(500).send({
@@ -105,12 +104,13 @@ exports.createAccessToken = async (req, res) => {
     });
        
     } catch (err) {
-        console.error("Error while login", err.message);
+        console.error(err.message);
         res.status(500).send({
             message: "Internal server error creating refresh token"
         });
     }
 }
+
 //   const accessToken = jwt.sign({id: "uday"}, 'secret', {
 //         expiresIn: 600
 //     });
