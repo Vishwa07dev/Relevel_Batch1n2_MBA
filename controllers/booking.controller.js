@@ -165,6 +165,7 @@ exports.updateBookings = async (req, res) => {
     }
 }
 
+
 async function isMovieExistsInTheatre(movieId, theatreId) {
     
     const theatre = await Theatre.findOne({ _id: theatreId });
