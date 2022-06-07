@@ -69,7 +69,8 @@
             pinCode : req.body.pinCode,
             totalSeats : req.body.totalSeats,
             movies: [],
-            owner: req.body.theatreOwnerId
+            owner: req.body.theatreOwnerId,
+            ticketPrice: req.body.ticketPrice
         }
 
          // insert theatre object into database
