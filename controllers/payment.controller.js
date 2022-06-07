@@ -24,7 +24,9 @@ exports.makePayment = async (req, res) => {
             paymentObj.status = Constants.paymentStatus.success;
         }
 
-        return res.status(200).send(paymentObj);
+        const paymentSuccess = await Payment.create(paymentObj);
+
+        return res.status(200).send(paymentSuccess);
     } catch(err) { 
         return res.status(500).send({
             message: "Some internal error while updating booking"
