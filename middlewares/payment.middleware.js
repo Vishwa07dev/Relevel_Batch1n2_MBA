@@ -1,4 +1,5 @@
 const Booking = require("../models/booking.model");
+const Payment = require("../models/payment.model");
 const mongoose = require("mongoose");
 const constants = require("../utils/constants");
 
@@ -15,7 +16,6 @@ const verifyBookingId = async (req, res, next) => {
             _id: req.body.bookingId
         });
 
-
         if (!booking) {
             return res.status(400).send({
                 message: "Booking Id doesn't exist"
@@ -28,11 +28,11 @@ const verifyBookingId = async (req, res, next) => {
             })
         }else if(booking.status == constants.bookingStatus.completed){
             return res.status(400).send({
-                message: "This Payment already completed"
+                message: "This Booking already completed"
             })
         }else if(booking.status == constants.bookingStatus.failed){
             return res.status(400).send({
-                message: "This Payment already failed"
+                message: "This Booking already failed"
             })
         }
 
