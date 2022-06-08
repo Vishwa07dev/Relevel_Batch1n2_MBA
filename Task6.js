@@ -38,6 +38,14 @@
  *       - booking_id
  *       - amount
  * 
+ *    POST  /mba/api/v1/payments
+ * 
+ *       {
+ *           bookingId :
+ *           amount :
+ *        }
+ *    Only by the owner of the booking
+ * 
  *      **** Payment should happen withing 60 seconds of booking, else it should
  *      be failed
  *  
