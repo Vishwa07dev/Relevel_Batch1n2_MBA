@@ -1,5 +1,4 @@
 const Booking = require("../models/booking.model");
-const Payment = require("../models/payment.model");
 const mongoose = require("mongoose");
 const constants = require("../utils/constants");
 
