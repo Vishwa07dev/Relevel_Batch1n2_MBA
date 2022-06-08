@@ -64,8 +64,7 @@ exports.bookMovieTicket = async (req, res) => {
 
 }
 exports.getBookingDetails = async (req, res) => {
-
-
+    
     try {
     const bookingDetails = await Booking.find({_id: req.params.bookingId});
 

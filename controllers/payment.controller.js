@@ -20,11 +20,14 @@ exports.makePayment = async (req, res) => {
         
         if(!isPaymentSuccess(bookingDetails)) {
             paymentObj.status = Constants.paymentStatus.failed;
+            bookingDetails.status = Constants.bookingStatus.failed;
         } else {
             paymentObj.status = Constants.paymentStatus.success;
+            bookingDetails.status = Constants.bookingStatus.completed;
         }
-
+        
         const paymentSuccess = await Payment.create(paymentObj);
+        await bookingDetails.save();
 
         return res.status(200).send(paymentSuccess);
     } catch(err) { 
@@ -34,7 +37,6 @@ exports.makePayment = async (req, res) => {
     }
 
 }
-
 
 function isPaymentSuccess(bookingDetails) {
 
