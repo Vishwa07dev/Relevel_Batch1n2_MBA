@@ -27,4 +27,12 @@ isValidBookingDetails = async (req, res, next) => {
    }
 
    next();
+
 }
+
+
+const authPayment = {
+isValidBookingDetails: isValidBookingDetails
+};
+
+module.exports = authPayment;

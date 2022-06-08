@@ -34,14 +34,14 @@ if(!req.body.noOfTickets) {
     }
     next();
 }
-isValidBookingId = async (req, res, next) => {
-    const user = await User.findOne({userId: req.userId});
+// isValidBookingId = async (req, res, next) => {
+//     const user = await User.findOne({userId: req.userId});
 
-    if(!(user.booking.includes(req.params.id))) {
-        return res.status(403).send({message:"Invalid Booking Id"})
-    }
-    next();
-}
+//     if(!(user.booking.includes(req.params.id))) {
+//         return res.status(403).send({message:"Invalid Booking Id"})
+//     }
+//     next();
+// }
 isAdminOrBookingOwner = async (req, res, next) => {
     const user = await User.findOne({userId: req.userId});
     
@@ -51,7 +51,7 @@ isAdminOrBookingOwner = async (req, res, next) => {
 }
 const authBooking = {
   checkTicketBookingRequiredFields: checkTicketBookingRequiredFields,
-  isValidBookingId: isValidBookingId,
+//   isValidBookingId: isValidBookingId,
   isAdminOrBookingOwner: isAdminOrBookingOwner
 };
 
