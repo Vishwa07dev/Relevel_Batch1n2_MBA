@@ -12,5 +12,11 @@ module.exports = {
         hindi: "HINDI",
         english:"ENGLISH",
         tamil:"TAMIL"
+    },
+    movieStatus: {
+        inProgress: "IN_PROGRESS",
+        completed: "COMPLETED",
+        cancelled: "CANCELLED",
+        failed: "FAILED"
     }
 };

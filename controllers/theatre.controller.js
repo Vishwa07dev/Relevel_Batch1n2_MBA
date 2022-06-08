@@ -69,7 +69,8 @@
             pinCode : req.body.pinCode,
             totalSeats : req.body.totalSeats,
             movies: [],
-            owner: req.body.theatreOwnerId
+            owner: req.body.theatreOwnerId,
+            ticketPrice: req.body.ticketPrice
         }
 
          // insert theatre object into database
@@ -107,6 +108,7 @@
          theatre.city = req.body.city != undefined ? req.body.city : theatre.city;
          theatre.pinCode = req.body.pinCode != undefined ? req.body.pinCode : theatre.pinCode;
          theatre.totalSeats = req.body.totalSeats != undefined ? req.body.totalSeats : theatre.totalSeats;
+         theatre.ticketPrice = req.body.ticketPrice != undefined ? req.body.ticketPrice : theatre.ticketPrice;
      
          // save updated object
          const updatedTheatreObj = await theatre.save();
