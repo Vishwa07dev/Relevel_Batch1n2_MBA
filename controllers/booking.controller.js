@@ -71,7 +71,7 @@ const calculateBookingCost = require("../utils/calculateBookingCost");
             }
             await booking.save();
          
-        },"60000");
+        },60000);
 
          return res.status(201).send(booking);
  
