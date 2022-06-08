@@ -27,10 +27,10 @@
         type: Number,
         required: true
      },
-     status: {
+     Status: {
         type: String,
-        enum: [constants.movieStatus.cancelled, constants.movieStatus.completed, constants.movieStatus.failed, constants.movieStatus.inProgress],
-        default: constants.movieStatus.inProgress
+        enum: [constants.bookingStatus.cancelled, constants.bookingStatus.completed, constants.bookingStatus.failed, constants.bookingStatus.inProgress],
+        default: constants.bookingStatus.inProgress
      },
      createdAt: {
          type: Date,

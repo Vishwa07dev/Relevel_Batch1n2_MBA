@@ -18,9 +18,9 @@ app.use(reqLogger.log);
 mongoose.connect(DB_URL, async ()=>{
     console.log(`Application is connected to database: ${DB_URL}`);
     
-    // await Movie.collection.drop();
-    // await Theatre.collection.drop();
-    // await User.collection.drop();
+    await Movie.collection.drop();
+    await Theatre.collection.drop();
+    await User.collection.drop();
 
     try{
     // create movies here
@@ -87,7 +87,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"nice place to watch movies",
         city : "Pune",
         pinCode : 411028,
-        totalSeats : 100
+        totalSeats : 100,
+        ticketPrice : 123
 
     })
     console.log(theatre1);
@@ -98,7 +99,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"corner seat available",
         city : "Pune",
         pinCode : 411033,
-        totalSeats : 100
+        totalSeats : 100,
+        ticketPrice : 123
 
     })
     console.log(theatre2);
@@ -109,7 +111,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"nice place to watch movies",
         city : "Pune",
         pinCode : 411022,
-        totalSeats : 100
+        totalSeats : 100,
+        ticketPrice : 123
 
     })
     console.log(theatre3);
@@ -120,7 +123,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"nice place to watch movies",
         city : "Pune",
         pinCode : 411133,
-        totalSeats : 100
+        totalSeats : 100,
+        ticketPrice : 123
 
     })
     console.log(theatre4);
@@ -130,7 +134,8 @@ mongoose.connect(DB_URL, async ()=>{
         description :"nice place to watch movies",
         city : "Pune",
         pinCode : 411123,
-        totalSeats : 100
+        totalSeats : 100,
+        ticketPrice : 123
 
     })
     console.log(theatre5);

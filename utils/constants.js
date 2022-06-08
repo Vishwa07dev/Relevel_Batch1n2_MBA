@@ -13,10 +13,16 @@ module.exports = {
         english:"ENGLISH",
         tamil:"TAMIL"
     },
-    movieStatus: {
+    bookingStatus : {
         inProgress: "IN_PROGRESS",
         completed: "COMPLETED",
         cancelled: "CANCELLED",
         failed: "FAILED"
+    },
+    paymentStatus : {
+        inProgress: "IN_PROGRESS",
+        failed: "FAILED",
+        success : "SUCCESS"
+
     }
 };

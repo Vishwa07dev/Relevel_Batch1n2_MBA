@@ -4,6 +4,7 @@
  const Booking = require("../models/booking.model");
  const User = require("../models/user.model");
 const constants = require("../utils/constants");
+const config = require("../configs/auth.config");
 
  exports.getAllBookings = async ( req, res) => {
  
@@ -50,8 +51,12 @@ const constants = require("../utils/constants");
  
      try {
          const booking = await Booking.create(bookingObj);
- 
-         return res.status(201).send(booking);
+         
+         //creating payment token 
+         const paymentToken = jwt.sign({ id: req.userId }, config.secret, {
+            expiresIn: 30
+        });
+         return res.status(201).send(booking,paymentToken);
  
      } catch (err) {
          console.log(err.message);
