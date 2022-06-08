@@ -35,6 +35,12 @@ const verifyBookingId = async (req, res, next) => {
             })
         }
 
+        if(booking.totalCost != req.body.amount){
+            return res.status(200).send({
+                message: "Booking amount not matches with payment amount"
+            })
+        }
+
         next();
     } catch (err) {
         console.log(err.message);
