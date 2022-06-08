@@ -11,11 +11,12 @@ module.exports = (app)=>{
     app.post("/mba/api/v1/bookings", [authJwt.verifyToken, verifyBooking.verifyInitiateBooking],  bookingController.initiateBooking);
 
     // UPDATE CALL
-    app.put("/mba/api/v1/bookings/:id", [authJwt.verifyToken, verifyBooking.isAdminOrOwnerOfBooking], bookingController.updateBooking);
+    app.put("/mba/api/v1/bookings/:id", [authJwt.verifyToken, verifyBooking.verifyTheatreAndMovie, verifyBooking.isAdminOrOwnerOfBooking], bookingController.updateBooking);
 
     // GET SINGLE CALL
     app.get("/mba/api/v1/bookings/:id", [authJwt.verifyToken, verifyBooking.isAdminOrOwnerOfBooking], bookingController.getOneBooking);
 
     app.get("/mba/api/v1/bookings", [authJwt.verifyToken, verifyBooking.isAdminOrOwnerOfBooking],  bookingController.getAllBookings);
 }
+
 

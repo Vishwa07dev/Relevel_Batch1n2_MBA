@@ -36,7 +36,7 @@ const isValidBookingId = async (req, res, next) => {
 const verifyInitiateBooking = async (req, res, next) => {
     try {
 
-        const theatre = await Theater.findOne({
+        const theatre = await Theatre.findOne({
             _id: req.body.theatreId
         });
 
@@ -46,7 +46,7 @@ const verifyInitiateBooking = async (req, res, next) => {
             })
         }
 
-        const movieAvailable = await Theater.findOne({
+        const movieAvailable = await Theatre.findOne({
             _id: req.body.theatreId,
             movies: {
                 $in: req.body.movieId
@@ -57,6 +57,48 @@ const verifyInitiateBooking = async (req, res, next) => {
             return res.status(400).send({
                 message: "Movie is not available in given theatre"
             })
+        }
+
+        next();
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal error " + err.message 
+        })
+    }
+};
+
+const verifyTheatreAndMovie = async (req, res, next) => {
+    try {
+        if(req.body.theatreId && !req.body.movieId){
+            return res.status(400).send({
+                message: "Please provide movie id if updating Theatre"
+            })
+        }
+
+        if(req.body.theatreId && req.body.movieId){
+            const theatre = await Theatre.findOne({
+                _id: req.body.theatreId
+            });
+    
+            if (!theatre) {
+                return res.status(400).send({
+                    message: "Theatre Id is not valid"
+                })
+            }
+    
+            const movieAvailable = await Theatre.findOne({
+                _id: req.body.theatreId,
+                movies: {
+                    $in: req.body.movieId
+                }
+            });
+    
+            if(!movieAvailable) {
+                return res.status(400).send({
+                    message: "Movie is not available in given theatre"
+                })
+            }
         }
 
         next();
@@ -101,6 +143,7 @@ const isAdminOrOwnerOfBooking = async (req, res, next) => {
 const verifyBooking = {
     isValidBookingId: isValidBookingId,
     verifyInitiateBooking: verifyInitiateBooking,
-    isAdminOrOwnerOfBooking: isAdminOrOwnerOfBooking
+    isAdminOrOwnerOfBooking: isAdminOrOwnerOfBooking,
+    verifyTheatreAndMovie: verifyTheatreAndMovie
 };
 module.exports = verifyBooking;
