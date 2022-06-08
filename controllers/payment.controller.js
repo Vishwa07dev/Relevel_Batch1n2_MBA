@@ -17,7 +17,9 @@ exports.makePayment = async (req, res) => {
             bookingId: bookingId,
             amount: req.body.amount,
         }
-        
+        if(bookingDetails.status === Constants.bookingStatus.cancelled) {
+            return res.status(200).send({message: "Payment cannot be done as booking has been cancelled"});
+        }
         if(!isPaymentSuccess(bookingDetails)) {
             paymentObj.status = Constants.paymentStatus.failed;
             bookingDetails.status = Constants.bookingStatus.failed;
