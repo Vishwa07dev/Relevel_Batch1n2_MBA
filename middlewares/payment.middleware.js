@@ -15,6 +15,7 @@ const verifyBookingId = async (req, res, next) => {
             _id: req.body.bookingId
         });
 
+
         if (!booking) {
             return res.status(400).send({
                 message: "Booking Id doesn't exist"
@@ -27,11 +28,11 @@ const verifyBookingId = async (req, res, next) => {
             })
         }else if(booking.status == constants.bookingStatus.completed){
             return res.status(400).send({
-                message: "This Booking already completed"
+                message: "This Payment already completed"
             })
         }else if(booking.status == constants.bookingStatus.failed){
             return res.status(400).send({
-                message: "This Booking already failed"
+                message: "This Payment already failed"
             })
         }
 

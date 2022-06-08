@@ -8,7 +8,7 @@ const constants = require("../utils/constants");
 
 exports.makePayment = async (req, res) => {
     try {
-        const booking = await Movie.findOne({
+        const booking = await Booking.findOne({
             _id: req.body.bookingId
         });
 
@@ -22,7 +22,6 @@ exports.makePayment = async (req, res) => {
 
         booking.status = constants.bookingStatus.completed;
         await booking.save();
-
 
          return res.status(201).send(payment);
  
