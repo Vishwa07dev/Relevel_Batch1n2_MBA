@@ -12,8 +12,8 @@
         ref : "Movie"
      },
      userId: {
-        type: String,
-        required: true
+        type: mongoose.SchemaTypes.ObjectId,
+        ref : "User"
      },
      showTime: {
         type: Date,

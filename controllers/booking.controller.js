@@ -4,6 +4,7 @@
  const Booking = require("../models/booking.model");
  const User = require("../models/user.model");
 const constants = require("../utils/constants");
+const calculateBookingCost = require("../utils/calculateBookingCost");
 
  exports.getAllBookings = async ( req, res) => {
  
@@ -14,7 +15,7 @@ const constants = require("../utils/constants");
     let queryObj = {};
 
     if(user.userType != constants.userType.admin){
-        queryObj.userId = req.userId;
+        queryObj.userId = user._id;
     }
 
      const bookings = await Booking.find(queryObj);
@@ -39,16 +40,21 @@ const constants = require("../utils/constants");
 
   exports.initiateBooking = async (req, res) => {
  
-     const bookingObj = {
-        theatreId: req.body.theatreId,
-        movieId: req.body.movieId,
-        userId: req.userId,
-        showTime: req.body.showTime,
-        noOfSeats: req.body.noOfSeats,
-        totalCost: req.body.totalCost
-     }
- 
      try {
+
+        const user = await User.findOne({
+            _id: req.userId
+        });
+
+        const bookingObj = {
+            theatreId: req.body.theatreId,
+            movieId: req.body.movieId,
+            userId: user._id,
+            showTime: req.body.showTime,
+            noOfSeats: req.body.noOfSeats,
+            totalCost: calculateBookingCost(req.body.theatreId, req.body.noOfSeats)
+         }
+
          const booking = await Booking.create(bookingObj);
  
          return res.status(201).send(booking);
@@ -74,7 +80,7 @@ const constants = require("../utils/constants");
          booking.theatreId = req.body.theatreId != undefined ? req.body.theatreId : booking.theatreId;
          booking.movieId = req.body.movieId != undefined ? req.body.movieId : booking.movieId;
          booking.noOfSeats = req.body.noOfSeats != undefined ? req.body.noOfSeats : booking.noOfSeats;
-         booking.totalCost = req.body.totalCost != undefined ? req.body.totalCost : booking.totalCost;
+         booking.totalCost = calculateBookingCost(booking.theatreId, booking.noOfSeats);
      
          // save updated object
          const updatedBookingObj = await booking.save();

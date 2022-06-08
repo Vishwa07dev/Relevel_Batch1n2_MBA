@@ -112,7 +112,7 @@ const isAdminOrOwnerOfBooking = async (req, res, next) => {
 
         // check if ADMIN or USER is valid OWNER
         if(user.userType != constants.userType.admin){
-            if(booking.userId != user.userId){
+            if(booking.userId.valueOf() != user._id.valueOf()){
                 return res.status(400).send({
                     message: "Only the BOOKING_OWNER/ADMIN has access to this operation"
                 })
