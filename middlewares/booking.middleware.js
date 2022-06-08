@@ -141,7 +141,7 @@ const isOwnerOfBooking = async (req, res, next) => {
             _id: req.body.id
         });
 
-        // check if ADMIN or USER is valid OWNER
+        // check if USER is valid OWNER
         if(booking.userId != user.userId){
             return res.status(400).send({
                 message: "Only the booking owener can make payment"
