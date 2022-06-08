@@ -65,14 +65,13 @@ const calculateBookingCost = require("../utils/calculateBookingCost");
             });
 
             if(!payment){
-                booking.status = constants.bookingStatus.failed;
-                await booking.save();
-            }
-            if(payment.status == constants.paymentStatus.failed){
+                booking.status = constants.bookingStatus.failed;        
+            }else if(payment.status == constants.paymentStatus.failed){
                 booking.status = constants.paymentStatus.failed;
             }
-
-         },"60000");
+            await booking.save();
+         
+        },"60000");
 
          return res.status(201).send(booking);
  
