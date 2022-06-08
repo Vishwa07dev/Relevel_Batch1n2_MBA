@@ -44,7 +44,8 @@ const constants = require("../utils/constants");
         movieId: req.body.movieId,
         userId: req.userId,
         showTime: req.body.showTime,
-        noOfSeats: req.body.noOfSeats
+        noOfSeats: req.body.noOfSeats,
+        totalCost: req.body.totalCost
      }
  
      try {
@@ -73,6 +74,7 @@ const constants = require("../utils/constants");
          booking.theatreId = req.body.theatreId != undefined ? req.body.theatreId : booking.theatreId;
          booking.movieId = req.body.movieId != undefined ? req.body.movieId : booking.movieId;
          booking.noOfSeats = req.body.noOfSeats != undefined ? req.body.noOfSeats : booking.noOfSeats;
+         booking.totalCost = req.body.totalCost != undefined ? req.body.totalCost : booking.totalCost;
      
          // save updated object
          const updatedBookingObj = await booking.save();
