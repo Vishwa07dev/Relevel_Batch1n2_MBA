@@ -131,6 +131,7 @@ exports.updateBookings = async (req, res) => {
         if(req.body.noOfSeats) {
             booking.totalCost = req.body.noOfSeats * theatre.ticketPrice;
         }
+        
         if(req.body.movieId) {
 
             const movie = await Movie.findOne({ movieId: booking.movieId });
@@ -152,9 +153,6 @@ exports.updateBookings = async (req, res) => {
                 }
                 booking.theatreId = req.body.theatreId;
          }
-        if(req.body.theatreId) {
-            booking.theatreId = req.body.theatreId;
-        }
         await booking.save();
         return res.status(201).send(objectConverter.ticketBookingObj(booking)); 
     } catch(err) {
