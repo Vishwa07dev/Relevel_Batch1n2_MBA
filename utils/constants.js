@@ -18,5 +18,16 @@ module.exports = {
         completed: "COMPLETED",
         cancelled: "CANCELLED",
         failed: "FAILED"
+    },
+    bookingStatus: {
+        inProgress: "IN_PROGRESS",
+        completed: "COMPLETED",
+        cancelled: "CANCELLED",
+        failed: "FAILED"
+    },
+    paymentStatus: {
+        inProgress: "IN_PROGRESS",
+        success: "SUCCESS",
+        failed: "FAILED"
     }
 };

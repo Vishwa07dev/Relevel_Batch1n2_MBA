@@ -2,6 +2,7 @@
  * This file will contain the logic for booking controller
  */
  const Booking = require("../models/booking.model");
+ const Payment = require("../models/payment.model");
  const User = require("../models/user.model");
 const constants = require("../utils/constants");
 const calculateBookingCost = require("../utils/calculateBookingCost");
@@ -57,6 +58,19 @@ const calculateBookingCost = require("../utils/calculateBookingCost");
 
          const booking = await Booking.create(bookingObj);
  
+         // Initiate setTimeout, when created booking
+         setTimeout( async ()=>{
+            const payment = await Payment.findOne({
+                bookingId: booking._id
+            });
+
+            if(!payment){
+                booking.status = constants.bookingStatus.failed;
+                await booking.save();
+            }
+
+         },"60000");
+
          return res.status(201).send(booking);
  
      } catch (err) {
