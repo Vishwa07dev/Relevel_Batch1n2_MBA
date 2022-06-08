@@ -3,7 +3,6 @@
  */
 const Booking = require("../models/booking.model");
 const Payment = require("../models/payment.model");
-const User = require("../models/user.model");
 const constants = require("../utils/constants");
 
 exports.makePayment = async (req, res) => {
