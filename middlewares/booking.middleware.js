@@ -127,10 +127,38 @@ const isAdminOrOwnerOfBooking = async (req, res, next) => {
     }
 };
 
+//checking if the user is owner of the booking
+const isOwnerOfBooking = async (req, res, next) => {
+    try {
+        /**
+         * Fetcht user from the DB using the userId
+         */
+        const user = await User.findOne({
+            userId: req.userId
+        });
+
+        const booking = await Booking.findOne({
+            _id: req.body.id
+        });
+
+        // check if ADMIN or USER is valid OWNER
+        if(booking.userId != user.userId){
+            return res.status(400).send({
+                message: "Only the booking owener can make payment"
+            })
+        }
+        next();
+    } catch (err) {
+        return res.status(500).send({
+            message: "Some internal error" + err.message
+        })
+    }
+};
 const verifyBooking = {
     isValidBookingId: isValidBookingId,
     verifyInitiateBooking: verifyInitiateBooking,
     isAdminOrOwnerOfBooking: isAdminOrOwnerOfBooking,
-    verifyTheatreAndMovie: verifyTheatreAndMovie
+    verifyTheatreAndMovie: verifyTheatreAndMovie,
+    isOwnerOfBooking : isOwnerOfBooking
 };
 module.exports = verifyBooking;

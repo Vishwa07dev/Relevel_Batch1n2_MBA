@@ -123,11 +123,37 @@ isAdmin = async (req,res, next) =>{
     }
 }
 
+verifyPaymentToken = (req,res, next) =>{
+    /**
+     * Read the token from the header
+     */
+    const token = req.headers['x-payment-token'];
+
+    if(!token){
+        return res.status(403).send({
+            message : "No token provided"
+        })
+    }
+
+    //If the token was provided, we need to verify it
+    jwt.verify(token,config.secret, (err, decoded)=>{
+        if(err){
+            return res.status(401).send({
+                message: "Unauthorized"
+            });
+        }
+        //I will try to read the userId from the decoded token and store it in req object
+        req.userId = decoded.id;
+        next();
+    } )
+
+};
 
 const authJwt = {
     verifyToken : verifyToken,
     verifyRefreshToken: verifyRefreshToken,
     isAdmin : isAdmin,
-    isTheatreOwnerOrAdmin: isTheatreOwnerOrAdmin
+    isTheatreOwnerOrAdmin: isTheatreOwnerOrAdmin,
+    verifyPaymentToken : verifyPaymentToken
 };
 module.exports= authJwt;

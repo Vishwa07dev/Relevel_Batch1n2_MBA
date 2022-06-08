@@ -1,4 +1,5 @@
 const bookingController = require("../controllers/booking.controller")
+const paymentController = require("../controllers/payment.controller")
 const { authJwt, verifyBooking } = require("../middlewares");
 
 
@@ -18,4 +19,7 @@ module.exports = (app)=>{
 
     // GET ALL CALL
     app.get("/mba/api/v1/bookings", [authJwt.verifyToken],  bookingController.getAllBookings);
+
+    //payment call 
+    app.post("/mba/api/v1/payments",[authJwt.verifyPaymentToken,verifyBooking.isOwnerOfBooking],paymentController.makePayment)
 }
