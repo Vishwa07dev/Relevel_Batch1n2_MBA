@@ -30,7 +30,6 @@ isValidBookingDetails = async (req, res, next) => {
 
 }
 
-
 const authPayment = {
 isValidBookingDetails: isValidBookingDetails
 };
