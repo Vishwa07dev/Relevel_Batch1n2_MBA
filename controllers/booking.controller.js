@@ -44,7 +44,7 @@ const calculateBookingCost = require("../utils/calculateBookingCost");
      try {
 
         const user = await User.findOne({
-            _id: req.userId
+            userId: req.userId
         });
 
         const bookingObj = {
@@ -53,25 +53,27 @@ const calculateBookingCost = require("../utils/calculateBookingCost");
             userId: user._id,
             showTime: req.body.showTime,
             noOfSeats: req.body.noOfSeats,
-            totalCost: calculateBookingCost(req.body.theatreId, req.body.noOfSeats)
+            totalCost: await calculateBookingCost(req.body.theatreId, req.body.noOfSeats)
          }
 
          const booking = await Booking.create(bookingObj);
  
          // Initiate setTimeout, when created booking
          setTimeout( async ()=>{
+            console.log("Set Timeout triggered");
+            
             const payment = await Payment.findOne({
                 bookingId: booking._id
             });
 
-            if(!payment){
+            console.log("Payment Fetched", payment);
+
+            if(!payment || payment.status == constants.paymentStatus.failed){
                 booking.status = constants.bookingStatus.failed;        
-            }else if(payment.status == constants.paymentStatus.failed){
-                booking.status = constants.paymentStatus.failed;
+                await booking.save();
             }
-            await booking.save();
          
-        },60000);
+        },10000);
 
          return res.status(201).send(booking);
  
@@ -96,7 +98,7 @@ const calculateBookingCost = require("../utils/calculateBookingCost");
          booking.theatreId = req.body.theatreId != undefined ? req.body.theatreId : booking.theatreId;
          booking.movieId = req.body.movieId != undefined ? req.body.movieId : booking.movieId;
          booking.noOfSeats = req.body.noOfSeats != undefined ? req.body.noOfSeats : booking.noOfSeats;
-         booking.totalCost = calculateBookingCost(booking.theatreId, booking.noOfSeats);
+         booking.totalCost = await calculateBookingCost(booking.theatreId, booking.noOfSeats);
      
          // save updated object
          const updatedBookingObj = await booking.save();

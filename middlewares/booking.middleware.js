@@ -107,7 +107,7 @@ const isOwnerOfBooking = async (req, res, next) => {
         });
 
         const booking = await Booking.findOne({
-            _id: req.params.id
+            _id: req.body.bookingId
         });
 
         // check if ADMIN or USER is valid OWNER
