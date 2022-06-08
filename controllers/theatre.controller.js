@@ -58,7 +58,7 @@
      try {
 
         const theatreOwner = await User.findOne({
-            userId: req.body.theatreOwnerId
+            _id: req.body.theatreOwnerId
         });
 
         // prepare theatre object to store inside database
@@ -76,6 +76,7 @@
          // insert theatre object into database
          const theatre = await Theatre.create(theatreObj);
 
+         console.log(theatreOwner);
          theatreOwner.ownedTheatres.push(theatre._id);
          await theatreOwner.save();
  

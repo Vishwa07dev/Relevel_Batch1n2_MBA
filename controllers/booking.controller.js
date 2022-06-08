@@ -68,6 +68,9 @@ const calculateBookingCost = require("../utils/calculateBookingCost");
                 booking.status = constants.bookingStatus.failed;
                 await booking.save();
             }
+            if(payment.status == constants.paymentStatus.failed){
+                booking.status = constants.paymentStatus.failed;
+            }
 
          },"60000");
 
