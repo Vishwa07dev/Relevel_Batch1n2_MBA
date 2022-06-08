@@ -9,6 +9,6 @@ const {authPayment} = require("../middlewares/index");
 
 module.exports = (app) => {
 
-app.post("/mba/api/v1/payments/", [authPayment.isValidBookingDetails, authUser.verifyToken], paymentController.makePayment);
+app.post("/mba/api/v1/payments/", [authUser.verifyToken, authPayment.isValidBookingDetails], paymentController.makePayment);
 
 }
