@@ -16,7 +16,6 @@ module.exports = (app)=>{
     // GET SINGLE CALL
     app.get("/mba/api/v1/bookings/:id", [authJwt.verifyToken, verifyBooking.isAdminOrOwnerOfBooking], bookingController.getOneBooking);
 
-    app.get("/mba/api/v1/bookings", [authJwt.verifyToken, verifyBooking.isAdminOrOwnerOfBooking],  bookingController.getAllBookings);
+    // GET ALL CALL
+    app.get("/mba/api/v1/bookings", [authJwt.verifyToken],  bookingController.getAllBookings);
 }
-
-

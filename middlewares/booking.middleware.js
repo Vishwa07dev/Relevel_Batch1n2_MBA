@@ -46,17 +46,10 @@ const verifyInitiateBooking = async (req, res, next) => {
             })
         }
 
-        const movieAvailable = await Theatre.findOne({
-            _id: req.body.theatreId,
-            movies: {
-                $in: req.body.movieId
-            }
-        });
-
-        if(!movieAvailable) {
+        if(!theatre.movies.includes(req.body.movieId)){
             return res.status(400).send({
                 message: "Movie is not available in given theatre"
-            })
+            });
         }
 
         next();
@@ -87,18 +80,12 @@ const verifyTheatreAndMovie = async (req, res, next) => {
                 })
             }
     
-            const movieAvailable = await Theatre.findOne({
-                _id: req.body.theatreId,
-                movies: {
-                    $in: req.body.movieId
-                }
-            });
-    
-            if(!movieAvailable) {
+            if(!theatre.movies.includes(req.body.movieId)){
                 return res.status(400).send({
                     message: "Movie is not available in given theatre"
-                })
+                });
             }
+
         }
 
         next();
