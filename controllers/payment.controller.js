@@ -37,18 +37,19 @@ exports.makePayment = async (req, res) => {
 
         //updating the payment status
         payment.paymentStatus = constants.paymentStatus.success;
-
+        await payment.save();
         //updating the booking status
         booking.bookingStatus = constants.bookingStatus.completed;
-
+        await booking.save();
         return res.status(200).send(payment);
     }catch(err){
         
         //updating the payment status
         payment.paymentStatus = constants.paymentStatus.success;
-
+        await payment.save();
         //updating the booking status
         booking.bookingStatus = constants.bookingStatus.completed;
+        await booking.save();
 
         return res.status(500).send({
             message : "internal error"
