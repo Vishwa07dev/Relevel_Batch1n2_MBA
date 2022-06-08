@@ -67,7 +67,7 @@ exports.ticketBookingObj = (ticket) => {
     }
 }
 
-exports.ticketListResponse = (bookings) => {
+exports.bookingListResponse = (bookings) => {
     bookingResult = [];
     bookings.forEach(booking => {
        bookingResult.push({
