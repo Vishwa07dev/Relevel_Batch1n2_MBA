@@ -28,18 +28,10 @@ checkFields = async (req, res) => {
 }
 
 isMovieIncludesInTheatre = async (req, res, next) => {
-    var movieId;
-   if(req.params.movieId) {
-        movieId = req.params.movieId;
-    }
-    else if(req.body.movieId) {
-        movieId = req.body.movieId;
-    }
     const theatre = await Theatre.findOne({
-        _id: req.params.movieId
+        _id: req.body.theatreId
     });
-   
-    if(!theatre.movies.includes(req.params.movieId)) {
+    if(!theatre.movies.includes(req.body.movieId)) {
         return res.status(400).send({ message: "Movie not found in theatre"});
     }
     next();

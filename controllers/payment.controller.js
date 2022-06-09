@@ -20,27 +20,27 @@ exports.makePayment = async (req, res) => {
         if(bookingDetails.status === Constants.bookingStatus.cancelled) {
             return res.status(200).send({message: "Payment cannot be done as booking has been cancelled"});
         }
-        if(!isPaymentSuccess(bookingDetails)) {
+        if(!isPaymentWindowStillValid(bookingDetails)) {
             paymentObj.status = Constants.paymentStatus.failed;
             bookingDetails.status = Constants.bookingStatus.failed;
         } else {
             paymentObj.status = Constants.paymentStatus.success;
             bookingDetails.status = Constants.bookingStatus.completed;
         }
-        
+
         const paymentSuccess = await Payment.create(paymentObj);
         await bookingDetails.save();
 
         return res.status(200).send(paymentSuccess);
     } catch(err) { 
+        console.log(err);
         return res.status(500).send({
             message: "Some internal error while updating booking"
         });
     }
-
 }
 
-function isPaymentSuccess(bookingDetails) {
+function isPaymentWindowStillValid(bookingDetails) {
 
     const currentTime = new Date();
 

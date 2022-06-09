@@ -4,15 +4,15 @@ const Constants = require("../utils/constants");
 const bookingSchema = new mongoose.Schema({
     
     theatreId: {
-    type: [mongoose.SchemaTypes.ObjectId],
+    type: mongoose.SchemaTypes.ObjectId,
     ref: "Theatre"
     },
     movieId: {
-    type: [mongoose.SchemaTypes.ObjectId],
+    type: mongoose.SchemaTypes.ObjectId,
     ref: "Movie"
     },
     userId: {
-    type: [mongoose.SchemaTypes.ObjectId],
+    type: mongoose.SchemaTypes.ObjectId,
     ref: "User"
     },
     timing: {

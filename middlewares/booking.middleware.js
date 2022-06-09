@@ -22,9 +22,9 @@ if(!req.body.movieId) {
             message: "Failed ! movieId is not provided"
         });  
     }
-if(!req.body.dateTime) {
+if(!req.body.timing) {
      return res.status(400).send({
-            message: "Failed ! dateTime is not provided"
+            message: "Failed ! timing is not provided"
         });  
     }
 if(!req.body.noOfTickets) {
@@ -37,7 +37,7 @@ if(!req.body.noOfTickets) {
 isValidBookingId = async (req, res, next) => {
     const user = await User.findOne({userId: req.userId});
 
-    if(!(user.booking.includes(req.params.id))) {
+    if(!(user.bookingIds.includes(req.params.bookingId))) {
         return res.status(403).send({message:"Invalid Booking Id"})
     }
     next();

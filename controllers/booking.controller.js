@@ -1,11 +1,8 @@
-const bcrypt = require("bcryptjs");
 const Constants = require("../utils/constants");
 const User = require("../models/user.model");
 const Theatre = require("../models/theatre.model");
 const Booking = require("../models/booking.model");
 const Movie = require("../models/movie.model");
-const jwt = require("jsonwebtoken");
-const config = require("../configs/auth.config");
 const objectConverter = require("../utils/objectConverter");
 
 
@@ -34,7 +31,7 @@ exports.bookMovieTicket = async (req, res) => {
     try {
         const user = await User.findOne({userId: req.userId});
 
-        const ticketObj = {
+        const bookingObj = {
             userId: user._id,
             theatreId: req.body.theatreId,
             movieId: req.body.movieId,
@@ -45,7 +42,8 @@ exports.bookMovieTicket = async (req, res) => {
         const theatre = await Theatre.findOne({
             _id: req.body.theatreId
         });
-        ticketObj.totalCost = ticketObj.noOfSeats * theatre.ticketPrice;
+
+        bookingObj.totalCost = ticketObj.noOfSeats * theatre.ticketPrice;
 
         const ticketBooked = await Booking.create(ticketObj);
 
@@ -76,7 +74,7 @@ exports.getBookingDetails = async (req, res) => {
     }
 };
 
-exports.listBookings = (req, res) => { 
+exports.listBookings = async (req, res) => { 
     const queryObj = {};
 
     if(req.query.status) {
