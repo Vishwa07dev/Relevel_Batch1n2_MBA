@@ -7,7 +7,7 @@ const client  = new Client();
 
 exports.client = client;
 
-exports.sendEmail = (subject, emailId, paymentId, content) => {
+exports.sendEmail = (subject, emailId, paymentId, content, requestor) => {
 
     /**
      *! POST call
@@ -23,7 +23,8 @@ exports.sendEmail = (subject, emailId, paymentId, content) => {
         subject: subject,
         recipientEmail: emailId,
         paymentId: paymentId,
-        content: content
+        content: content,
+        requestor: requestor
     }
     
     const headers = {

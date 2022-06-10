@@ -34,7 +34,7 @@ exports.makePayment = async (req, res) => {
         const paymentSuccess = await Payment.create(paymentObj);
         await bookingDetails.save();
         //  notificationServiceClient.sendEmail(ticket._id, "Created new ticket :"+ticket._id,ticket.description, user.email+","+engineer.email,user.email);
-         notificationServiceClient.sendEmail("Payment Successful", user.email, payment._id, "Thank you for using vishwa sir's movieBookingApplication");
+         notificationServiceClient.sendEmail("Payment Successful", user.email, payment._id, "Thank you for using vishwa sir's movieBookingApplication", "MBA");
 
         return res.status(200).send(paymentSuccess);
     } catch(err) { 
