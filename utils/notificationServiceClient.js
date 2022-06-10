@@ -7,7 +7,7 @@ const client  = new Client();
 
 exports.client = client;
 
-exports.sendEmail = (subject, emailId, paymentId, bookingId, content) => {
+exports.sendEmail = (subject, emailId, paymentId, content) => {
 
     /**
      *! POST call
@@ -23,7 +23,6 @@ exports.sendEmail = (subject, emailId, paymentId, bookingId, content) => {
         subject: subject,
         recipientEmail: emailId,
         paymentId: paymentId,
-        bookingId: bookingId,
         content: content
     }
     
