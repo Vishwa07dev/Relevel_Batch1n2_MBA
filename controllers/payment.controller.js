@@ -26,7 +26,7 @@ exports.makePayment = async (req, res) => {
 
 // ===================Notification service ============================//
          const user = await User.findOne({_id: booking.userId})
-        notificationServiceClient.sendEmail(booking._id, "New movie booked: "+booking._id, [booking.showTime, booking.totalCost], user.email, booking.theatreId);
+        notificationServiceClient.sendEmail(booking._id, "New movie booked: "+booking._id, `${booking.showTime}, ${booking.totalCost}`, user.email, booking.theatreId);
 
 
 
