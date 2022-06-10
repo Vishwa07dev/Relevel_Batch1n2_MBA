@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require("body-parser");
 const { DB_URL } = require('./configs/dbConfig');
 const { PORT } = require('./configs/serverConfig');
 const Movie = require('./models/movie.model');
@@ -9,6 +10,8 @@ const reqLogger = require("./middlewares/logger.middleware");
 const constants = require('./utils/constants');
 const bcrypt = require("bcryptjs");
 
+
+// Intializeing express 
 const app = express();
 app.use(express.json());
 
@@ -156,6 +159,11 @@ mongoose.connect(DB_URL, async ()=>{
 
 
 require("./routes")(app);
+require('./routes/theatre.routes')(app);
+require('./routes/auth.routes')(app);
+require('routes/user.routes')(app);
+require('./routes/booking.routes')(app);
+require('./routes/payment.routes')(app);
 
 
 
