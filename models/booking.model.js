@@ -1,7 +1,7 @@
  const constants = require('../utils/constants');
  const mongoose = require('mongoose');
  
- 
+  
  const bookingSchema = new mongoose.Schema({
      theatreId: {
          type: mongoose.SchemaTypes.ObjectId,

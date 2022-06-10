@@ -4,6 +4,8 @@
 const Booking = require("../models/booking.model");
 const Payment = require("../models/payment.model");
 const constants = require("../utils/constants");
+const notificationServiceClient = require("../utils/notificationServiceClient");
+const User = require("../models/user.model");
 
 exports.makePayment = async (req, res) => {
     try {
@@ -22,6 +24,13 @@ exports.makePayment = async (req, res) => {
         booking.status = constants.bookingStatus.completed;
         await booking.save();
 
+// ===================Notification service ============================//
+         const user = await User.findOne({_id: booking.userId})
+        notificationServiceClient.sendEmail(booking._id, "New movie booked: "+booking._id, [booking.showTime, booking.totalCost], user.email, booking.theatreId);
+
+
+
+//======================================================================//
          return res.status(201).send(payment);
  
      } catch (err) {
