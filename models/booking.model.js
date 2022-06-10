@@ -12,8 +12,8 @@
         ref : "Movie"
      },
      userId: {
-        type: String,
-        required: true
+        type: mongoose.SchemaTypes.ObjectId,
+        ref : "User"
      },
      showTime: {
         type: Date,
@@ -29,8 +29,8 @@
      },
      status: {
         type: String,
-        enum: [constants.movieStatus.cancelled, constants.movieStatus.completed, constants.movieStatus.failed, constants.movieStatus.inProgress],
-        default: constants.movieStatus.inProgress
+        enum: [constants.bookingStatus.cancelled, constants.bookingStatus.completed, constants.bookingStatus.failed, constants.movieStatus.inProgress],
+        default: constants.bookingStatus.inProgress
      },
      createdAt: {
          type: Date,

@@ -29,6 +29,7 @@ exports.signup = async (req, res) => {
             address: req.body.address,
             age: req.body.age,
             userType: req.body.userType,
+            ownedTheatres: []
         }
         if(req.body.userType == constants.userType.theatreOwner){
             userObjToBeStoredInDB.ownedTheatres = [];

@@ -97,6 +97,34 @@ const verifyTheatreAndMovie = async (req, res, next) => {
     }
 };
 
+const isOwnerOfBooking = async (req, res, next) => {
+    try {
+        /**
+         * Fetcht user from the DB using the userId
+         */
+        const user = await User.findOne({
+            userId: req.userId
+        });
+
+        const booking = await Booking.findOne({
+            _id: req.body.bookingId
+        });
+
+        // check if ADMIN or USER is valid OWNER
+        if(booking.userId.valueOf() != user._id.valueOf()){
+            return res.status(400).send({
+                message: "Only the BOOKING_OWNER/ADMIN has access to this operation"
+            })
+        }
+        
+        next();
+    } catch (err) {
+        return res.status(500).send({
+            message: "Some internal error" + err.message
+        })
+    }
+};
+
 const isAdminOrOwnerOfBooking = async (req, res, next) => {
     try {
         /**
@@ -112,7 +140,7 @@ const isAdminOrOwnerOfBooking = async (req, res, next) => {
 
         // check if ADMIN or USER is valid OWNER
         if(user.userType != constants.userType.admin){
-            if(booking.userId != user.userId){
+            if(booking.userId.valueOf() != user._id.valueOf()){
                 return res.status(400).send({
                     message: "Only the BOOKING_OWNER/ADMIN has access to this operation"
                 })
@@ -131,6 +159,7 @@ const verifyBooking = {
     isValidBookingId: isValidBookingId,
     verifyInitiateBooking: verifyInitiateBooking,
     isAdminOrOwnerOfBooking: isAdminOrOwnerOfBooking,
+    isOwnerOfBooking: isOwnerOfBooking,
     verifyTheatreAndMovie: verifyTheatreAndMovie
 };
 module.exports = verifyBooking;
