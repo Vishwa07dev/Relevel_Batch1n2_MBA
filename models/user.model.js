@@ -6,7 +6,7 @@
  const constants = require("../utils/constants");
 
  const userSchema = new mongoose.Schema({
- 
+  
      /**
       * name, userId, password, address, createdAt , updatedAt, age
       * ownedTheatres
@@ -37,7 +37,7 @@
          },
          pinCode : {
             type : Number,
-            required : true
+            // required : true
         }
      },
      age: {
