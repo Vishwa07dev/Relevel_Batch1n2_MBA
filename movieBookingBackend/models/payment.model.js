@@ -4,7 +4,7 @@ const Constants = require("../utils/constants");
 const paymentSchema = new mongoose.Schema({
     
     bookingId: {
-        type: [mongoose.SchemaTypes.ObjectId],
+        type: mongoose.SchemaTypes.ObjectId,
         ref: 'Booking',
     },
     amount: {

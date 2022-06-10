@@ -5,12 +5,15 @@ const Booking = require("../models/booking.model");
 const jwt = require("jsonwebtoken");
 const config = require("../configs/auth.config");
 const objectConverter = require("../utils/objectConverter");
+const notificationServiceClient = require("../utils/NotificationServiceClient");
 
 exports.makePayment = async (req, res) => {
 
     const bookingId = req.body.bookingId;
 
     try {
+        const user = await User.findOne({userId: req.userId});
+
         const bookingDetails = await Booking.findOne({_id: bookingId});
 
         const paymentObj = {
@@ -30,6 +33,8 @@ exports.makePayment = async (req, res) => {
 
         const paymentSuccess = await Payment.create(paymentObj);
         await bookingDetails.save();
+        //  notificationServiceClient.sendEmail(ticket._id, "Created new ticket :"+ticket._id,ticket.description, user.email+","+engineer.email,user.email);
+         notificationServiceClient.sendEmail("Payment Successful", user.email, payment._id, "Thank you for using vishwa sir's movieBookingApplication");
 
         return res.status(200).send(paymentSuccess);
     } catch(err) { 
