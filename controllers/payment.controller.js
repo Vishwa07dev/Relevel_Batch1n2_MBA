@@ -8,6 +8,7 @@ const objectConverter = require("../utils/objectConverter");
 const notificationServiceClient = require("../utils/NotificationServiceClient");
 
 exports.makePayment = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     const bookingId = req.body.bookingId;
 
@@ -46,6 +47,7 @@ exports.makePayment = async (req, res) => {
 }
 
 function isPaymentWindowStillValid(bookingDetails) {
+    console.log(`Req-URL: ${req.url}`);
 
     const currentTime = new Date();
 
@@ -58,8 +60,8 @@ function isPaymentWindowStillValid(bookingDetails) {
     return ((bookingTimeInSeconds  + 60) < currentTimeInSeconds);
 }
 
- const currentTime = new Date();
+//  const currentTime = new Date();
 
- const currentTimeInSeconds = currentTime.getTime() / 1000;
+//  const currentTimeInSeconds = currentTime.getTime() / 1000;
 
- console.log(currentTime, currentTimeInSeconds);
+//  console.log(currentTime, currentTimeInSeconds);

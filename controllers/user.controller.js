@@ -10,6 +10,7 @@ const objectConverter = require("../utils/objectConverter");
  */
 
  exports.updateUser = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
      /**
       * ! One of the ways of updating
       */
@@ -39,6 +40,7 @@ const objectConverter = require("../utils/objectConverter");
  }
 
  exports.updatePassword = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
      
         if(!req.body.newPassword) {
             return res.status(400).send({

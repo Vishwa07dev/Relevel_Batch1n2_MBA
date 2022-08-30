@@ -47,7 +47,6 @@ const theatreSchema = new mongoose.Schema({
             return Date.now();
         }
     }
-
 });
 
 module.exports = mongoose.model("Theatre", theatreSchema);

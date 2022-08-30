@@ -6,10 +6,12 @@ const config = require("../configs/auth.config");
 const objectConverter = require("../utils/objectConverter");
 
 exports.signup = async (req, res) => {
+    
+    console.log(`Req-URL: ${req.url}`);
 
     var userType;
 
-//     //! DEFAULT user customer
+    //! DEFAULT user customer
     userType = (req.body.userType != undefined) ? req.body.userType : constants.userTypes.customer;
 
     const userObj = {
@@ -27,8 +29,8 @@ exports.signup = async (req, res) => {
      const userCreated = await User.create(userObj);
     //  console.log("user created", userCreated);
     /**
-//      * ! Return the response
-//      */
+    * ! Return the response
+    */
     return res.status(201).send(objectConverter.userSignUpObject(userCreated));
    } catch (err) {
         console.error("Error while creating user", err.message);
@@ -39,11 +41,12 @@ exports.signup = async (req, res) => {
    }    
 }
 
-// /**
-//  * ! Controller for signin
-//  */
+/**
+  * ! Controller for signin
+*/
 
 exports.signin = async (req, res) => {
+     console.log(`Req-URL: ${req.url}`);
 
   try {
         //! Search the user if exists
@@ -55,7 +58,7 @@ exports.signin = async (req, res) => {
         });
     }
  
-//     //! User is existing, so now will do the password matching
+   //! User is existing, so now will do the password matching
     const isPasswordValid = bcrypt.compareSync(req.body.password, user.password);
     console.log(isPasswordValid);
 
@@ -73,12 +76,13 @@ exports.signin = async (req, res) => {
         expiresIn: 60
     });
     user.accessToken = accessToken;
-
+  
     const refreshToken = jwt.sign({id: user.userId}, config.secret, {
         expiresIn: 600
     });
     user.refreshToken = refreshToken;
     
+    console.log("USER", user);
 //     //! Send the response 
     return res.status(200).send(objectConverter.userSignInObject(user));
   } catch (err) {
@@ -90,6 +94,7 @@ exports.signin = async (req, res) => {
 }
 
 exports.createAccessToken = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     try {
         // const oldToken = req.headers['x-refresh-token'];

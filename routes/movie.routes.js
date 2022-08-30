@@ -4,7 +4,6 @@ const {authMovie} = require("../middlewares/index");
 const {authUser} = require("../middlewares/index");
 
 
-
 module.exports = (app) => {
     
     app.post("/mba/api/v1/movies",[authUser.verifyToken, authUser.isAdmin, authTheatre.checkFields], movieController.createMovie);

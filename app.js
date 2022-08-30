@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
 const serverConfig = require("./configs/server.config");
 const Movie = require("./models/movie.model");
+const User = require("./models/user.model");
 const Theatre = require("./models/theatre.model");
 const constants = require("./utils/constants");
 
@@ -20,58 +21,64 @@ function logger(req, res, next) {
 }
 
 function requestTime(req, res, next) {
-    console.log("Request Time", new Date().toLocaleDateString(), new Date().toLocaleTimeString(), "IST");
+    process.stdout.write(`Request-Date: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} IST, `);
     next();
 }
 
+
 app.use(requestTime);
-app.use(logger);
+// app.use(logger);
 require("./routes")(app);
 
 mongoose.connect(dbConfig.DB_URL, async () => {
     console.log(`Connecting to MongoDB...`);
     console.log(`Connection Successful`);
+    //  await User.collection.drop();
     // movieInit();
     // theatreInit();
 });
 
 async function  theatreInit() {
     await Theatre.collection.drop();
-
     const theatre1 = await Theatre.create({
        name: "Theatre1",
        description: "located in LA",
        city: "Los Angeles",
        pinCode : 90001,
-       totalSeats: 250
+       totalSeats: 250,
+       ticketPrice: 300
     });
     const theatre2 = await Theatre.create({
        name: "Theatre2",
        description: "located in Bay Area",
        city: "San Francisco",
        pinCode : 95125,
-       totalSeats: 250
+       totalSeats: 250,
+       ticketPrice: 300
     });
     const theatre3 = await Theatre.create({
        name: "Theatre3",
        description: "located in Mountain View",
        city: "Mountain View",
        pinCode : 94039,
-       totalSeats: 250
+       totalSeats: 250,
+       ticketPrice: 300
     });
     const theatre4 = await Theatre.create({
        name: "Theatre4",
        description: "located in Sunnyvale",
        city: "Sunnyvale",
        pinCode : 94043,
-       totalSeats: 200
+       totalSeats: 200,
+       ticketPrice: 300
     });
     const theatre5 = await Theatre.create({
        name: "Theatre5",
        description: "located in cupertino",
        city: "cupertino",
        pinCode : 94024,
-       totalSeats: 250
+       totalSeats: 250,
+       ticketPrice: 300
     });
 
     console.log("Theatres created");

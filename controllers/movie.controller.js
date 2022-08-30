@@ -9,6 +9,7 @@
 const Movie = require("../models/movie.model");
 
 exports.getAllMovies = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     const queryObj = {};
     
@@ -35,6 +36,7 @@ exports.getAllMovies = async (req, res) => {
 }
 
 exports.getMovie = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
     
     const movieId = req.params.id;
     try {
@@ -82,6 +84,7 @@ exports.getMovie = async (req, res) => {
  }
 
 exports.updateMovie = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     try {
     const movie = await Movie.findOne({
@@ -112,6 +115,7 @@ exports.updateMovie = async (req, res) => {
 }
 
 exports.deleteMovie = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
     try {
         await Movie.deleteOne({
             _id: req.params.id

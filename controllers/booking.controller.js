@@ -6,7 +6,6 @@ const Movie = require("../models/movie.model");
 const objectConverter = require("../utils/objectConverter");
 
 
-
 /**
  *   theatreId
  *     movieId
@@ -25,8 +24,8 @@ const objectConverter = require("../utils/objectConverter");
  *     No of tickets
  */
 
-
 exports.bookMovieTicket = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     try {
         const user = await User.findOne({userId: req.userId});
@@ -62,6 +61,7 @@ exports.bookMovieTicket = async (req, res) => {
 
 }
 exports.getBookingDetails = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
     
     try {
     const bookingDetails = await Booking.find({_id: req.params.bookingId});
@@ -74,7 +74,8 @@ exports.getBookingDetails = async (req, res) => {
     }
 };
 
-exports.listBookings = async (req, res) => { 
+exports.listBookings = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
     const queryObj = {};
 
     if(req.query.status) {
@@ -114,6 +115,7 @@ exports.listBookings = async (req, res) => {
 };
 
 exports.updateBookings = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
     try {
         const booking = await Booking.findOne({
             _id: req.params.bookingId

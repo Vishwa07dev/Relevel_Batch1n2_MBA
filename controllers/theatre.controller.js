@@ -4,6 +4,7 @@ const Movie = require("../models/movie.model");
 const objectConverter = require("../utils/objectConverter");
 
 exports.getAllTheatres = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     const queryObj = {};
     
@@ -26,6 +27,7 @@ exports.getAllTheatres = async (req, res) => {
 }
 
 exports.getTheatre = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
     
     const theatreId = req.params.id;
     try {
@@ -45,6 +47,7 @@ exports.getTheatre = async (req, res) => {
  }
 
  exports.createTheatre = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     const theatreObjToBeStoredInDB = {
         name: req.body.name,
@@ -71,6 +74,7 @@ exports.getTheatre = async (req, res) => {
  }
 
 exports.updateTheatre = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
     
     try {
     const theatre = await Theatre.findOne({
@@ -98,6 +102,7 @@ exports.updateTheatre = async (req, res) => {
 }
 
 exports.deleteTheatre = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
     try {
         
         await Theatre.deleteOne({
@@ -116,6 +121,7 @@ exports.deleteTheatre = async (req, res) => {
 }
 
 async function addMoviesInsideTheatre (req, res) {
+    console.log(`Req-URL: ${req.url}`);
     
     try {
         const theatreId = req.params.theatreId;
@@ -181,6 +187,7 @@ async function addMoviesInsideTheatre (req, res) {
     }
 }
 exports.addOrRemoveMoviesInsideTheatre = (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     if(req.addMovies) {
 
@@ -194,6 +201,7 @@ exports.addOrRemoveMoviesInsideTheatre = (req, res) => {
 }
 
 exports.getAllMoviesFromTheatre = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     const theatreId = req.params.theatreId;
     
@@ -219,6 +227,7 @@ exports.getAllMoviesFromTheatre = async (req, res) => {
 }
 
 exports.getMovieFromTheatre = async (req, res) => {
+    console.log(`Req-URL: ${req.url}`);
 
     const movieId = req.params.movieId;
 
@@ -238,6 +247,7 @@ exports.getMovieFromTheatre = async (req, res) => {
 }
 
 async function removeMoviesFromTheatre(req, res)  {
+    console.log(`Req-URL: ${req.url}`);
 
     const theatreId = req.params.theatreId;
     const movieIds = req.body.movies;

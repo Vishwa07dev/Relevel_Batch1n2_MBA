@@ -27,16 +27,19 @@ exports.userSignUpObject = (user) => {
         email: user.email,
         userType: user.userType,
         createdAt: user.createdAt,
-        updatedAt: user.updatedAtc
+        updatedAt: user.updatedAt
     }   
 }
 exports.userSignInObject = (user) => {
     return {
+        WARNING: "Access Token is valid only for 60 seconds, RefreshToken valid only for 600 seconds",
         name: user.name,
         userId: user.userId,
         email: user.email,
         userType: user.userType,
-        accessToken: user.token
+        accessToken: user.accessToken,
+        refreshToken: user.refreshToken,
+       
     }  
 }
 
